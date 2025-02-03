@@ -1,0 +1,170 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 37%;
+  height: 46vh;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
+  border-radius: 14px;
+  outline: none;
+}
+.admin-logo img {
+  width: 100px;
+  height: 100px;
+  margin-top: 0;
+}
+.admin {
+  background-color: white;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-heading {
+  margin-top: -5px;
+  font-family: "Poppins", serif;
+  font-weight: 100;
+  font-style: normal;
+  text-transform: uppercase;
+}
+.admin-form {
+  margin-top: 10px;
+}
+.admin-form {
+  position: relative;
+}
+.admin-user label {
+  position: absolute;
+  background: white;
+  top: -14px;
+  left: 65px;
+}
+
+.admin-pass {
+  margin-top: 20px;
+}
+.admin-pass label {
+  position: absolute;
+  background: white;
+  top: 44px;
+  left: 65px;
+}
+.adminButton {
+  margin-top: 10px;
+}
+.sidebar {
+  height: 100vh;
+  background: rgb(68, 10, 10);
+  position: relative;
+  width: 16.66666667%;
+}
+.sidebar-heading {
+  background: rgb(68, 10, 10);
+  height: 84px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  border-bottom: 5px solid white;
+  color: white;
+  text-transform: uppercase;
+}
+.view-products {
+  height: 59px;
+  border-bottom: 5px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.view-reviews {
+  height: 59px;
+  border-bottom: 5px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.view-settings {
+  height: 59px;
+  border-bottom: 5px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.view-orders {
+  height: 59px;
+  border-bottom: 5px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.view-category {
+  height: 59px;
+  border-bottom: 5px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.md {
+  position: absolute;
+  top: 25px;
+}
+
+/* admin home edit */
+.admin-home {
+  background-color: rgb(251, 249, 249);
+  height: 100vh;
+}
+
+.admin-home-heading {
+  display: flex;
+  justify-content: flex-start;
+}
+.admin-home-heading h4 {
+  text-transform: capitalize;
+  margin-top: 25px;
+  margin-left: 25px;
+  color: black;
+  font-family: "Poppins", serif;
+
+  font-style: normal;
+}
+.hrline {
+  color: black;
+  height: 30px;
+}
+.dashbord-home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  /* overflow: hidden; */
+}
+
+.dashbord-home .row{
+    --mdb-gutter-x: .8rem !important;
+    width: 100%;
+}

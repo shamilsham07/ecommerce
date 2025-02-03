@@ -1,0 +1,293 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.ProductsSection-heading {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+  text-transform: capitalize;
+  color:black;
+  margin-top: 10px;
+}
+form{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: black;
+}
+.product-name-input{
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 500px;
+}
+.product-price-input{
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 500px;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+} 
+
+#formFile{
+    border: 2px solid black;
+    border-radius: 4px;
+    background-color: black;
+}
+.btn-primary{
+--mdb-btn-bg: black !important;
+}
+.cat-btn{
+    background-color: white;
+    border:none;
+    outline:none;
+    
+}
+.cat-btn:hover{
+    background-color: #eee;
+}
+.products-area{
+    padding:40px;
+    background-color: rgb(249, 231, 226);
+    border:none;
+    outline:none;
+    border-radius:10px;
+}
+.heading-products{
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+.MdModeEditOutline{
+    padding:10px;
+    background-color: rgb(11, 11, 185);
+    color:white;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 18px;
+}
+.MdDelete{
+    padding:10px;
+    background-color: rgb(167, 8, 8);
+    color:white;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    margin-left: 10px;
+}
+.td-img{
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+.IoMdAdd{
+    font-size: 20px;
+}
+.addproduct{
+    background-color: rgb(68, 10, 10);
+}
+
+.addproduct:hover {
+    background-color: rgb(68, 10, 10); /* You can change this to a different color if needed */
+}
+.top-sidebar{
+    height:50vh;
+}
+.prorductsHeading h1{
+    color: rgb(68, 10, 10);
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+}
+.prorductsHeading button{
+    background-color: rgb(68, 10, 10);
+    color:white;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.newproduct-heading{
+    color: rgb(68, 10, 10);
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: capitalize;
+}
+
+
+
+
+
+.dialogbtn{
+    width: 126px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+  background-color:   rgb(68, 10, 10);
+    outline: none;
+    text-align: center;
+}
+.p-dialog-header{
+    text-align: center;
+    color: white;
+    background-color:   rgb(68, 10, 10);
+    text-transform: capitalize;
+}
+.FaCheck{
+    font-size: 26px;
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+}
+
+.mainFaCheck{
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    background:white;
+    border-radius: 100px;
+    height: 50px;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    color:  rgb(68, 10, 10);
+    margin-top: 33px;
+}
+#pr_id_495{
+width:44px;
+height: 222px;
+
+}
+.p-dialog {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    transform: scale(1);
+    position: relative;
+    height: 191px;
+    background-color:   rgb(68, 10, 10);
+    justify-content: space-between;
+    align-items: center;
+
+}
+.p-dialog .p-dialog-content{
+    background-color:   rgb(68, 10, 10);
+
+}
+.products-main-section{
+    margin-left: -1px;
+}
+.upadate-heading-section{
+  
+    color:   rgb(68, 10, 10);
+    height: 56px;
+    border: none;
+    border-radius: 10px;
+   
+}
+.GiExitDoor{
+    margin-right: 20px;
+}
+.update-heading{
+    margin-left: 20px;
+    font-size: 20PX;
+    text-transform: capitalize;
+    font-family: auto;
+}
+
+.GiExitDoor span{
+    font-size: 20PX;
+    text-transform: capitalize;
+    font-family: auto;
+}
+.GiExit{
+    margin-top: -5px;
+    margin-left: 4px;
+}
+.update-form-section{
+    width: 85%;
+    height: 73vh;
+    background-color: rgb(248, 247, 245);
+    margin-top: 50px;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+   
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    /* border-top-right-radius: 150px;
+    border-bottom-left-radius: 150px; */
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+.row{
+    margin-right:0;
+}
+.update-form{
+width:100%;
+margin-left: auto;
+margin-right: auto;
+}
+.right-side-form mb-3{
+    margin-right:40px;
+}
+.update-name{
+    color: rgb(68, 10, 10);
+}
+.update-price{
+    color: rgb(68, 10, 10);
+
+}
+.update-form input{
+    height: 50px;
+    border: none;
+}
+.stock-update{
+    color: rgb(68, 10, 10);
+
+}
+.update-discount{
+    color: rgb(68, 10, 10);
+
+}
+.p-dropdown-items{
+    padding-left: 9px !important;
+}
+
+.p-placeholder{
+    margin-top:10px;
+    color:rgb(68, 10, 10);
+}
+
+.p-inputtext{
+    margin-top:10px;
+    color:rgb(68, 10, 10); 
+}
+.top{
+    height:50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.update-btn{
+    padding: 8px;
+    border: none;
+    width: 119px;
+    border-radius: 10px;
+    background-color:rgb(68, 10, 10);
+    color:white;
+    text-transform: capitalize;
+    cursor:pointer;
+}

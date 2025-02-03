@@ -1,0 +1,51 @@
+.productphoneimg{
+    width: 262px;
+    height: 229px;
+    /* border-radius: 23px; */
+    border: none;
+    object-fit: cover;
+    outline: none;
+    border-top-right-radius: 90px;
+    border-bottom-left-radius: 92px;
+}
+.productPhone{
+ align-items: center;
+ justify-content: space-evenly;
+}
+.products{
+    width: 100%;
+    height:80vh;
+    margin-top:80px;
+    
+}
+.product2phone{
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 15px;
+
+}
+.product3Phone{
+    align-items: center;
+    justify-content: space-evenly;
+ margin-top: 15px;
+ margin-bottom: 10px;
+}
+.product2phoneimg{
+    width: 262px;
+    height: 229px;
+  
+    border: none;
+    object-fit: cover;
+    outline: none;
+    border-top-left-radius: 90px;
+    border-bottom-right-radius: 92px;
+
+}
+P{
+    width:500px;
+    color: black;
+}
+h1{
+    color: black;
+    text-transform: uppercase;
+}

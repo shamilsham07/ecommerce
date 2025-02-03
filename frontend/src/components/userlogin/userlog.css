@@ -1,0 +1,116 @@
+.userlogmain{
+height:100vh;
+width:100%;
+background: linear-gradient(90deg,rgba(68,10,10,1)0%,rgba(0,0,0,1)100%);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.userlogsub{
+    height: 462px;
+    background-color: white;
+    width: 65%;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.userlogsub-right{
+    background-size: cover;
+    background-position: center;
+    width:50%;
+    height:100%;
+}
+.userlog-heading{
+    font-family: "Poppins", serif;
+    font-weight: 800;
+    font-style: normal;
+}
+.user-form{
+    display: flex;
+        justify-content: center;
+        margin-top: 43px;
+}
+.form-user{
+width:100%;
+margin-top: 22px;
+align-items:stretch !important;
+}
+.usereamil{
+position: absolute;
+left: 52px;
+bottom: 36px;
+}
+.user-pass{
+    position: absolute;
+    left: 52px;
+    bottom: 36px;
+}
+.user-log-btn{
+    padding: 9px;
+    width: 138px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    background: rgb(68, 10, 10);
+    color: white;
+}
+.user-signup-main{
+    height:100vh;
+background: linear-gradient(90deg,rgba(68,10,10,1)0%,rgba(0,0,0,1)100%);
+display: flex;
+justify-content: center;
+align-items: center;
+
+}
+.user-signup-sub{
+    background-color: white;
+    width: 35%;
+    height: 77vh;
+    border-radius:15px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+
+}
+.name-sign{
+    height: 42px;
+    margin-left: -17px;
+    width: 75%;
+    border: none;
+    background: #42424252;
+    border-radius: 5px;
+    outline: none;
+  
+}
+.name-sign:hover{
+    border: none;
+    
+}
+.userSign-main{
+    background: rgb(68, 10, 10);
+    width:100%;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.signup-sub{
+    background-color: white;
+    width:60%;
+    height:500px;
+    border-radius: 10px;
+}
+.heading-signup-user{
+    font-family: "Poppins", serif;
+    font-weight: 800;
+    font-style: bold;
+}
+.user-signup-btn{
+    background: rgb(68, 10, 10);
+    border: none;
+    padding: 11px;
+    width: 110px;
+    outline: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
