@@ -2,6 +2,8 @@ from rest_framework import serializers
 
 from .models import Cart
 from .models import adminproduct
+from .models import Usersignup
+from .models import Useradress
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,3 +15,13 @@ class Serializer(serializers.ModelSerializer):
     class Meta:
         model = adminproduct
         fields = '__all__'
+        
+class Cartserializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usersignup
+        fields = "__all__"
+
+class Userserializer(serializers.ModelSerializer):
+    class Meta:
+        model= Useradress
+        fields= "__all__"

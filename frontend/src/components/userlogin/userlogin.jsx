@@ -1,18 +1,36 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./userlog.css";
 import csrftoken from "../../csrf";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import Cookies from 'universal-cookie';
 import backgroundimage from "../../assets/detail-page-the-who-what-and-where-of-online-shopping-in-2023.png";
 import { useNavigate } from "react-router-dom";
+import { setUserData } from "../redux/reducer";
+
+import { setuserauthentication } from "../redux/reducer";
 export default function UserLogin() {
+   const cookies = new Cookies();
  const navigate=useNavigate()
+  const dispatch=useDispatch()
   const input1ref = useRef(null);
   const input2ref = useRef(null);
   const [usermail,setmail]=useState("")
   const [userpass,setpass]=useState("")
+  const userauth=useSelector((state)=>state.auth.userauthentication)
+
+
+useEffect(()=>{
+  if(userauth==true){
+       navigate("/")
+  }
+})
+
+
+
   const transfer=()=>{
     navigate("/UserSignup")
   }
-  
   const handlethechange = (e, reference) => {
     if (e.key === "Enter") {
       reference.current.focus();
@@ -32,12 +50,25 @@ export default function UserLogin() {
           body:JSON.stringify({usermail:usermail,userpass:userpass})
         })
         const result=await res.json()
-        if(result.message){
-          console.log("second")
+        if(result.data){
+          // console.log(result.data)
+          setmail("")
+          setpass("")
+          dispatch(setUserData(result.data))
+          console.log(result.data.email)
+          dispatch(setuserauthentication(true))
+          cookies.set("email",result.data.email,{maxAge:4000})
+          console.log("here your cookie",cookies.get("email"))
+          navigate("/")
         }
-        else{
-          console.log("first")
+        if(result.error){
+          alert("wrong id and pass")
+          setmail("")
+          setpass("")
         }
+        // else{
+        //   console.log("first")
+        // }
       }
       else{
         alert("something went wrong")
@@ -71,6 +102,7 @@ export default function UserLogin() {
                       class="form-control"
                       ref={input1ref}
                       id="exampleInputEmail1"
+                      value={usermail}
                       onKeyDown={(event) => handlethechange(event, input2ref)}
                       onChange={(event)=>setmail(event.target.value)}
                       aria-describedby="emailHelp"
@@ -92,6 +124,7 @@ export default function UserLogin() {
                       type="password"
                       class="form-control"
                       id="exampleInputPassword1"
+                      value={userpass}
                       ref={input2ref}
                       style={{
                         height: "42px",

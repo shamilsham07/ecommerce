@@ -23,6 +23,21 @@ class CheckUser(models.Model):
         return self.user
 
 
+
+    
+    
+
+       
+class Usersignup(models.Model):
+    name=models.CharField(max_length=255) 
+    phonenumber=models.IntegerField() 
+    email=models.EmailField(max_length=254)
+    pasword=models.TextField()
+    is_active=models.BooleanField(default=True)
+     
+    def __str__(self):
+         return self.name
+     
 class Cart(models.Model):
     product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
     quantity=models.IntegerField(default=1)
@@ -30,6 +45,7 @@ class Cart(models.Model):
     image=models.ImageField(upload_to=('images/'), height_field=None, width_field=None, max_length=None,blank=True,null=True)
     name=models.CharField(blank=True,null=True,max_length=300)
     stock_count=models.PositiveIntegerField(default=0)
+    user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
     
     
 class Orders(models.Model):
@@ -37,12 +53,15 @@ class Orders(models.Model):
         quantity=models.IntegerField(default=0)
         totalprice=models.FloatField()
         stock_count=models.PositiveIntegerField(default=0)
-       
-class Usersignup(models.Model):
-    name=models.CharField(max_length=255) 
-    phonenumber=models.IntegerField() 
-    email=models.EmailField(max_length=254)
-    pasword=models.CharField(max_length=10)
-    confirmpasword=models.CharField(max_length=10)
-    is_active=models.BooleanField(default=True)
-      
+        
+class Useradress(models.Model):
+    user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
+    name=models.CharField(blank=True,null=True,max_length=300)
+    phonenumber=models.IntegerField()
+    email=models.EmailField()
+    pincode=models.IntegerField()
+    city=models.TextField()
+    addreass=models.TextField(blank=True)
+    
+    def __str__(self):
+         return self.name

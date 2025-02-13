@@ -5,6 +5,11 @@ export const initialState={
     increment: 0,
     decrement:null,
     value:false,
+    userdata:[''],
+    userauthentication:false,
+    otp:"",
+    addreassId:"",
+
 }
 
  export const authSlice=createSlice({
@@ -24,8 +29,20 @@ export const initialState={
             },
             value:(state)=>{
                 state.value=true
+            },
+            setUserData:(state,action)=>{
+                state.userdata=action.payload
+            },
+            setuserauthentication:(state,action)=>{
+               
+                state.userauthentication=action.payload
+            },
+            setotp:(state,action)=>{
+                state.otp=action.payload
+            },
+            setaddreass:(state,action)=>{
+                state.addreassId=action.payload
             }
-
     }
     
 })
@@ -34,6 +51,6 @@ export const initialState={
 
 
 
-export const{ authenticate,increments,decrements,value} = authSlice.actions;
+export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass} = authSlice.actions;
 
 export default authSlice.reducer;

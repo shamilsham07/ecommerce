@@ -27,7 +27,9 @@ export default function Productpage() {
   console.log("here", datas);
   const[products,setproduct]=useState('')
   const dispatch = useDispatch();
- 
+  const userdetails = useSelector((state) => state.auth.userdata);
+  const userid=userdetails.id
+ console.log("userid",userid)
 
   const clickHandler =async(id) => {
     const selected=datas.find((item)=>item.id==id)
@@ -40,7 +42,7 @@ export default function Productpage() {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken,
       },
-      body:JSON.stringify({id})
+      body:JSON.stringify({id:id,userid:userid})
 
     })
     const result =await res.json()

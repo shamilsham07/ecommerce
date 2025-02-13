@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./nav";
 import "./home.css";
 import 'animate.css';
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Carousel from "react-bootstrap/Carousel";
 import { FaArrowRight } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
+ 
+     
+  const userauth=useSelector((state)=>state.auth.userauthentication)
+
 
   const explore =() => {
     navigate("/products");
   };
+  useEffect(()=>{
+  
+    console.log("ttttt",userauth)
+  })
 
   return (
     <>

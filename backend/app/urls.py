@@ -21,6 +21,13 @@ path("updates",views.updates),
 path("getproductfirst",views.getproductfirst),
 path("usersignup",views.usersignup),
 path("userLog",views.userLog),
+path("getuserdetails",views.getuserdetails),
+path("UserUpdate",views.UserUpdate),
+path("forgetpass",views.forgetpass),
+path("varifyEmail",views.varifyEmail), 
+path("Userconfirmpass",views.Userconfirmpass),
+path("adresssave",views.adresssave),
+path("getaddreass",views.getaddreass)
 
 
 ]

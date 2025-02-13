@@ -12,7 +12,9 @@ import csrftoken from "../../csrf";
 
 export default function Cartpage() {
  const[product,setproduct]=useState([])
-
+ const userdetails = useSelector((state) => state.auth.userdata);
+const id =userdetails.id
+console.log("theeeeeeeeee",id)
 const navigate=useNavigate()
 useEffect(()=>{
 const callcart=async()=>{
@@ -21,7 +23,8 @@ const callcart=async()=>{
    headers:{
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,
-   }
+   },
+   body:JSON.stringify({id:id})
   })
   const result=await res.json()
   if(result.data){
@@ -33,39 +36,48 @@ const callcart=async()=>{
 } 
 callcart();
 },[])
-const deleted=async(id)=>{
-  console.log("Id is",id)
+const deleted=async(ids)=>{
+  console.log("Id is",ids)
 const res=await fetch("http://localhost:8000/deleteCart",{
   method:"POST",
   headers:{
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,
   },
-  body: JSON.stringify({id:id})
+  body: JSON.stringify({id:ids,user_id:id})
 })
 const result=await res.json()
-if(result.message){
+if(result.data){
   console.log("hieee")
   setproduct(result.data)
+}
+else{
+  console.log(result.error)
 }
 
 
 }
 const buyproduct=async(id)=>{
-  console.log('your',id)
-  const res=await fetch("http://localhost:8000/order",{
-    method:"POST",
-    headers:{
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken,
-    },
-    body: JSON.stringify({id:id})
-  })
+navigate("/Adreass")
 
-  const result=await res.json()
-  if(result.message){
-    console.log("result is",result.message)
-  }
+
+
+
+
+  // console.log('your',id)
+  // const res=await fetch("http://localhost:8000/order",{
+  //   method:"POST",
+  //   headers:{
+  //     'Content-Type': 'application/json',
+  //     'X-CSRFToken': csrftoken,
+  //   },
+  //   body: JSON.stringify({id:id})
+  // })
+
+  // const result=await res.json()
+  // if(result.message){
+  //   console.log("result is",result.message)
+  // }
 
 }
 

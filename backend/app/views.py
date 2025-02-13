@@ -10,9 +10,21 @@ import json
 from django.contrib.auth.models import User
 # Create your views here.
 from .cartserializer import CartSerializer
+from .cartserializer import Userserializer
 from .cartserializer import Serializer
+from.cartserializer import Cartserializer
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
+from django.conf import settings
+from django.core.mail import send_mail
+import random
 
+
+
+
+
+
+array=''
 @api_view(['POST'])
 def adminlog(request):
     data=request.data;
@@ -101,24 +113,34 @@ def cart(request):
     try:
         print("hello here") 
         data=request.data;
+        print("the data",data)
         id=data.get('id')
+        user_id=data.get("userid")
+        print("userid",user_id)
         print("your id",id)
         product=adminproduct.objects.get(id=id)
-        # price=adminproduct.objects.get(id=id)
-        if Cart.objects.filter(product=product).exists():
+        print("sss",product.id)
+      
+        
+        if Cart.objects.filter(product=product,user_id=user_id).exists():
             print('ssss')
-            cart=Cart.objects.get(product=product)
+            cart=Cart.objects.filter(product=product,user_id=user_id).first()
+            print("the cae",cart)
+            print("the quant",cart.quantity)
             cart.quantity+=1
             cart.totalprice+=float(product.price) 
             cart.save()
+            return JsonResponse({"message":"succesfull"})
+            
+            
         else:    
             price=product.price
             image=product.image
             name=product.name
             stock_count=product.stock_count
             print("stock_count",product.stock_count)
-            Cart.objects.create(product=product,totalprice=price,image=image,name=name,stock_count=stock_count) 
-        return JsonResponse({"message":"succesfull"})
+            Cart.objects.create(product=product,totalprice=price,image=image,name=name,stock_count=stock_count,user_id=user_id) 
+            return JsonResponse({"message":"succesfull"})
     except Exception as e:
         print(e)
         return JsonResponse({'error':"wrong"})
@@ -153,20 +175,32 @@ def getproduct(request):
 
 @api_view(["POST"])
 def getcart(request):
-    store=Cart.objects.all()
-    serializer=CartSerializer(store,many=True)
-    return JsonResponse({"data":serializer.data},safe=False)    
-    
+    try:
+        data=request.data
+        id=data.get('id')
+        print("kkkjhhguigdihuewtiue",id)
+        store=Cart.objects.filter(user_id=id)
+        if store.exists():
+          serializer=CartSerializer(store,many=True)
+          return JsonResponse({"data":serializer.data},safe=False)    
+    except Exception as e:
+        print("error as ",e)
     
 @api_view(["POST"])
 def deleteCart(request):
      try:
         data=request.data;
         id=data.get('id')
-      
-        cartproducts=Cart.objects.get(id=id)
-        cartproducts.delete()
-        store=Cart.objects.all()
+        print("thre",id)
+        user_id=data.get("user_id")
+        print(user_id)
+        cartproducts=Cart.objects.filter(id=id,user_id=user_id).first()
+        if cartproducts:
+              cartproducts.delete()
+              print("hello")
+              
+        store=Cart.objects.filter(user_id=user_id)
+        print(store)
         serializer=CartSerializer(store,many=True)
         return JsonResponse({"data":serializer.data,'message':"cart item removed sexesfully"},safe=False)  
          
@@ -338,15 +372,16 @@ def usersignup(request):
          print(data)
          username=data.get("username")
          phonenumber=data.get("phonenumber")
-         password=make_password(data.get("userpass"))
-         confirmpass=make_password(data.get("confirmpass"))
+         password=(data.get("userpass"))
          email=data.get("useremail")
+         hashedpass=make_password(password)
          if Usersignup.objects.filter(email=email).exists():
              print("hello macha")
              return JsonResponse({"data":"the email field"})
          else:  
-            Usersignup.objects.create(name=username,phonenumber=phonenumber,email=email,pasword=password,confirmpasword=confirmpass)
-            return JsonResponse({"message":"recieved succesfully"})
+             user= Usersignup.objects.create(name=username,phonenumber=phonenumber,email=email,pasword=hashedpass)
+             user.save()
+             return JsonResponse({"message":"recieved succesfully"})
     except Exception as e:
         print("the error",e)
         return JsonResponse({"error":"the fault"})
@@ -359,16 +394,186 @@ def userLog(request):
         data=request.data
         print(data)
         usermail=data.get("usermail")
-        userpass=data.get("userpass")
+        print(usermail)
+        userpass=(data.get("userpass"))
+        print("the pasword",userpass)
         getuser= Usersignup.objects.get(email=usermail)
         if getuser:
            id=getuser.id
-           password=getuser.pasword
-           if password == userpass:
-                return JsonResponse({"message":"eeeeeeeeeeeee"})
+           passwords=getuser.pasword
+           print(passwords)
+        
+           if check_password(userpass, passwords):
+                print("hello")
+                serializer=Cartserializer(getuser)
+                return JsonResponse({"data":serializer.data},safe=False)
            else:
                return JsonResponse({"error":"wrong"})    
      
     except Exception as e:
         print ("error",e)       
         return JsonResponse({"Error":"wsdddgdsg"})
+    
+@api_view(["POST"])    
+def getuserdetails(request):
+     try:
+        
+         data=request.data
+         email=data.get("email")
+         getuser= Usersignup.objects.get(email=email)
+         serializer=Cartserializer(getuser)
+         return JsonResponse({"data":serializer.data},safe=False)
+         
+         
+     except Exception as e:
+         print("error",e)
+         return JsonResponse({"error":"wrong"})
+     
+@api_view(["POST"])         
+def UserUpdate(request):
+    try:
+        data=request.data
+        user_id=data.get("user_id")
+        password=(data.get("password"))
+        name=data.get("name")
+        phonenumber=data.get("phonenumber")
+        email=data.get('email')
+        user=Usersignup.objects.filter(id=user_id).first()
+        pasword=user.pasword
+        if user:
+            print("zzzzzzzzzzzzzzzzzzz")
+            if check_password(password,pasword):
+                  print("ghfgf")
+                  print(user.phonenumber)
+                  if name:
+                      user.name=name
+                  if phonenumber:
+                      print(phonenumber)
+                      user.phonenumber=phonenumber
+                  if email:
+                      user.email= email
+                  user.save()    
+                  return JsonResponse({"message":"succesfull"})
+            else:
+                return JsonResponse({"wrong":"wrong password"})      
+        else:
+            return JsonResponse({"nouser":"nouser"})
+       
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"worng"})
+    
+@api_view(["POST"])         
+def forgetpass(request):
+    try:
+        data=request.data
+        id=data.get("user_id")
+        
+        email=data.get("email")
+        print("the",id)
+        print("mail",email)
+        global array
+       
+        user=Usersignup.objects.filter(id=id).first()
+        print("th",user.id)
+        if user:
+            n=4
+            for i in range (n):
+                generatenum=(random.randint(1,9))
+                generatenums=str(generatenum)
+                array+="".join(generatenums)
+                
+            
+                
+            print(array)
+            send_mail(
+            subject='verification code',
+            
+            message=f"you verification code : {array}",
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email])
+            return JsonResponse({"message":"recieved","otp":array})
+           
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+    
+@api_view(["POST"])         
+def varifyEmail(request):
+    try:
+        global array
+        data=request.data
+        otp=data.get("otp")
+        print(otp,"otp")
+        print("the array",array)
+        if otp==array:
+            return JsonResponse({"message":"set"})
+        else:
+            return JsonResponse({
+                "error":"entho kuyapand"
+            })
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+    
+@api_view(["POST"])         
+def Userconfirmpass(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        password=data.get("password")
+        print(password)
+        hashpass=make_password(password)
+        user=Usersignup.objects.filter(id=id).first()
+        user_id=user.id
+        print("krrrr",user_id)
+        print(hashpass)
+        user.pasword=hashpass
+        
+        user.save()
+        print("hjdsc")
+        return JsonResponse({"message":"recieved"})
+        
+    except Exception as e:
+        print("jiods")
+        return JsonResponse({"error":"wrong"})
+        
+      
+      
+@api_view(["POST"])              
+def adresssave(request):
+    try:
+        data=request.data
+        name=data.get("name")
+        phonenumber=data.get("phonenumber")
+        email=data.get("email")
+        user_id=data.get("user_id")
+        addreass=data.get("addreass")
+        pincode=data.get("pincode")
+        city=data.get("city")
+        if user_id is None:
+            return JsonResponse({"error":"no user"})
+        else:
+            Useradress.objects.create(name=name,addreass=addreass,phonenumber=phonenumber,email=email,pincode=pincode,city=city,user_id=user_id)
+            return JsonResponse({"message":"recieved successfully"})
+    except Exception as e:
+       print("error",e) 
+       return JsonResponse({"error":"wrong"})
+    
+    
+@api_view(["POST"])                  
+def getaddreass(request):
+    try:
+        data = json.loads(request.body)
+        user_id=data.get("user_id")
+        print(user_id)
+        user=Useradress.objects.filter(user_id=user_id)
+        print("hh",user)
+        for u in user:
+            print(u.id)
+        serializer=Userserializer(user,many=True) 
+        print(serializer.data)
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})

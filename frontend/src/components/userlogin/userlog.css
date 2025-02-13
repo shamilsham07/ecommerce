@@ -1,116 +1,267 @@
-.userlogmain{
-height:100vh;
-width:100%;
-background: linear-gradient(90deg,rgba(68,10,10,1)0%,rgba(0,0,0,1)100%);
-display: flex;
-justify-content: center;
-align-items: center;
+.userlogmain {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(68, 10, 10, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.userlogsub{
-    height: 462px;
-    background-color: white;
-    width: 65%;
-    border-radius: 15px;
-    border: none;
-    outline: none;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+.userlogsub {
+  height: 462px;
+  background-color: white;
+  width: 65%;
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
 }
-.userlogsub-right{
-    background-size: cover;
-    background-position: center;
-    width:50%;
-    height:100%;
+.userlogsub-right {
+  background-size: cover;
+  background-position: center;
+  width: 50%;
+  height: 100%;
 }
-.userlog-heading{
-    font-family: "Poppins", serif;
-    font-weight: 800;
-    font-style: normal;
+.userlog-heading {
+  font-family: "Poppins", serif;
+  font-weight: 800;
+  font-style: normal;
 }
-.user-form{
-    display: flex;
-        justify-content: center;
-        margin-top: 43px;
+.user-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 43px;
 }
-.form-user{
-width:100%;
-margin-top: 22px;
-align-items:stretch !important;
+.form-user {
+  width: 100%;
+  margin-top: 22px;
+  align-items: stretch !important;
 }
-.usereamil{
-position: absolute;
-left: 52px;
-bottom: 36px;
+.usereamil {
+  position: absolute;
+  left: 52px;
+  bottom: 36px;
 }
-.user-pass{
-    position: absolute;
-    left: 52px;
-    bottom: 36px;
+.user-pass {
+  position: absolute;
+  left: 52px;
+  bottom: 36px;
 }
-.user-log-btn{
-    padding: 9px;
-    width: 138px;
+.user-log-btn {
+  padding: 9px;
+  width: 138px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: rgb(68, 10, 10);
+  color: white;
+}
+.user-signup-main {
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(68, 10, 10, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user-signup-sub {
+  background-color: white;
+  width: 35%;
+  height: 77vh;
+  border-radius: 15px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.name-sign {
+  height: 42px;
+  margin-left: -17px;
+  width: 75%;
+  border: none;
+  background: #42424252;
+  border-radius: 5px;
+  outline: none;
+}
+.name-sign:hover {
+  border: none;
+}
+.userSign-main {
+  background: rgb(68, 10, 10);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signup-sub {
+  background-color: white;
+  width: 60%;
+  height: 500px;
+  border-radius: 10px;
+}
+.heading-signup-user {
+  font-family: "Poppins", serif;
+  font-weight: 800;
+  font-style: bold;
+}
+.user-signup-btn {
+  background: rgb(68, 10, 10);
+  border: none;
+  padding: 11px;
+  width: 110px;
+  outline: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+.Userdetails-sub {
+  width: 50%;
+  height: 49vh;
+  background-color: white;
+  border-radius: 14px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.userdetailsemail{
+    line-height: 2.2rem !important;
+}
+.userdetailspass{
+    line-height: 2.2rem !important;
+
+}
+.details-btn{
+    padding: 7px;
     border: none;
     outline: none;
     border-radius: 10px;
-    background: rgb(68, 10, 10);
+    background-color: black;
     color: white;
+    width: 109px;
 }
-.user-signup-main{
-    height:100vh;
-background: linear-gradient(90deg,rgba(68,10,10,1)0%,rgba(0,0,0,1)100%);
-display: flex;
-justify-content: center;
-align-items: center;
+.Forget-Password-heading{
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.forget-pass-sub{
+  width: 270px;
+  height: 270px;
+  background-color: rgb(68, 10, 10);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 142px;
+}
+.FaLock{
+  font-size: 148px;
+  color:white;
+  text-align: center;
+}
+.bg-Iamge{
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+.forget-input{
+  width: 409px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: none;
+  border-bottom:1px solid-black;
+  outline: none;
+}
+.forget-btn button{
+  padding: 7px;
+  border: none;
+  outline: none;
+  background: rgb(68, 10, 10);
+  color: white;
+  width: 120px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.forget-btn{
+  margin-top:25px;
+}
+.forget-button:hover{
+  background-color: white;
+  color:black;
+}
+.verifyemail-image{
+  width:100%;
+  height:100vh;
+  object-fit: contain;
+  overflow: hidden;
+  flex-direction: column;
+}
+.verify-email-input input{
+  outline: none;
+  width: 50px;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  background-color: #fce4ec4d;
+  border-radius: 3px;
+  border-bottom: 4px solid rgb(68, 10, 10);
+  text-align: center;
 
 }
-.user-signup-sub{
-    background-color: white;
-    width: 35%;
-    height: 77vh;
-    border-radius:15px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+.verify-button button{
+  cursor: pointer;
+  padding:7px;
+  width: 140px;
+  border: none;
+  outline: none;
+  background: rgb(68, 10, 10);
+  color: white;
+  border-radius: 11px;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+}
+.verify-button button:hover{
+  background-color: white;
+  color: black;
+  border:3px solid rgb(68, 10, 10);
+  transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 
 }
-.name-sign{
-    height: 42px;
-    margin-left: -17px;
-    width: 75%;
-    border: none;
-    background: #42424252;
-    border-radius: 5px;
-    outline: none;
+.new-pass{
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.new-pass input{
+  border-top:none;
+  border-left: none;
+  outline: none;
+  border-right: none;
+  border-bottom: 3px solid black;
+  background: none;
+
+}.new-pass input:focus{
+  box-shadow: none;
+  border-bottom:3px solid black;;
+
+}
+.confirm-btn{
+  margin-left: auto;
+  margin-right: auto;
   
 }
-.name-sign:hover{
+.confirm-btn button{
+  padding: 8px;
+    width: 132px;
     border: none;
-    
-}
-.userSign-main{
-    background: rgb(68, 10, 10);
-    width:100%;
-    height:100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.signup-sub{
-    background-color: white;
-    width:60%;
-    height:500px;
-    border-radius: 10px;
-}
-.heading-signup-user{
-    font-family: "Poppins", serif;
-    font-weight: 800;
-    font-style: bold;
-}
-.user-signup-btn{
-    background: rgb(68, 10, 10);
-    border: none;
-    padding: 11px;
-    width: 110px;
     outline: none;
     border-radius: 8px;
+    background: rgb(68, 10, 10);
     color: white;
     cursor: pointer;
 }
