@@ -16,18 +16,17 @@ export default function Forgetpass() {
 
   const dispatch = useDispatch();
   const value = useSelector((state) => state.cn.setLoading);
-  console.log("loading", value);
+
   const userdetails = useSelector((state) => state.auth.userdata);
   const [mailvalue, setmailvalue] = useState("");
-  console.log("userid", userdetails.id);
-  console.log("user email", userdetails.email);
+
   const email = userdetails.email;
   const user_id = userdetails.id;
   const forgetpass = async () => {
     try {
       dispatch(loading(true));
       if (email == mailvalue) {
-        console.log("kkkkkkkkkkddddddddddjjjj");
+     
         const res = await fetch("http://localhost:8000/forgetpass", {
           method: "POST",
           headers: {
@@ -38,15 +37,15 @@ export default function Forgetpass() {
         });
         const result = await res.json();
         if (result.message) {
-          console.log(result.message);
+      
           dispatch(loading(false));
           if (result.otp) {
-            console.log("the otp", result.otp);
+          
             dispatch(setotp(result.otp));
             navigate("/verifyemail");
           }
         } else if (result.error) {
-          console.log(result.error);
+       
           alert("something went wrong");
           dispatch(loading(false));
         }
@@ -55,7 +54,7 @@ export default function Forgetpass() {
         dispatch(loading(false));
       }
     } catch (error) {
-      console.log("error", error);
+   
     }
   };
 

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MainSidebar from "./sidebar";
 import "./admin.css";
-import ProductsSection from "./productsSection";
-import { useSelector } from "react-redux";
 import Adminhome from "./adminhome";
 import Cookies from 'universal-cookie';
 const cookie=new Cookies()
 
 export default function Adminproductpage() {
 
-  const change=useSelector((state)=>state.cn.setChange)
-  console.log(cookie)
 
 
   return (

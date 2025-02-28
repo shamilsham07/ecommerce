@@ -1,64 +1,314 @@
 import React, { useEffect, useState } from "react";
-import Nav from "./nav";
+
 import "./home.css";
-import 'animate.css';
-import { useDispatch } from "react-redux";
+import Nav2 from "./nav2";
+
+import { FcLike } from "react-icons/fc";
+import { MdArrowOutward } from "react-icons/md";
+
+import { useRef } from "react";
+import { Toast } from "primereact/toast";
+import "react-toastify/dist/ReactToastify.css";
+import "animate.css";
+import laptop from "../assets/main.png";
+import csrftoken from "../csrf";
+
 import { useSelector } from "react-redux";
 
-import Carousel from "react-bootstrap/Carousel";
-import { FaArrowRight } from "react-icons/fa6";
+import image1 from "../assets/iphone-magsafe-header-accessories-06-202409-removebg-preview.png";
+import iphone1 from "../assets/71bErtQPC3L._SX522_.jpg";
+import iphone2 from "../assets/folable_iPhone.jpg";
+
+import Footer from "./footer";
+
 import { useNavigate } from "react-router-dom";
+
 export default function Home() {
   const navigate = useNavigate();
- 
-     
-  const userauth=useSelector((state)=>state.auth.userauthentication)
+  const [product, setproduct] = useState("");
+  const userdetails = useSelector((state) => state.auth.userdata);
+  const userid = userdetails.id;
+
+  const userauth = useSelector((state) => state.auth.userauthentication);
 
 
-  const explore =() => {
+
+  const whistlist=(id)=>{
+
+navigate('/Whistlist')
+  }
+
+
+  const showSuccess = () => {
+    toast.current.show({severity:'success', detail:'Productadded', life: 3000,className:"here-product-added"});
+}
+
+  const toast = useRef(null);
+  const show = () => {
+    toast.current.show({
+      severity: "error",
+      detail: "please login",
+      className: "something-went-wrong",
+    });
+  };
+
+  const explore = () => {
     navigate("/products");
   };
-  useEffect(()=>{
-  
-    console.log("ttttt",userauth)
-  })
+
+  const viewAplleProducts = async () => {
+    navigate("/Appleproducts");
+  };
+
+  const get4products = async () => {
+    const res = await fetch("http://localhost:8000/get4products", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+    });
+    const result = await res.json();
+
+    if (result.data) {
+    
+      setproduct(result.data);
+   
+    } else {
+   
+    }
+  };
+
+  const notify = async (id) => {
+
+
+    if (userid) {
+      const res = await fetch("http://localhost:8000/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
+        },
+
+        body: JSON.stringify({ id: id, userid: userid }),
+      });
+
+      const result = await res.json();
+
+      if (result.message) {
+
+
+showSuccess()
+
+      } else {
+      
+      }
+    } else {
+      show();
+    }
+  };
+
+  useEffect(() => {
+    get4products();
+  }, []);
+
+  // $(document).on('scroll',)
 
   return (
     <>
-      <Nav/>
-   <div className="home-section position-relative">
-    <img src="/cyber-monday-retail-sales.jpg" className="home-banner-img" alt="" />
-     <div className="container position-relative">
-      <div className="row">
-        <div className="col-12 col-md-6">
-          <div className="homeSection">
-            <div className="homeheading">
-              {" "}
-              <h1 className="animate__animated animate__fadeInDownBig">welcome</h1>
-            </div>
+      <div>
+        <Nav2 className="nav2" />
+        {/* <div className="card flex justify-content-center">
+        <ToastContainer />
+              </div> */}
+    
+              <div className="card flex justify-content-center">
+                <Toast ref={toast} />
+              </div>
 
-            <div className="homeheading animate__animated animate__fadeInDown">
-              <h1>to</h1>
-            </div>
-            <div className="homeheading animate__animated animate__fadeInDown">
-              <h1>Phone cart</h1>
-            </div>
-
-            <div className="homebutton">
-              <div className="homebuttonsub">
-                {" "}
-                <button className="homebtn" onClick={explore}>
-                  explore
-                  <FaArrowRight />{" "}
-                </button>{" "}
+        <section className="first-page w-100  ">
+          <div className="container">
+            <div className="d-padding">
+              <div className="row  align-items-center">
+                <div className="col-6 ">
+                  <div className="first-page-heading d-flex justify-content-center align-items-center w-100">
+                    <div>
+                      <h1 className="mb-2 text-start">
+                        discover what <br />
+                        <span className="shopping"> phonecart </span>
+                        do for your
+                        <br />
+                        <span className="shopping animate__animated animate__fadeIn animate__infinite	infinite animate__slow	3s">
+                          shopping
+                        </span>
+                      </h1>
+                      <p className="text-start m-0 p-0">
+                        Give your business a boost with Elexy, a reliable
+                        solution you can trust. We've got fast and dedicated
+                        support that will enable you to focus on what matters
+                        most. Let us take care of the rest.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 p-3">
+                  {/* <div>
+            <img src={left} alt="" />
+          </div> */}
+                  <div className="first-page-right">
+                    <img src={laptop} alt="" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-       
+        </section>
+
+        <section className="w-100 home-second-page">
+          <div className="container">
+            <div className="d-padding">
+              <div className="">
+                <h1 className="shop-top-products">Shop Top Products </h1>
+              </div>
+              <div>
+                <h5 className="sub-top-products">
+                  Shop Now for Convenient Delivery And Discover
+                </h5>
+              </div>
+              <div className="row">
+                {product.length > 0 ? (
+              
+                  product.map((product, index) => (
+                    <div className="col-lg-3 mt-4" key={index}>
+                      <div className="card-best-products">
+                        <div className="text-end">
+                          <FcLike className="FcLike" onClick={()=>whistlist(product.id)}/>
+                        </div>
+                        <div>
+                          <h4 className="card-best-products-heading text-dark">
+                            {product.name}
+                          </h4>
+                        </div>
+                        <div className="card-img-div">
+                          <img
+                            src={`http://127.0.0.1:8000/${product.image}`}
+                            alt=""
+                            className="card-best-products-img"
+                          />
+                        </div>
+                        <div>
+                          <h6 className="card-best-products-heading text-danger mt-2">
+                            ${product.price}
+                          </h6>
+                        </div>
+                        <div className="d-flex justify-content-around">
+                          <button
+                            className="add-to-btn"
+                            onClick={() => notify(product.id)}
+                          >
+                            {" "}
+                            <span>add to cart</span>
+                            <span>
+                              <MdArrowOutward />
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div>no data</div>
+                )}
+              </div>
+
+              {/* <ToastContainer />
+              <div className="card flex justify-content-center">
+                <Toast ref={toast} />
+              </div> */}
+            </div>
+          </div>
+        </section>
+
+        <section className="third-page">
+          <div className="container">
+            <div className="d-padding">
+              <div>
+                <div className="row w-100 justify-content-center align-items-center">
+                  <div className="col-6">
+                    <div>
+                      <h1 className="third-page-heading text-white">
+                        Discover Innovation <br />
+                        with Apple
+                      </h1>
+                    </div>
+                    <div className="apple-img-div">
+                      <img src={image1} alt="" className="apple-img " />
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <p className="disc-third-page text-white">
+                        IOS products are sleek, high-performance devices
+                        designed by Apple, known for their intuitive user
+                        interface
+                      </p>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                      <button
+                        className="third-view-btn"
+                        onClick={viewAplleProducts}
+                      >
+                        {" "}
+                        <span>view more</span>
+                        <span>
+                          <MdArrowOutward />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-6 mt-5">
+                    <div className="row">
+                      <div className="col-5 third-card-section p-5">
+                        <div className="third-page-card1">
+                          <div className="third-card-heading">
+                            <h3>Apple</h3>
+                          </div>
+
+                          <hr />
+
+                          <div className="text-start">
+                            <p className="third-card-desc w-75">
+                              iOS is Apple's fast, secure, and user-friendly
+                              mobile operating system
+                            </p>
+                          </div>
+                          <div className="third-card-img">
+                            <img src={iphone1} alt="" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-5 third-card-section2 p-5">
+                        <div className="third-card-heading ">
+                          <h3>Iphone 16</h3>
+                        </div>
+
+                        <hr />
+                        <div className="text-start">
+                          <p className="third-card-desc w-75">
+                            The latest iPhone 16 features a stunning OLED
+                            display, powerful A18 chip, 48MP camera.
+                          </p>
+                        </div>
+                        <div className="third-card-img2">
+                          <img src={iphone2} alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <Footer />
       </div>
-    </div>
-   </div>
-   </>
+    </>
   );
 }

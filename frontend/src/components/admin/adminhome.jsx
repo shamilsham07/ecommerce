@@ -16,9 +16,7 @@ const count=async()=>{
  })
  const result=await res.json()
  if (result.message){
-  console.log(result.message)
  setvalue(result.message);
-  console.log("products",value)
  }
 else if(result.error){
    console.log(result.error)
@@ -43,12 +41,10 @@ useEffect(()=>{
    })
    const result=await res.json()
    if(result.data){
-    console.log("data",result.data)
     setorder(result.data)
 
    }
    if(result.error){
-    console.log("error")
    }
   }
   orderCount()

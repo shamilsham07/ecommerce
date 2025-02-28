@@ -1,0 +1,119 @@
+.whitslist-image {
+  height: 100%;
+  object-fit: contain;
+  transition: 0.8s;
+  border-radius: 16px;
+}
+.whitslist-left-cont {
+  height: 45vh;
+}
+.whitslist-image-sub-container {
+  width: 80px;
+  height: 70px;
+
+  border: 1px dashed black;
+  border-radius: 3px;
+}
+.whitslist-image-sub {
+  gap: 10px;
+  justify-content: center;
+}
+.whitslist-image-sub-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 7px;
+}
+.whitslist-image-sub-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.quantity-ui-box {
+  border: 1px solid black;
+  height: 40px;
+  border-radius: 17px;
+}
+.quantity-ui-box-sub {
+  align-items: center;
+  justify-content: space-between;
+  margin-inline: 10px;
+  padding: 7px;
+}
+.add-to-cart-whistlist button {
+  padding: 7px;
+  border: none;
+  outline: none;
+  width: 112px;
+  background: rgb(68, 10, 10);
+  color: white;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: poppins;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+.p-dialog-header-icon p-dialog-header-close p-link{
+    display: none;
+}
+.dialog{
+    background-color: #fafafa !important;
+    width: 30% !important;
+    height: 177px !important;
+}
+.p-dialog{
+    background-color: #fafafa !important;
+}
+.dialog-text-heading{
+    color: black;
+    text-transform: capitalize;
+    font-size: 25px;
+    font-weight: 300;
+    font-family: poppins;
+}
+
+.dilaog-image img{
+    width: 60px;
+    height: 81px;
+    object-fit: contain;
+}
+.like-png img{
+    width: 35px;
+    height: 27px;
+object-fit: contain;
+cursor: pointer;
+transition: margin-right 2s ease-in-out;
+}
+.wishlist-heading h3{
+  color:black;
+  font-family: "Poppins", sans-serif;
+  text-transform: capitalize;
+  font-weight: 600;
+
+}
+.wishlist-image{
+  width:100%;
+
+}
+.wishlist-rupee{
+  color: black;
+}
+.wish-list-btn{
+  border: none;
+  outline: none;
+  padding: 7px;
+  width: 151px;
+  background: orange;
+  color: white;
+  height: 60px;
+  border-radius: 10px;
+}
+.wishlist-delete{
+  font-size: 25px;
+  color:black;
+}
+.wishlist-p-name{
+  text-transform: capitalize;
+}
+

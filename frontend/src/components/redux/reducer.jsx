@@ -9,6 +9,7 @@ export const initialState={
     userauthentication:false,
     otp:"",
     addreassId:"",
+    productId:"",
 
 }
 
@@ -17,9 +18,12 @@ export const initialState={
     initialState,
     reducers:{
        
-            authenticate:(state)=>{
-                state.isAuthenticated=true
+            authenticate:(state,action)=>{
+                state.isAuthenticated=action.payload
 
+            },
+            setProductId:(state,action)=>{
+               state.productId=action.payload
             },
             increments:(state)=>{
                 state.increment+=1
@@ -51,6 +55,6 @@ export const initialState={
 
 
 
-export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass} = authSlice.actions;
+export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass,setProductId} = authSlice.actions;
 
 export default authSlice.reducer;

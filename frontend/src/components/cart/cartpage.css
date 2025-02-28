@@ -131,12 +131,18 @@
 .right-adress {
   width: 30%;
   height: 100vh;
-  background-color: #541a0f;
+  background-color: white;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .left-adress {
-  width: 70%;
+  width: 100%;
   height: 100vh;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.card-subtitle {
+  text-align: start !important;
 }
 .address-heading {
   text-align: start;
@@ -165,13 +171,26 @@
 .addreass-card {
   /* height: 300px !important; */
   position: relative;
+  /* border: 10px solid black; */
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
+  transition: all 300ms;
+
+  background-color: white;
+  color: black;
+
+}
+
+.addreass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.08), 0 10px 11px rgba(0, 0, 0, 0.08);
 }
 .new-add-btn {
   padding: 7px;
-  border: 3px solid rgb(68,10,10);
+  border: 3px solid rgb(68, 10, 10);
   outline: none;
-  background:white;
-  color:black;
+  background: white;
+  color: black;
   cursor: pointer;
   border-radius: 5px;
   text-transform: capitalize;
@@ -191,8 +210,8 @@
   text-align: start;
   margin-top: 6px;
   text-transform: capitalize;
-  color: black !important;
-  margin-inline: 30px;
+  color: black;
+  /* margin-inline: 30px; */
   font-size: 30px;
   font-family: "Dancing Script", serif;
   font-optical-sizing: auto;
@@ -207,7 +226,7 @@
   background: #f3efef;
   border-radius: 12px;
   overflow: hidden;
-  color: grey;
+  color: white;
   overflow: hidden;
 }
 .card-ph {
@@ -218,28 +237,154 @@
   font-family: "Poppins", serif;
   font-weight: 500;
   font-style: normal;
-
+  color: black;
 }
 .addreass-edit {
-  position: absolute;
-  bottom: 0;
-  right: 0;
   display: flex;
+  margin-top: 5px;
   gap: 10px;
+  color: black !important;
 }
 .md-addreass {
-  font-size: 20px;
-  color: black;
+  /* font-size: 20px; */
+  color: white;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
-.md-edit-addreass{
-  color: black;
+.md-edit-addreass {
+  color: white;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+.card-addreass-p {
+  margin-inline: 30px;
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+  text-align: start;
+}
+.order-summary {
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.orderr-summary-section {
+  align-items: start !important;
+  justify-content: start !important;
+  margin-right: auto;
+  margin-left: 20px;
+}
+.right-adress {
+  flex-direction: column;
+}
+.order-total {
+  margin-right: auto;
+  margin-left: 40px;
+  color: black;
+  margin-top: 10px;
+}
+
+.card-active {
+  /* padding: 10px !important; */
+  color: white !important;
+  /* background-color: rgb(68, 10, 10) !important; */
+  transform: translateY(-2px);
+  border: 3px solid rgb(68, 10, 10) !important;
+  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.08), 0 10px 11px rgba(0, 0, 0, 0.08) !important;
+}
+.product-details-buy {
+  width: 150%;
+  height: 100%;
+  display: flex;
+  text-align: start;
+  flex-direction: column;
+  padding-top: 25px;
+  padding-left: 20px;
+  color: black;
+  text-transform: capitalize;
+  font-family: "Poppins", serif;
+  font-weight: 700;
+  font-style: normal;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 15px;
+  padding-right: 20px;
+}
+.summaryimage img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.promocode h5 {
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.promoinput input {
+  margin-left: 10px;
+  border: none;
+  outline: none;
+  padding: 7px;
+  margin-top: 5px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  z-index: 0;
+}
+.promoinput button {
+  padding: 7px;
+  border: none;
+  outline: none;
+  z-index: 1;
+  border-bottom-right-radius: 7px;
+  border-top-right-radius: 7px;
+  color: white;
+  background-color: rgb(68, 10, 10);
+}
+.order-summary-btn {
+  /* margin-left: auto;
+  margin-right: auto; */
+  text-align: center;
+  margin-top: 7px;
+}
+
+.order-summary-btn button {
+  order: none;
+  outline: none;
+  cursor: pointer;
+  color: white;
+  background: rgb(68, 10, 10);
+  padding: 7px;
+  width: 100px;
+  cursor: pointer;
+  border-radius: 8px;
+  text-transform: capitalize;
+  font-size: 18px;
+  margin-bottom: 13px;
+}
+.heading-main-add {
+  color: rgb(68, 10, 10);
+}
+.new-add-btn {
+  color: rgb(68, 10, 10);
+}
+.product-details-buy h5 {
+  color: rgb(68, 10, 10);
+}
+.md-addreass{
+  height: 27px;
+  width: 30px;
+
+  background: #d91f1f;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+
+  border-radius: 5px;
+  text-align: center;
+}
+.sub-card-apple img{
+  width:100%;
+  height:200px;
+  object-fit: contain;
 
 }
-.card-addreass-p{
-  font-family: "Poppins", serif;
-  font-weight: 200;
-  font-style: normal;
-  text-transform: capitalize;
-}
+

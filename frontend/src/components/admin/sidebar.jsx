@@ -7,7 +7,6 @@ import { change } from "../redux/reducers";
 import csrftoken from "../../csrf";
 import Cookies from "universal-cookie";
 import 'animate.css';
-import ProductsSection from "./productsSection";
 
 import { authenticate } from "../redux/reducer";
 export default function MainSidebar() {
@@ -25,9 +24,7 @@ export default function MainSidebar() {
   const logout = async () => {
     const cookie = new Cookies();
     const username = cookie.get("username");
-    console.log("shamil", username);
     const key = cookie.get("userKey");
-    console.log("key", key);
     const res = await fetch("http://localhost:8000/logout", {
       method: "POST",
       headers: {
@@ -38,9 +35,9 @@ export default function MainSidebar() {
     });
     const result = await res.json();
     if (result.message) {
-      console.log("hi");
       cookie.remove('username')
       cookie.remove('userKey')
+      dispatch(authenticate(false))
       navigate('/admin')
 
     }

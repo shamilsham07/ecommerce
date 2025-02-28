@@ -51,14 +51,14 @@ useEffect(()=>{
         })
         const result=await res.json()
         if(result.data){
-          // console.log(result.data)
+      
           setmail("")
           setpass("")
           dispatch(setUserData(result.data))
-          console.log(result.data.email)
+         
           dispatch(setuserauthentication(true))
-          cookies.set("email",result.data.email,{maxAge:4000})
-          console.log("here your cookie",cookies.get("email"))
+          cookies.set("email",result.data.email,{maxAge:100000})
+        
           navigate("/")
         }
         if(result.error){
@@ -66,16 +66,14 @@ useEffect(()=>{
           setmail("")
           setpass("")
         }
-        // else{
-        //   console.log("first")
-        // }
+       
       }
       else{
         alert("something went wrong")
       }
      }
      catch(error){
-      console.log(error)
+   
      }
   };
 

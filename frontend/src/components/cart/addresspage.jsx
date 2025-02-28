@@ -3,10 +3,14 @@ import "./cartpage.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSelector } from "react-redux";
 import csrftoken from "../../csrf";
+import { useNavigate } from "react-router-dom";
 export default function Addresspage() {
+  const navigate = useNavigate("");
   const userdetails = useSelector((state) => state.auth.userdata);
   const user_id = userdetails.id;
-  console.log("useri", user_id);
+
+  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Z]{2,}$/i;
+  const userAdreass_id = useSelector((state) => state.auth.addreassId);
 
   const [name, setname] = useState("");
   const [addreass, setaddreass] = useState("");
@@ -14,19 +18,50 @@ export default function Addresspage() {
   const [city, setcity] = useState("");
   const [phonenumber, setphonenumber] = useState("");
   const [email, setemail] = useState("");
+  const [defname, setdefname] = useState(false);
+  const [defemail, setdefemail] = useState(false);
+  const [defphone, setdefphone] = useState(false);
+
+  const emptyfield = () => {
+    setpincode("");
+    setcity("");
+    setphonenumber("");
+    setemail("");
+    setname("");
+  };
 
   const adresssave = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    if (name.length < 3) {
+      setdefname(false);
+    }
+
     try {
       const formdata = new FormData();
+      if (defname == true) {
+        alert("enter the name");
+        return;
+      }
+      if (defphone == true) {
+        alert("enter the phone number");
+        return;
+      }
+      if (!emailPattern.test(email)) {
+        setdefemail(true);
+        alert("Enter a valid email");
+        return;
+      }
       if (
-        name != "" &&
-        addreass != "" &&
-        pincode != "" &&
-        city != "" &&
-        phonenumber != "" &&
-        email != ""
+        name == "" &&
+        phonenumber == "" &&
+        email == "" &&
+        city == "" &&
+        addreass == "" &&
+        pincode == ""
       ) {
+        alert("wrong form");
+        return;
+      } else {
         formdata.append("name", name);
         formdata.append("addreass", addreass);
         formdata.append("pincode", pincode);
@@ -42,22 +77,21 @@ export default function Addresspage() {
           },
           body: formdata,
         });
-          const result=await res.json()
-          if(result.message){
-            console.log("kk",result.message)
-          }
-          else{
-             console.log(result.error)
-          }
-
-
-
-
-      } else {
-        alert("one field is missing");
+        const result = await res.json();
+        if (result.message) {
+         
+          emptyfield();
+          navigate("/Adreass");
+        } else if (result.maximum) {
+          alert("already reached maximum number of addreass");
+          emptyfield();
+          navigate("/adreass");
+        } else {
+        
+        }
       }
     } catch (error) {
-      console.log("error",error);
+     
     }
   };
 
@@ -71,35 +105,29 @@ export default function Addresspage() {
                 <div className="text-dark  d-flex align-items-center">
                   <h2 className="address-heading">Add Shipping Addreass</h2>
                 </div>
-                <div className="mt-4">
-                  <Dropdown>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      select addreass
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        Another action
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">
-                        Something else
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
               </div>
 
               <div className="row w-100 mt-1">
                 <div className="col-6">
                   <div class="form-floating mb-3">
                     <input
-                      type="name"
+                      type="text"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="name@example.com"
-                      onChange={(event) => setname(event.target.value)}
+                      placeholder=""
+                      name=""
+                      onChange={(event) => {
+                        setname(event.target.value);
+                        if (event.target.value.length < 3) {
+                          setdefname(true);
+                        } else {
+                          setdefname(false);
+                        }
+                      }}
                     />
+                    <p className={defname ? "text-danger" : "d-none"}>
+                      enter valid name
+                    </p>
                     <label for="floatingInput">Name</label>
                   </div>
                 </div>
@@ -110,8 +138,21 @@ export default function Addresspage() {
                       class="form-control"
                       id="floatingInput"
                       placeholder="name@example.com"
-                      onChange={(event) => setemail(event.target.value)}
+                      name="email"
+                      onInput={(event) => {
+                        setemail(event.target.value);
+
+                        if (!emailPattern.test(event.target.value)) {
+                          setdefemail(true);
+                        } else {
+                          setdefemail(false);
+                        }
+                      }}
                     />
+                    <p className={defemail ? "text-danger" : "d-none"}>
+                      enter valid email
+                    </p>
+
                     <label for="floatingInput">Email address</label>
                   </div>
                 </div>
@@ -123,9 +164,21 @@ export default function Addresspage() {
                       type="number"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="name@example.com"
-                      onChange={(event) => setphonenumber(event.target.value)}
+                      placeholder=""
+                      name="phone"
+                      onChange={(event) => {
+                        setphonenumber(event.target.value);
+                        if (event.target.value.length < 10) {
+                          setdefphone(true);
+                        } else {
+                          setdefphone(false);
+                        }
+                      }}
                     />
+                    <p className={defphone ? "text-danger" : "d-none"}>
+                      enter the valid phonenumber
+                    </p>
+
                     <label for="floatingInput">Phone Number</label>
                   </div>
                 </div>
@@ -135,7 +188,7 @@ export default function Addresspage() {
                       type="text"
                       class="form-control"
                       id="floatingInput"
-                      placeholder="name@example.com"
+                      placeholder=""
                       onChange={(event) => setcity(event.target.value)}
                     />
                     <label for="floatingInput">Place/City</label>
@@ -152,7 +205,7 @@ export default function Addresspage() {
                     onChange={(event) => setaddreass(event.target.value)}
                   ></textarea>
                   <label for="floatingTextarea2" className="ml-1">
-                    Adrress
+                    Address
                   </label>
                 </div>
               </div>
@@ -163,6 +216,7 @@ export default function Addresspage() {
                       type="number"
                       class="form-control"
                       id="floatingInput"
+                      name="pincode"
                       placeholder="name@example.com"
                       onChange={(event) => setpincode(event.target.value)}
                     />
@@ -178,14 +232,13 @@ export default function Addresspage() {
                     onClick={(event) => adresssave(event)}
                     type="submit"
                   >
-                    Save And Deliver Here
+                    Save
                   </button>
                 </div>
               </div>
             </form>
           </div>
         </div>
-        <div className="right-adress"></div>
       </div>
     </>
   );

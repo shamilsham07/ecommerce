@@ -27,8 +27,19 @@ path("forgetpass",views.forgetpass),
 path("varifyEmail",views.varifyEmail), 
 path("Userconfirmpass",views.Userconfirmpass),
 path("adresssave",views.adresssave),
-path("getaddreass",views.getaddreass)
-
-
+path("getaddreass",views.getaddreass),
+path("deleteaddreass",views.deleteaddreass),
+path("get4products",views.get4products),
+path("viewAplleProducts",views.viewAplleProducts),
+path("SamsungProducts",views.SamsungProducts),
+path("LaptopProducts",views.LaptopProducts),
+path("get4samsungproduct",views.get4samsungproduct),
+path("get4appleproducts",views.get4appleproducts),
+path("get4laptops",views.get4laptops),
+path("contactdetails",views.contactdetails),
+path("gettheclickedproduct",views.gettheclickedproduct),
+path("addtocart",views.addtocart),
+path("addtowishList",views.addtowishList),
+path("getwhistlist",views.getwhistlist),
 ]
   

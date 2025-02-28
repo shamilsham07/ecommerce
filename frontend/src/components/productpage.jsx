@@ -5,17 +5,14 @@ import Card from "react-bootstrap/Card";
 import { Sidebar } from 'primereact/sidebar';
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { FaRegHeart } from "react-icons/fa6";
-import { BsCurrencyDollar } from "react-icons/bs";
+
 import { useDispatch } from "react-redux";
 import { increments } from "./redux/reducer";
-import { decrements } from "./redux/reducer";
+
 import { value } from "./redux/reducer";
-import { IoMdAdd } from "react-icons/io";
-import { VscChromeMinimize } from "react-icons/vsc";
-import Nav from "./nav";
+import Nav2 from "./nav2";
 
 import 'animate.css';
 import 'primeicons/primeicons.css';
@@ -24,12 +21,12 @@ import "./home.css"
 export default function Productpage() {
   const [visibleRight, setVisibleRight] = useState(false);
   const datas = useSelector((state) => state.products.setdata);
-  console.log("here", datas);
+
   const[products,setproduct]=useState('')
   const dispatch = useDispatch();
   const userdetails = useSelector((state) => state.auth.userdata);
   const userid=userdetails.id
- console.log("userid",userid)
+
 
   const clickHandler =async(id) => {
     const selected=datas.find((item)=>item.id==id)
@@ -47,18 +44,18 @@ export default function Productpage() {
     })
     const result =await res.json()
     if(result.message){
-     console.log("id",id)
+   
       setVisibleRight(true)
     }
   };
 
   return (
     <>
-      <Nav />
+      <Nav2 />
       <div className="row mt-4 mx-3 animate__animated animate__zoomIn" >
         {datas.map((item, index) => (
           <div className="col col-md-3 mt-5" key={index}>
-            {console.log(item.image)}
+           
             <Card style={{ width: "18rem" }}>
               <Card.Img
                 variant="top"
@@ -86,7 +83,7 @@ export default function Productpage() {
     marginRight:"auto",
                   }}
       >
-                    {/* checking  here logic for button change */}
+                 
                    
               
                       <Button
@@ -100,9 +97,7 @@ export default function Productpage() {
 
 
                   </div>
-                  {/* <div className="col-2 text-center">
-                    <FaRegHeart />
-                  </div> */}
+              
                 </div>
               </Card.Body>
             </Card>

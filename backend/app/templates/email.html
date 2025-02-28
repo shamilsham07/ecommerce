@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>New Contact Message</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .email-header {
+            background-color: rgb(68,10,10);
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .email-body {
+            padding: 20px;
+            color: #333;
+        }
+        .email-footer {
+            background-color: rgb(68,10,10);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .email-body-email{
+            text-decoration: none;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            New Contact Message
+        </div>
+        <div class="email-body">
+            <p><strong>From:</strong> {{user_name}}</p>
+            <p class="email-body-email"><strong><span style="color: inherit; text-decoration: none;">email: {{user_email}} </span></strong></p>
+            <p><strong>phone: {{user_phone}}</strong></p>
+
+                
+            <p><strong>Message: {{ user_message }}</strong>
+             
+            </p>
+          
+        </div>
+        <div class="email-footer">
+            &copy; 2025 Your Company. All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

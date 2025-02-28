@@ -4,6 +4,7 @@ from .models import Cart
 from .models import adminproduct
 from .models import Usersignup
 from .models import Useradress
+from .models import ProductImages
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +26,9 @@ class Userserializer(serializers.ModelSerializer):
     class Meta:
         model= Useradress
         fields= "__all__"
+
+
+class Productserializer(serializers.ModelSerializer):
+    class Meta:
+        model= ProductImages
+        fields="__all__"

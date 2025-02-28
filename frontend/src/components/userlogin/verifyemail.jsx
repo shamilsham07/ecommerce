@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useRef, useState } from "react";
 import backgroundimage from "../../assets/5968949.jpg";
 import "./userlog.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
@@ -55,7 +55,7 @@ if(result.message){
   const handleback = (event, ref, index) => {
     if (event.key == "Backspace") {
       setvalue([input1, input2, input3, input4]);
-      console.log(value);
+    
       {
         setTimeout(() => [ref.current.focus()], 200);
       }
@@ -63,9 +63,9 @@ if(result.message){
   };
 
   const handleVerify = (event, reference, position) => {
-    console.log("kkk", reference);
+   
     const newValue = event.target.value;
-    console.log(input1, input2, input3, input4);
+  
 
     if (newValue.length > 1) {
       return;
@@ -76,12 +76,12 @@ if(result.message){
         reference.current.focus();
       }
     }
-    console.log(value);
+  
     if (newValue.length > 0 && reference == null) {
     }
   };
 
-  console.log("ttttttt", otp);
+
   return (
     <>
       <div>

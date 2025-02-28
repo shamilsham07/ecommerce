@@ -1,0 +1,110 @@
+.add-product-heading-main{
+    color:black;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+}
+.add-product-form-submit input{
+background-color: #fff;
+border:none;
+outline:none;
+}
+/* .add-product-form-submit label{
+    background-color: #cec9c9;
+} */
+.add-product-form-submit label:focus{
+    background-color: none !important;
+}
+.add-product-form-submit input:focus{
+    background-color:  #fff;
+    border:none;
+    outline:none;
+    box-shadow: none;
+    }
+
+.add-product-top-bar{
+      
+        height: 43px;
+      
+        border-top-left-radius: 45px;
+        border-top-right-radius: 45px;
+        background: rgb(68, 10, 10);
+}
+.add-product-add-more-btn{
+    padding: 7px;
+    border: none;
+    outline: none;
+    background: rgb(68, 10, 10);
+    color: white;
+    border-radius: 0px;
+    width: 100px;
+    margin-bottom: 17px;
+    text-transform: capitalize;
+    height: 35px;
+    font-size: 14px;
+    font-weight: 100;
+    border-radius: 4px;
+}
+.add-product-add-more-btn1{
+    padding: 7px;
+    border: none;
+    outline: none;
+    background: red;
+    color: white;
+    border-radius: 0px;
+    width: 100px;
+    margin-bottom: 17px;
+    text-transform: capitalize;
+    height: 35px;
+    font-size: 14px;
+    font-weight: 100;
+    border-radius: 4px;
+}
+#dropdown-basic{
+    background-color: rgb(68, 10, 10);
+    color:white;
+}
+.add-product-bottom-bar
+{
+    
+    height: 43px;
+      
+    border-bottom-left-radius: 45px;
+    border-bottom-right-radius: 45px;
+    background: rgb(68, 10, 10);
+}
+.add-products-btn-submit{
+    
+}
+
+.add-products-btn-submit button{
+    padding: 7px;
+    border: none;
+    outline: none;
+    background: rgb(68, 10, 10);
+    color: white;
+    text-transform: capitalize;
+    font-size: 14px;
+    border-radius: 5px;
+}
+.image-cover-input{
+    width:42% !important;
+}
+.add-product-form-submit textarea{
+    height:100px;
+}
+.remove-input-image{
+    width: 42% !important;
+}
+.product-details-heading h3{
+    color:black !important;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+    font-weight: 600;
+}
+.c-padding{
+    padding: 80px;
+}

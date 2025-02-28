@@ -12,7 +12,7 @@ export default function Userdetails() {
   const [email, setemail] = useState("");
   const [phonenumber, setphonenumber] = useState("");
   const [password,setPassword]=useState("")
-  console.log("user",userdetails.id)
+
   const user_id=userdetails.id
 
 
@@ -47,25 +47,25 @@ navigate("/Forgetpass")
      })
      
        const result=await res.json()
-       console.log(result);
+    
        
        if(result.message){
-         console.log("okkkkkkkkk")
+      
          navigate("/")
          
        }
        else if(result.error){
-         console.log("error")
+    
        }
        else if(result.nouser){
-         console.log("no user")
+      
        }
        else if(result.wrong){
          alert("wrong password")
         }
      }
     }catch(error){
-      console.log("error",error)
+  
     }
   
   }

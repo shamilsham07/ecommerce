@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./production.css";
 
 import { Sidebar } from "primereact/sidebar";
-import Updatepage from "./updatepage";
 
 
 import { Dropdown } from "primereact/dropdown";
@@ -19,7 +18,6 @@ import { MdAdd } from "react-icons/md";
 
 import { Dialog } from "primereact/dialog";
 
-import { classNames } from "primereact/utils";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 
 import "primereact/resources/themes/lara-light-cyan/theme.css";
@@ -27,20 +25,14 @@ import { MdModeEditOutline } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { InputText } from "primereact/inputtext";
 import { IconField } from "primereact/iconfield";
-import { InputIcon } from "primereact/inputicon";
-import { Link } from "react-router-dom";
 
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
-import { ProgressBar } from "primereact/progressbar";
-import { Calendar } from "primereact/calendar";
-import { MultiSelect } from "primereact/multiselect";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Slider } from "primereact/slider";
 import { Tag } from "primereact/tag";
 import { TriStateCheckbox } from "primereact/tristatecheckbox";
-import { Navigate } from "react-router-dom";
 import MainSidebar from "./sidebar";
 
 export default function ProductsSection() {
@@ -51,15 +43,12 @@ export default function ProductsSection() {
   const [productstock, setproductstock] = useState("");
   const [productimage, setproductimage] = useState(null);
   const [productdiscount, setproductdiscount] = useState("");
-  const [product, setProduct] = useState([]);
   const [visibleRight, setVisibleRight] = useState(false);
   const [customers, setCustomers] = useState(null);
   const [filters, setFilters] = useState(null);
   
-  const [formvalid, setformvalid] = useState(false);
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const dispatch = useDispatch();
-  const [key, setKey] = useState("");
 
   const [visible, setVisible] = useState(false);
   const footerContent = (
@@ -373,44 +362,19 @@ export default function ProductsSection() {
         setCustomers(result.data);
       }
       if (!result.data) {
-        console.error("No data received from the server");
         setCustomers([]);
       }
       if (result.error) {
-        console.log("hello");
       }
     };
     adminproduct();
   }, []);
 
 const updates=async(id)=>{
-  console.log("idis",id)
   
   navigate("/Updatepage",{state:{id}})
  
-// const res=await fetch("http://localhost:8000/updates",{
-// method:"POST",
-// headers:{
-//   "X-CSRFToken": csrftoken,
-//   "Content-Type": "application/json",
-// },
-// body :JSON.stringify({id:id})
-// })
-// try{
-//   const result=await res.json()
-//   if(result.message){
-//     console.log("message is",result.message)
-//   }
-//   if(result.error){
-//     console.log("error is ",result.error)
-//   }
 
-
-
-// }
-// catch(error){
-//   console.log("error is simple",error)
-// }
 
 }
 
@@ -419,7 +383,6 @@ const updates=async(id)=>{
 
 
   const deletes = async (id) => {
-    console.log("thisssss", id);
     const res = await fetch("http://localhost:8000/onDelete", {
       method: "POST",
       headers: {
@@ -430,7 +393,6 @@ const updates=async(id)=>{
     });
     const result = await res.json();
     if (result.data) {
-      console.log("hhhhhhhhhhhhhhhh");
       setCustomers(result.data);
     }
     if (result.error) {
@@ -465,7 +427,6 @@ const updates=async(id)=>{
     formdata.append("productdiscount", productdiscount);
     formdata.append("productstock", productstock);
     formdata.append("productimage", productimage);
-    console.log("the dataa", price, productName, productcategory);
 
     if (parseInt(price) > 0 && productName != "" && productcategory != "") {
       const res = await fetch("http://localhost:8000/productAdds", {
@@ -487,8 +448,6 @@ const updates=async(id)=>{
     
 
 
-        console.log("here isme");
-        console.log(result.message);
 // {
 //   setInterval(() => {
 //     clearform();
@@ -499,7 +458,6 @@ const updates=async(id)=>{
     
 
       if (result.error) {
-        console.log("result is :", result.error);
         dispatch(loading(false));
         alert("not created");
         clearform();
@@ -534,7 +492,7 @@ const updates=async(id)=>{
               <div>
                 <button
                   className="btn-dark"
-                  onClick={() => setVisibleRight(true)}
+                  onClick={() =>navigate('/Addproduct')}
                 >
                   <span className="MdAdd">
                     <MdAdd />
@@ -623,109 +581,6 @@ const updates=async(id)=>{
             </DataTable>
           </div>
 
-          <Sidebar
-            visible={visibleRight}
-            position="right"
-            onHide={() => setVisibleRight(false)}
-          >
-            <h2 className="newproduct-heading">add new product</h2>
-            <hr />
-            <form className="ms-1" onSubmit={productAdd}>
-              <div className="w-75">
-                <label className="text-dark">Product Name</label>
-                <input
-                  type="text"
-                  className="form-control w-100"
-                  onChange={(event) => setproductname(event.target.value)}
-                />
-              </div>
-              <div className="w-75">
-                <label
-                  for="exampleInputPassword1"
-                  className="form-label text-dark"
-                >
-                  Price
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  onChange={(event) => setPrice(event.target.value)}
-                />
-              </div>
-              <div className="w-75">
-                <label
-                  for="exampleInputPassword1"
-                  className="form-label text-dark"
-                >
-                  Stock
-                </label>
-                <input
-                  type="number"
-                  className="form-control"
-                  onChange={(event) => setproductstock(event.target.value)}
-                />
-              </div>
-              <div className="w-75">
-                <label className="form-label text-dark">Discount</label>
-                <input
-                  type="number"
-                  className="form-control "
-                  onChange={(event) => setproductdiscount(event.target.value)}
-                />
-              </div>
-              <div className="w-50">
-                <label className="form-label text-dark">Category</label>
-                <div className="card flex justify-content-center">
-                  <Dropdown
-                    value={productcategory}
-                    onChange={(e) => setcategory(e.target.value, "category")}
-                    options={categorys}
-                    optionLabel="name"
-                    placeholder="Select the category"
-                    className="w-full w-100"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="" className="form-label text-dark">
-                  image
-                </label>
-                <input
-                  class="form-control"
-                  type="file"
-                  multiple
-                  onChange={(event) => setproductimage(event.target.files[0])}
-                />
-              </div>
-              <div className="card flex justify-content-center w-100">
-                <div className="mt-3" style={{marginLeft:"auto",marginRight:"auto"}}>
-                  <Button
-                    label="Submit"
-                    icon="pi pi-external-link"
-                    className="dialogbtn"
-                
-                  />
-                </div>
-                <Dialog
-                  header="product added succesfully"
-                  visible={visible}
-                  onHide={() => {
-                    if (!visible) return;
-                    setVisible(false);
-                  }}
-                  style={{ width: "24vw" }}
-                  breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-                >
-                <div className="text-center">
-                  <div className="mainFaCheck">
-                  <FaCheck className="FaCheck" />
-                  </div>
-               
-                </div>
-                </Dialog>
-              </div>
-            </form>
-          </Sidebar>
         </div>
           )}
 

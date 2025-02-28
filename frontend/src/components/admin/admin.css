@@ -168,3 +168,94 @@
     --mdb-gutter-x: .8rem !important;
     width: 100%;
 }
+.admn-sub-log{
+  width: 60%;
+  height: 70vh;
+  /* background-color: rgb(68, 10, 10); */
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  /* border :1px solid black */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 20px;
+  display: flex;
+}
+.admn-sub-left{
+ 
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    border-right: 2px solid rgb(149, 141, 141)
+}
+.log-img-admn{
+width:100%;
+object-fit: contain;
+height: 100%;
+}
+.admn-heading h3{
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  color: black;
+  font-size: 20px;
+}
+.admn-sub-right{
+padding: 50px;
+}
+
+.content{
+  width: 74px;
+  height: 3px;
+  background-color: rgb(68, 10, 10);
+  border-radius: 20px;
+  margin-bottom: 5px;
+  /* margin-left: 5px; */
+
+}
+.admn-sub-right{
+  flex-direction: column;
+  width:50%;
+  height:100%;
+}
+.admn-sub-form{
+  margin-top: 30px;
+  /* padding: 18px; */
+}
+.admn-inp input{
+  border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 3px solid black;
+    background: none;
+    outline: none;
+}
+.admn-inp input:focus{
+  box-shadow: none;
+}
+.admn-log-btn{
+  border:none;
+  outline:none;
+  padding: 5px;
+  background-color: rgb(118, 241, 118);
+  color: white;
+  text-transform: capitalize;
+  font-family: poppins,serif;
+  font-weight:500;
+  height:50px;
+  border-radius: 20px;
+  font-size: 17px;
+  background: linear-gradient(.25turn, rgb(68,10,10) 10%, black);
+  letter-spacing: 7px;
+  transition: 0.8s;
+  
+}
+.terms{
+  width: 100%;
+  font-size: 12px;
+  color: #00000066;
+  font-family: math;
+}
+.admn-log-btn:hover{
+  transform: scale(1.1);
+}

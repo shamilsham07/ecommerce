@@ -11,8 +11,19 @@ class adminproduct(models.Model):
     category=models.CharField(blank=True,null=True,max_length=300)
     stock_count=models.PositiveIntegerField(default=0)
     discount=models.DecimalField(max_digits=5, decimal_places=2, blank=True, default=0)
+    description=models.TextField(blank=True,null=True)
     def __str__(self):
          return self.name
+     
+     
+
+class ProductImages(models.Model):
+    product=models.ForeignKey(adminproduct,on_delete=models.CASCADE,blank=True,null=True)
+    image=models.ImageField(upload_to=('images/'), height_field=None, width_field=None, max_length=None)
+    def __str__(self):
+        return self.product.name
+     
+     
     
 class CheckUser(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -65,3 +76,20 @@ class Useradress(models.Model):
     
     def __str__(self):
          return self.name
+     
+
+class Contactdetails(models.Model):
+    firstname=models.CharField(blank=True,null=True,max_length=255)
+    lastname=models.CharField(blank=True,null=True,max_length=255)
+    phonenumber=models.IntegerField()
+    email=models.EmailField()
+    message=models.TextField(blank=True)
+    
+    
+    
+    
+class Wishlist(models.Model):
+    product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
+    user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
+    
+    

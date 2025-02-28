@@ -56,11 +56,11 @@ const res=await fetch("http://localhost:8000/usersignup",{
 const result=await res.json()
 if(result.message){
   clearForm()
-  console.log(result.message)
+
   navigate("/UserLogin")
 }
 if(result.error){
-  console.log(result.error)
+
 }
 if(result.data){
 
@@ -72,11 +72,11 @@ if(result.data){
 
    }
    catch(error){
-console.log("our error",error)
+
    }
     }     
     else{
-      console.log("not equal")
+   
       alert("password doesn't match")
     }
 }
