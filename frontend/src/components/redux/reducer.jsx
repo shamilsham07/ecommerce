@@ -10,6 +10,7 @@ export const initialState={
     otp:"",
     addreassId:"",
     productId:"",
+    email:""
 
 }
 
@@ -46,7 +47,11 @@ export const initialState={
             },
             setaddreass:(state,action)=>{
                 state.addreassId=action.payload
+            },
+            setemail:(state,action)=>{
+                state.email=action.payload
             }
+
     }
     
 })
@@ -55,6 +60,6 @@ export const initialState={
 
 
 
-export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass,setProductId} = authSlice.actions;
+export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass,setProductId,setemail} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,0 +1,44 @@
+.print-logo{
+    width: 138px;
+    height: 36px;
+}
+.invoice-heading{
+    color:#15154a !important;
+    text-transform: capitalize;
+  font-family: poppins, serif;
+  font-weight: 600;
+
+}
+.invoice-addreass h6{
+    text-transform: capitalize;
+    font-family: poppins, serif;
+    font-weight: 600;
+    color:black;
+}
+.invoice-addreass p{
+  font-size: 17px;
+  color: black;
+  text-transform: capitalize;
+  font-family: poppins, serif;
+  font-weight: 300;
+  margin-bottom: 0px;
+}
+.invoice-addreass h5{
+    text-transform: capitalize;
+    font-family: poppins, serif;
+    font-weight: 800;
+    color:black;
+}
+thead.table-headings{
+    background-color: #15154a !important;
+}
+.order-id-invoice h6{
+    text-transform: capitalize;
+    font-family: poppins, serif;
+    font-weight: 800;
+    color:black;
+}
+.table-headings {
+    background-color: #15154a !important;
+    color: white !important;
+  }

@@ -3,7 +3,6 @@ import image from "../assets/LOGO-1.png";
 import "./home.css";
 import { FaUserCircle } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
-import { MdLocalGroceryStore } from "react-icons/md";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -11,14 +10,16 @@ import { setcart } from "./redux/productsreducer";
 import { useState } from "react";
 import csrftoken from "../csrf";
 import "animate.css";
-import { IoMdAdd } from "react-icons/io";
-import { FaRegUser } from "react-icons/fa";
+import { setUserData } from "./redux/reducer";
+import image1 from "../assets/wishlist.png"
+
 import { useNavigate } from "react-router-dom";
 import "./products.css";
 import { GrPowerShutdown } from "react-icons/gr";
 import Cookies from "universal-cookie";
 import { setuserauthentication } from "./redux/reducer";
 import { FaRegCircleUser } from "react-icons/fa6";
+import Wishlist from "../whistlist/wishlist";
 
 export default function Nav2() {
   const userdetails = useSelector((state) => state.auth.userdata);
@@ -36,9 +37,12 @@ export default function Nav2() {
   }
 
   const userlogout = () => {
+    
     cookies.remove("email");
     dispatch(setuserauthentication(false));
-    navigate("/UserLogin");
+    dispatch(setUserData(['']))
+    window.location.reload()
+    
   };
   const productnavigate=()=>{
     navigate('/products')
@@ -46,6 +50,12 @@ export default function Nav2() {
 
 const homenavigate=()=>{
 navigate("/")
+}
+const WishlistNavigate=()=>{
+  navigate("/wishlist")
+}
+const ordersnavigate=()=>{
+  navigate("/Vieworders")
 }
 
 
@@ -128,16 +138,16 @@ navigate("/")
                   <h6     onClick={homenavigate}  >Home</h6>
                 </li>
                 <li class="nav-item">
-                  <h6>About</h6>
+                  <h6 onClick={()=>navigate('/about')}>About</h6>
                 </li>
                 <li class="nav-item">
                   <h6>Help</h6>
                 </li>
                 <li class="nav-item">
-                  <h6 onClick={productnavigate}>products</h6>
+                  <h6 onClick={productnavigate}>Products</h6>
                 </li>
                 <li class="nav-item">
-                  <h6 onClick={contactnavigate}>contact</h6>
+                  <h6 onClick={contactnavigate}>Contact</h6>
                 </li>
               </ul>
             </div>
@@ -183,6 +193,35 @@ navigate("/")
                             </span>
                           </div>
                         </Dropdown.Item>
+
+                        <Dropdown.Item onClick={WishlistNavigate}>
+                          <div className="d-flex" style={{ gap: "10px" }}>
+                           <img src={image1} alt="" className="wishlist-icons" />
+                            <span
+                              className="text-dark"
+                              style={{ fontSize: "15px" }}
+                            >
+                              Wishlist
+                            </span>
+                          </div>
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={ordersnavigate}>
+                          <div className="d-flex" style={{ gap: "10px" }}>
+                          <i class="bi bi-tag"></i>
+                            <span
+                              className="text-dark"
+                              style={{ fontSize: "15px" }}
+                            >
+                              My orders
+                            </span>
+                          </div>
+                        </Dropdown.Item>
+
+
+
+
+
+
                       </Dropdown.Menu>
                     ) : (
                       <Dropdown.Menu>

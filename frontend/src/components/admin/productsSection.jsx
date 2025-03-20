@@ -3,7 +3,6 @@ import "./production.css";
 
 import { Sidebar } from "primereact/sidebar";
 
-
 import { Dropdown } from "primereact/dropdown";
 import csrftoken from "../../csrf";
 import { change } from "../redux/reducers";
@@ -36,7 +35,7 @@ import { TriStateCheckbox } from "primereact/tristatecheckbox";
 import MainSidebar from "./sidebar";
 
 export default function ProductsSection() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [productName, setproductname] = useState("");
   const [price, setPrice] = useState("");
   const [productcategory, setcategory] = useState("");
@@ -46,7 +45,7 @@ export default function ProductsSection() {
   const [visibleRight, setVisibleRight] = useState(false);
   const [customers, setCustomers] = useState(null);
   const [filters, setFilters] = useState(null);
-  
+
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const dispatch = useDispatch();
 
@@ -177,20 +176,14 @@ export default function ProductsSection() {
 
   const renderHeader = () => {
     return (
-      <div className="flex justify-content-between">
-        <Button
-          type="button"
-          icon="pi pi-filter-slash"
-          label="Clear"
-          outlined
-          onClick={clearFilter}
-        />
+      <div className="flex justify-content-end" style={{background:"white",border:"none"}}>
         <IconField iconPosition="left">
           {/* <InputIcon className="pi pi-search" /> */}
           <InputText
             value={globalFilterValue}
             onChange={onGlobalFilterChange}
             placeholder="Keyword Search"
+            className="p-2"
           />
         </IconField>
       </div>
@@ -315,9 +308,9 @@ export default function ProductsSection() {
   const updatebodytamplate = (rowData) => {
     return (
       <i>
-        <span className="MdModeEditOutline" onClick={()=>updates(rowData.id)}>
+        <span className="MdModeEditOutline" onClick={() => updates(rowData.id)}>
           {" "}
-          <MdModeEditOutline/>
+          <MdModeEditOutline />
         </span>
         <span className="MdDelete" onClick={() => deletes(rowData.id)}>
           <MdDelete />
@@ -370,17 +363,9 @@ export default function ProductsSection() {
     adminproduct();
   }, []);
 
-const updates=async(id)=>{
-  
-  navigate("/Updatepage",{state:{id}})
- 
-
-
-}
-
-
-
-
+  const updates = async (id) => {
+    navigate("/Updatepage", { state: { id } });
+  };
 
   const deletes = async (id) => {
     const res = await fetch("http://localhost:8000/onDelete", {
@@ -440,22 +425,17 @@ const updates=async(id)=>{
       const result = await res.json();
       dispatch(change(false));
 
-       
       if (result.message) {
-        dispatch(loading(false))
-      setVisible(true)
-    setVisibleRight(false);
-    
+        dispatch(loading(false));
+        setVisible(true);
+        setVisibleRight(false);
 
-
-// {
-//   setInterval(() => {
-//     clearform();
-//   }, 3000);
-// }
-
-       }
-    
+        // {
+        //   setInterval(() => {
+        //     clearform();
+        //   }, 3000);
+        // }
+      }
 
       if (result.error) {
         dispatch(loading(false));
@@ -466,135 +446,114 @@ const updates=async(id)=>{
       dispatch(loading);
       alert("something fishy");
       clearform();
-
     }
   };
 
   return (
     <>
-    <div>
-      <div className="row">
-        <div className="col-2">
-        <MainSidebar/>
+      <div>
+        <div className="row w-100">
+          <div className="col-2"style={{height:"100vh"}}>
+            <MainSidebar />
+          </div>
+          <div className="col-10">
+            {value ? (
+              <Loading />
+            ) : (
+              <div className="products-main-section p-5">
+                <div className="prorductsHeading d-flex justify-content-between">
+                  <div className="ml-3">
+                    <h1>products</h1>
+                  </div>
+                  <div>
+                    <div className="ms-3">
+                      <button
+                        className="btn-dark"
+                        onClick={() => navigate("/Addproduct")}
+                      >
+                        <span className="MdAdd">
+                          <MdAdd />
+                        </span>
+                        add product
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="card p-5">
+                  <DataTable
+                    value={customers}
+                    paginator
+                    showGridlines
+                    color="color:white;"
+                    className="background-table"
+                    rows={10}
+                    // loading={loading}
+                    dataKey="id"
+                    globalFilterFields={[
+                      "name",
+                      "country.name",
+                      "representative.name",
+                      "category",
+                      "status",
+                    ]}
+                    header={header}
+                    emptyMessage="there is no product exist."
+                    onFilter={(e) => setFilters(e.filters)}
+                  >
+                    <Column
+                      field="name"
+                      header="Name"
+                      style={{ width: "180px" }}
+                    />
 
-        </div>
-        <div className="col-10">
-
-        {value ? (
-        <Loading />
-      ) : (
-        <div className="products-main-section">
-          <div className="prorductsHeading d-flex justify-content-between">
-            <div>
-              <h1>products</h1>
-            </div>
-            <div>
-              <div>
-                <button
-                  className="btn-dark"
-                  onClick={() =>navigate('/Addproduct')}
-                >
-                  <span className="MdAdd">
-                    <MdAdd />
-                  </span>
-                  add product
-                </button>
+                    <Column
+                      header="image"
+                      style={{ width: "180px" }}
+                      body={representativeBodyTemplate}
+                    />
+                    <Column
+                      header="price"
+                      filterField="price"
+                      dataType="numeric"
+                      style={{ width: "180px" }}
+                      body={priceBodyTemplate}
+                      filter
+                      filterElement={dateFilterTemplate}
+                    />
+                    <Column
+                      header="category"
+                      // filterField="balance"
+                      dataType="numeric"
+                      style={{ width: "180px" }}
+                      body={category}
+                      // filter
+                      // filterElement={balanceFilterTemplate}
+                    />
+                    <Column
+                      // field="stock"
+                      header="stock"
+                      // filterMenuStyle={{ width: "14rem" }}
+                      style={{ width: "180px" }}
+                      body={stockbodytemplate}
+                      // filter
+                      // filterElement={stockfiltertemplate}
+                    />
+                    <Column
+                      field="update"
+                      header="update"
+                      bodyClassName="text-update"
+                      style={{ width: "180px" }}
+                   
+                      body={updatebodytamplate}
+                    />
+                  </DataTable>
+                </div>
               </div>
-            </div>
+            )}
           </div>
-          <div className="card">
-            <DataTable
-              value={customers}
-              paginator
-              showGridlines
-              rows={10}
-              // loading={loading}
-              dataKey="id"
-              filters={filters}
-              globalFilterFields={[
-                "name",
-                "country.name",
-                "representative.name",
-                "category",
-                "status",
-              ]}
-              header={header}
-              emptyMessage="there is no product exist."
-              onFilter={(e) => setFilters(e.filters)}
-            >
-              <Column
-                field="name"
-                header="Name"
-                filter
-                filterPlaceholder="Search by name"
-                style={{ minWidth: "12rem" }}
-              />
-
-              <Column
-                header="image"
-                style={{ minWidth: "14rem" }}
-                body={representativeBodyTemplate}
-              />
-              <Column
-                header="price"
-                filterField="price"
-                dataType="numeric"
-                style={{ minWidth: "10rem" }}
-                body={priceBodyTemplate}
-                filter
-                filterElement={dateFilterTemplate}
-              />
-              <Column
-                header="category"
-                filterField="balance"
-                dataType="numeric"
-                style={{ minWidth: "10rem" }}
-                body={category}
-                filter
-                filterElement={balanceFilterTemplate}
-              />
-              <Column
-                field="stock"
-                header="stock"
-                filterMenuStyle={{ width: "14rem" }}
-                style={{ minWidth: "12rem" }}
-                body={stockbodytemplate}
-                filter
-                filterElement={stockfiltertemplate}
-              />
-              <Column
-                field="discount"
-                header="discount"
-                showFilterMatchModes={false}
-                style={{ minWidth: "12rem" }}
-                body={dicountbodytemplate}
-                filter
-                filterElement={activityFilterTemplate}
-              />
-              <Column
-                field="update"
-                header="update"
-                bodyClassName="text-center"
-                style={{ minWidth: "8rem" }}
-                body={updatebodytamplate}
-              />
-            </DataTable>
-          </div>
-
         </div>
-          )}
-
-
-
-
-        </div>
-
+        {console.log("the loader", value)}
       </div>
-      {console.log("the loader", value)}
-     
-    </div>
-   
-    
     </>
   );
 }

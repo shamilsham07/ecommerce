@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
 }
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
@@ -164,11 +164,11 @@
   /* overflow: hidden; */
 }
 
-.dashbord-home .row{
-    --mdb-gutter-x: .8rem !important;
-    width: 100%;
+.dashbord-home .row {
+  --mdb-gutter-x: 0.8rem !important;
+  width: 100%;
 }
-.admn-sub-log{
+.admn-sub-log {
   width: 60%;
   height: 70vh;
   /* background-color: rgb(68, 10, 10); */
@@ -180,19 +180,18 @@
   padding: 20px;
   display: flex;
 }
-.admn-sub-left{
- 
-    width: 50%;
-    height: 100%;
-    padding: 10px;
-    border-right: 2px solid rgb(149, 141, 141)
+.admn-sub-left {
+  width: 50%;
+  height: 100%;
+  padding: 10px;
+  border-right: 2px solid rgb(149, 141, 141);
 }
-.log-img-admn{
-width:100%;
-object-fit: contain;
-height: 100%;
+.log-img-admn {
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
 }
-.admn-heading h3{
+.admn-heading h3 {
   font-family: "Roboto", serif;
   font-optical-sizing: auto;
   font-weight: 600;
@@ -200,62 +199,123 @@ height: 100%;
   color: black;
   font-size: 20px;
 }
-.admn-sub-right{
-padding: 50px;
+.admn-sub-right {
+  padding: 50px;
 }
 
-.content{
+.content {
   width: 74px;
   height: 3px;
   background-color: rgb(68, 10, 10);
   border-radius: 20px;
   margin-bottom: 5px;
   /* margin-left: 5px; */
-
 }
-.admn-sub-right{
+.admn-sub-right {
   flex-direction: column;
-  width:50%;
-  height:100%;
+  width: 50%;
+  height: 100%;
 }
-.admn-sub-form{
+.admn-sub-form {
   margin-top: 30px;
   /* padding: 18px; */
 }
-.admn-inp input{
+.admn-inp input {
   border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 3px solid black;
-    background: none;
-    outline: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid black;
+  background: none;
+  outline: none;
 }
-.admn-inp input:focus{
+.admn-inp input:focus {
   box-shadow: none;
 }
-.admn-log-btn{
-  border:none;
-  outline:none;
+.admn-log-btn {
+  border: none;
+  outline: none;
   padding: 5px;
   background-color: rgb(118, 241, 118);
   color: white;
   text-transform: capitalize;
-  font-family: poppins,serif;
-  font-weight:500;
-  height:50px;
+  font-family: poppins, serif;
+  font-weight: 500;
+  height: 50px;
   border-radius: 20px;
   font-size: 17px;
-  background: linear-gradient(.25turn, rgb(68,10,10) 10%, black);
+  background: linear-gradient(0.25turn, rgb(68, 10, 10) 10%, black);
   letter-spacing: 7px;
   transition: 0.8s;
-  
 }
-.terms{
+.terms {
   width: 100%;
   font-size: 12px;
   color: #00000066;
   font-family: math;
 }
-.admn-log-btn:hover{
+.admn-log-btn:hover {
   transform: scale(1.1);
+}
+.dashboard-heading h2 {
+  color: #15154a;
+  text-transform: uppercase;
+  font-family: poppins, serif;
+  font-weight: 600;
+}
+.dashboard-card {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.product-dashboards {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.total-products-card {
+  text-transform: capitalize;
+  font-family: poppins, serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: black;
+}
+.total-products-count h2 {
+  text-transform: capitalize;
+  font-family: poppins, serif;
+  font-weight: 400;
+  font-size: 17px;
+  color: black;
+}
+.total-users {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  width: 245px;
+  height: 240px;
+  border-radius: 5px;
+}
+.total-users h4 {
+  text-transform: uppercase;
+  font-family: poppins, serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: #15154a;
+}
+.total-users h5 {
+  text-transform: capitalize;
+  font-family: poppins, serif;
+  font-weight: 600;
+  font-size: 20px;
+}
+.blank {
+  background: rgb(143, 143, 145);
+  background: linear-gradient(
+    107deg,
+    rgba(143, 143, 145, 1) 0%,
+    rgba(227, 18, 18, 0.9663515064228817) 47%,
+    rgba(236, 14, 85, 0.4033262963388481) 100%,
+    rgba(138, 158, 194, 1) 100%,
+    rgba(250, 250, 250, 1) 100%
+  );
+  width:100px;
+  height:3px;
+  border-radius: 10px;
 }

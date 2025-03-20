@@ -14,6 +14,8 @@ from .cartserializer import Userserializer
 from .cartserializer import Serializer
 from.cartserializer import Cartserializer
 from.cartserializer import Productserializer
+from .cartserializer import wishlistserializer
+from .cartserializer import buyingserializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.conf import settings
@@ -26,6 +28,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 import random
+import datetime
 
 
 
@@ -127,6 +130,7 @@ def cart(request):
         print("userid",user_id)
         print("your id",id)
         product=adminproduct.objects.get(id=id)
+        print("here your stock",product.stock_count)
         print("sss",product.id)
       
         
@@ -136,7 +140,11 @@ def cart(request):
             print("the cae",cart)
             print("the quant",cart.quantity)
             cart.quantity+=1
-            cart.totalprice+=float(product.price) 
+            print("jjjjj",product.stock_count)
+            price=float((product.price))
+          
+            
+            cart.totalprice=float((price)*(cart.quantity)) 
             cart.save()
             return JsonResponse({"message":"succesfull"})
             
@@ -145,9 +153,13 @@ def cart(request):
             price=product.price
             image=product.image
             name=product.name
+            totalprice=price
             stock_count=product.stock_count
+            
             print("stock_count",product.stock_count)
-            Cart.objects.create(product=product,totalprice=price,image=image,name=name,stock_count=stock_count,user_id=user_id) 
+            cart=Cart.objects.create(product=product,price=price,image=image,name=name,user_id=user_id,totalprice=totalprice,stock_count=stock_count) 
+            print("lllll")
+            cart.save()
             return JsonResponse({"message":"succesfull"})
     except Exception as e:
         print(e)
@@ -188,9 +200,10 @@ def getcart(request):
         id=data.get('id')
         print("kkkjhhguigdihuewtiue",id)
         store=Cart.objects.filter(user_id=id)
+        count=Cart.objects.filter(user_id=id).count()
         if store.exists():
           serializer=CartSerializer(store,many=True)
-          return JsonResponse({"data":serializer.data},safe=False)    
+          return JsonResponse({"data":serializer.data,"count":count},safe=False)    
     except Exception as e:
         print("error as ",e)
     
@@ -329,6 +342,8 @@ def updates(request):
         print ("ivida ethi")
         data=request.data
         id=data.get('id')
+        
+        
         productname=data.get("productname",None)
         updatediscount=data.get("updatediscount",None)
         updateimage=data.get("updateimage",None)
@@ -340,9 +355,10 @@ def updates(request):
         print("id",id)
         print(selecteditem)
         print(otherimage)
-        # int(updateprice)
-        # int(updatestock)
         productget=adminproduct.objects.get(id=id)
+        cartget=Cart.objects.filter(product_id=id)
+        print("caart",cartget)
+      
         print(updateprice)
         print(updateimage)
         print(productget) 
@@ -351,20 +367,35 @@ def updates(request):
              productget.name=productname
         if updateimage and updateimage != 'null':
             productget.image=updateimage
+           
         if selecteditem:
             productget.category=selecteditem    
         if updatediscount:
             productget.discount=updatediscount 
         if updateprice:
             productget.price=updateprice
+            
         if updatestock:
             productget.stock_count=updatestock
+            
         if description:
             productget.description=description   
         if otherimage:
             for image in otherimage:
                 ProductImages.objects.create(product=productget,image=image)
+        for cart in cartget:
+            if productname:
+                cart.name=productname
+            if updateimage and updateimage != 'null':
+                cart.image=updateimage
+            if updatestock:
+                cart.stock_count=updatestock
+                print("stock")
+            cart.save()
+        print("heloo")
         productget.save()
+       
+        
        
         return JsonResponse({"message":"recieved succesfully"})
     except Exception as e:
@@ -493,15 +524,14 @@ def UserUpdate(request):
 def forgetpass(request):
     try:
         data=request.data
-        id=data.get("user_id")
-        
         email=data.get("email")
-        print("the",id)
+      
         print("mail",email)
         global array
        
-        user=Usersignup.objects.filter(id=id).first()
-        print("th",user.id)
+        user=Usersignup.objects.filter(email=email).first()
+        print(user)
+        array=''
         if user:
             n=4
             for i in range (n):
@@ -517,8 +547,11 @@ def forgetpass(request):
             
             message=f"you verification code : {array}",
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email])
+            recipient_list=[email]
+            )
             return JsonResponse({"message":"recieved","otp":array})
+        if not user:
+            return JsonResponse({"error":"wrong"})
            
     except Exception as e:
         print("error",e)
@@ -546,13 +579,14 @@ def varifyEmail(request):
 def Userconfirmpass(request):
     try:
         data=request.data
-        id=data.get("id")
+        email=data.get("email")
+       
         password=data.get("password")
         print(password)
         hashpass=make_password(password)
-        user=Usersignup.objects.filter(id=id).first()
-        user_id=user.id
-        print("krrrr",user_id)
+        user=Usersignup.objects.filter(email=email).first()
+       
+        print("krrrr")
         print(hashpass)
         user.pasword=hashpass
         
@@ -562,6 +596,7 @@ def Userconfirmpass(request):
         
     except Exception as e:
         print("jiods")
+        print(e)
         return JsonResponse({"error":"wrong"})
         
       
@@ -854,7 +889,7 @@ def addtocart(request):
             quantity=Quantity
             totalprice=int(price)*int(quantity)
             print(totalprice)
-            Cart.objects.create(user_id=userId,totalprice=totalprice,quantity=quantity,name=name,image=image,stock_count=stockcount,product_id=productId)
+            Cart.objects.create(user_id=userId,totalprice=totalprice,quantity=quantity,name=name,image=image,product_id=productId)
             return JsonResponse({"message":"recieved successfully"})
     except Exception as e:
         print("error",e)
@@ -866,11 +901,15 @@ def addtocart(request):
 def addtowishList(request):
     try:
         data=request.data
+        print("shamil")
         productid=data.get("id")
         userId=data.get("userid")
+        print(productid)
+        print(userId)
         if productid and userId :
-            Wishlist.objects.create(product_id=productid,user_id=userId)
-            return JsonResponse({"message":"good"})
+            wish= Wishlist.objects.create(product_id=productid,user_id=userId)
+            wish.save()
+            return JsonResponse({"message":"good",},safe=False)
         else:
             return JsonResponse({"error":"wrong"})
         
@@ -898,3 +937,292 @@ def getwhistlist(request):
         print("error",e)
         return JsonResponse({"error":"wrong"})
             
+            
+@api_view(["POST"])
+def getWishList(request):
+    try:
+        data=request.data
+        userid=data.get("id")
+        print("the",userid)
+        if userid:
+            product=Wishlist.objects.filter(user_id=userid)
+            details=wishlistserializer(product,many=True)
+            print(details.data)
+            count=Wishlist.objects.filter(user_id=userid).count()
+            print(count)
+            return JsonResponse({"data":details.data,"count":count})
+            
+        else:
+           return JsonResponse({"error":"wrong"})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})  
+    
+    
+    
+@api_view(["POST"])
+def deleteWishList(request):
+    data=request.data
+    id=data.get('id')
+    userid=data.get("userid")
+    print(userid)
+    print(id)
+    if userid and id :
+        
+        wish=Wishlist.objects.filter(user_id=userid,product_id=id).delete()
+        product=Wishlist.objects.filter(user_id=userid)
+        serializer=wishlistserializer(product,many=True)
+        return JsonResponse({"message":"good","data":serializer.data})
+       
+        
+    else:
+        return JsonResponse({"wrong":"no datato delete"})
+    
+@api_view(["POST"])    
+def increaseQuantity(request):
+    try:
+        data=request.data
+        quantity=data.get("quantity")
+        productid=data.get("id")
+        userid=data.get("userid")
+        print("pppp",quantity)
+        print("id",productid)
+        print("user",userid)
+        product=Cart.objects.filter(user_id=userid,id=productid).first()
+        print(product)
+        print(quantity)
+        print(product.stock_count)
+        if quantity>product.stock_count:
+            serializer=CartSerializer(product)
+            return JsonResponse({"error":"you have already reech our max-stock","data":serializer.data})
+            
+        else:
+            print("hello",quantity)
+            product.quantity=quantity
+            print(type(product.price))
+            product.totalprice=quantity*product.price
+            product.save()
+           
+            totalprice=quantity*product.totalprice
+            print(totalprice)
+            return JsonResponse({"data":totalprice})
+     
+    except Exception as e:
+        print("error as",e)
+        return JsonResponse({"error":"wrong"})
+        
+@api_view(['POST'])
+def decreaseQuantity(request):
+    try:
+        data=request.data
+        productid=data.get("id")
+        userid=data.get("userid")
+        quantity=data.get("quantity")
+        print(productid)
+        print(userid)
+        print(quantity)
+        product=Cart.objects.filter(user_id=userid,id=productid).first()
+        print(product)
+        print(product.quantity)
+        product.quantity=quantity
+        product.totalprice=product.quantity*product.price
+        product.save()
+        return JsonResponse({"message":"recived successfully"})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"error"})
+    
+    
+@api_view(["POST"])
+def getproductforbuy(request):
+    try:
+        data=request.data
+        productid=data.get("product_id")
+        user_id=data.get("userid")
+        print("dd",user_id)
+        print("llllll",productid)
+        product=Cart.objects.filter(user_id=user_id,id=productid).first()
+        productdetails=Cart.objects.get(id=productid)
+        
+        if productdetails.stock_count<product.quantity:
+            print(productdetails.stock_count)
+            stocks= "out of stock"
+        else:
+            stocks=None
+            print("japan")
+        if not product:
+            return JsonResponse({"error": "Product not found"}, status=404)
+        print("hi,helelelele")
+        print(product)
+        print(product.quantity)
+        print(product.totalprice)
+        serialzer=CartSerializer(product)
+       
+        return JsonResponse({"data":serialzer.data,"stocks":stocks},safe=False)
+    except Exception as e:
+        return JsonResponse({"error":"wrong"})  
+    
+    
+@api_view(["POST"])
+def buyingproduct(request):
+    try:
+        data=request.data
+        product_id=data.get("product")[0]
+        user_id=data.get("user_id")
+        paymentmethod=data.get("paymentmethod")
+        
+        addreassid=data.get("addreassid")
+        coupen=data.get("coupen")
+        if product_id and user_id:
+            productdetails=Cart.objects.filter(user_id=user_id,id=product_id).first()
+            product_name=productdetails.name
+            product_image=productdetails.image
+            product_price=productdetails.price
+            product_quantity=productdetails.quantity
+            id=productdetails.product_id
+            date=datetime.date.today()
+            print(date)
+            print("jjj",id)
+            countofproduct=adminproduct.objects.filter(id=id).first()
+            stock=countofproduct.stock_count
+            if stock==0:
+                return JsonResponse({"outofstock":"the item is unavailable now"})
+            if stock<product_quantity:
+                return JsonResponse({"outofstock":"the quantity you choose cant we have only limted stock"})
+            if stock>=product_quantity:
+                print("good")
+                
+                last_order_id=BuyProduct.objects.order_by("-order_id").first()
+                print(last_order_id)
+                # print(last_order_id.order_id)
+                if last_order_id:
+                   res=last_order_id.order_id[4:]
+                   new_product_id=res
+                   print("res",res)
+                   new_product_id=(int(res)+1)
+                   new=str(new_product_id)
+                   new_id="ODR:"+new
+                   new_product_id=new_id
+                else:
+                    new_product_id="ODR:200"
+                    print("here is me")
+                
+                if coupen:
+                    print("hello")
+                    
+                else:
+                    print("hi")
+                    total_price=product_quantity*product_price
+                    print("kkk",total_price)
+                    print(paymentmethod)
+                    if paymentmethod=="COD":
+                        is_order_confirm=True
+                        lastpaymentid=BuyProduct.objects.order_by("-payment_id").first()
+                        print("ji")
+                        if lastpaymentid:
+                           res=lastpaymentid.order_id[4:]
+                           newpaymentidint=(int(res)+1)
+                           new=(str(newpaymentidint))
+                           newpaymentid="ODR:"+new
+                           
+                           print(newpaymentid)
+                        else:
+                            newpaymentid="ODR:200"
+                    else:
+                        print("hi")
+                        is_order_confirm=False
+                        
+                    buyingproduct=BuyProduct.objects.create(product_id=product_id,user_id=user_id,adreass_id=addreassid,date=date,quantity=product_quantity,paymentmethod=paymentmethod,order_id=new_product_id,price= product_price,totalprice=total_price,is_orderConfirm=is_order_confirm,payment_id=newpaymentid,name=product_name,image=product_image)
+                    print("hello")
+                    print(user_id)
+                    print(product_id)
+                    Cart.objects.filter(user_id=user_id,id=product_id).delete()
+                    countofproduct.stock_count=stock-product_quantity
+                    
+                    
+                    countofproduct.save()
+                    return JsonResponse({"message":"everything looks good"})
+                    
+        
+       
+        return JsonResponse({"message":"good"})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"worng"})
+    
+    
+    
+@api_view(["POST"])
+def getwishlistproductsfor(request):
+    try:
+        data=request.data
+        id=data.get("userid")
+        if id:
+            print("hiIIIIIIII")
+            product=Wishlist.objects.filter(user_id=id)
+            print(product)
+            serializer= wishlistserializer(product,many=True)
+            print('------------------------------------') 
+            print("hi",serializer.data)
+            return JsonResponse({"data":serializer.data},safe=False)
+        else:
+            return JsonResponse({"error":"the error"})
+    except Exception as e:
+        return JsonResponse({"error":"worng"})
+        
+        
+@api_view(["GET"])
+def getadminproductcount(request):
+  try:
+      print("Hi")
+      productcount=adminproduct.objects.count()
+      reviewcount=Contactdetails.objects.count()
+      userscount=Usersignup.objects.count()
+      samsungproduct=adminproduct.objects.filter(category="samsung").count()
+      appleproduct=adminproduct.objects.filter(category="iphone").count()
+      laptopproduct=adminproduct.objects.filter(category="laptop").count()
+      order=BuyProduct.objects.count()
+      return JsonResponse({"message":productcount,"review":reviewcount,"order":order,"userscount":userscount,"samsungproduct":samsungproduct,"appleproduct":appleproduct,"laptopproduct":laptopproduct})
+  except Exception as e:
+      print("something",e)
+      return JsonResponse({"error":"worng"})
+  
+@api_view(["POST"])
+def getmyorders(request):
+    try:
+        data=request.data
+        id=data.get("id")
+       
+        details=BuyProduct.objects.filter(user_id=id)
+        print("............///////////////.............................")
+       
+        serializer=buyingserializer(details,many=True)
+      
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("hello",e)      
+        return JsonResponse({"error":"wrong"})  
+    
+    
+@api_view(["POST"])
+def getinvoiceproduct(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        theproductdetails=BuyProduct.objects.filter(id=id)
+        if not theproductdetails.exists():
+            return JsonResponse({"error": "No products found"}, status=404)
+        print('.//////////////////////////////////////////////.....................')
+        print(theproductdetails)
+        serializer=buyingserializer(theproductdetails,many=True)
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"llllllllllllllllllll"})
+    
+    
+   
+    
+    
+ 
+        

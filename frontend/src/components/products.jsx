@@ -6,25 +6,34 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./products.css";
 import { BsCurrencyRupee } from "react-icons/bs";
-import { ToastContainer, toast as notifytoast } from "react-toastify";
-import { Bounce } from "react-toastify";
+
+import { Toast } from "primereact/toast";
+import "react-toastify/dist/ReactToastify.css";
 import Loading from "./loading/loading";
 import { useRef } from "react";
 import videos from "../assets/xlarge_2x (1).mp4";
-import { Toast } from "primereact/toast";
-import "react-toastify/dist/ReactToastify.css";
+
+
 import video from "../assets/xlarge_2x.mp4";
 
 import sideimage from "../assets/world_mac_iphone__mr1xfuchl56e_xlarge_2x-removebg-preview.png";
 
-
 import image from "../assets/HOME_P3_Main-KV_1440x640_pc_LTR-removebg-preview.png";
 import image3 from "../assets/pc_01_camera_cxp_01_portrait.jpg";
 import image4 from "../assets/left.png";
+import Whistlist from "../whistlist/whistlist";
 export default function Products() {
+  const showSuccess = () => {
+    toast.current.show({
+      severity: "success",
+      detail: "Product Added",
+      life: 3000,
+      className: "here-product-added",
+    });
+  };
   const [appleproduct, setappleproduct] = useState([]);
   const [product, setproduct] = useState([]);
-  const [laptop,setlaptop]=useState([])
+  const [laptop, setlaptop] = useState([]);
   const navigation = useNavigate("");
 
   const userdetails = useSelector((state) => state.auth.userdata);
@@ -38,34 +47,21 @@ export default function Products() {
     });
   };
 
-
-
-const get4laptops=async()=>{
-  const result = await fetch("http://localhost:8000/get4laptops", {
-    method: "POST",
-    headers: {
-      "X-CSRFToken": csrftoken,
-    },
-  });
-const res=await result.json()
-if(res.data){
-  setlaptop(res.data)
-}
-else{
-
-}
-
-
-
-}
-
-
-
-
+  const get4laptops = async () => {
+    const result = await fetch("http://localhost:8000/get4laptops", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+    });
+    const res = await result.json();
+    if (res.data) {
+      setlaptop(res.data);
+    } else {
+    }
+  };
 
   const notify = async (id) => {
-   
-
     if (userid) {
       const res = await fetch("http://localhost:8000/cart", {
         method: "POST",
@@ -80,23 +76,8 @@ else{
       const result = await res.json();
 
       if (result.message) {
-        notifytoast("Product added successfully", {
-          position: "top-right",
-        
-          autoClose: 1000,
-          hideProgressBar: false,
-          newestOnTop: false,
-          closeOnClick: true,
-          rtl: false,
-          pauseOnFocusLoss: true,
-          draggable: true,
-          pauseOnHover: true,
-          theme: "Success",
-          transition: Bounce,
-          className: "toast-custom",
-        });
+        showSuccess();
       } else {
-        console.log("wrong");
       }
     } else {
       show();
@@ -115,22 +96,21 @@ else{
     if (res.data) {
       setappleproduct(res.data);
     } else {
-  
     }
   };
 
   const navigatesamsung = () => {
     navigation("/SamsungProducts");
   };
- const navigatelaptop=()=>{
-  navigation("/LaptopProducts")
- }
- const navigateiphone=()=>{
-  navigation("/Appleproducts")
-
- }
-
-
+  const navigatelaptop = () => {
+    navigation("/LaptopProducts");
+  };
+  const navigateiphone = () => {
+    navigation("/Appleproducts");
+  };
+  const whistlist = (id) => {
+    navigation(`/Whistlist/${id}`);
+  };
 
   const getSamsungProducts = async () => {
     const result = await fetch("http://localhost:8000/get4samsungproduct", {
@@ -142,32 +122,37 @@ else{
     const res = await result.json();
     if (res.data) {
       setproduct(res.data);
-  
     } else {
-    
     }
   };
 
   useEffect(() => {
     getSamsungProducts();
     get4appleproducts();
-    get4laptops()
+    get4laptops();
   }, []);
 
   return (
     <div>
       <Nav2 />
+      <div className="card flex justify-content-center">
+      <Toast ref={toast} />
       <section
         className="image-product-left-first"
         style={{
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-        
+
           width: "100%",
           height: "100vh",
         }}
       >
+
+
+
+           
+
         <div className="d-padding">
           <div className="row" style={{ height: "80vh" }}>
             <div className="col-12">
@@ -248,7 +233,10 @@ else{
                     <div className="col-3 main-apple mt-4 ms-5" key={index}>
                       <div className="card-apple  w-100">
                         <div className="sub-card-apple">
-                          <img src={`http://127.0.0.1:8000/${item.image}`} />
+                          <img
+                            src={`http://127.0.0.1:8000/${item.image}`}
+                            onClick={() => whistlist(item.id)}
+                          />
                         </div>
                       </div>
                       <div>
@@ -280,10 +268,7 @@ else{
               <div className="mt-5 w-100 samsung-explore-more-btn">
                 <button onClick={navigatesamsung}>explore more </button>
               </div>
-              <ToastContainer />
-              <div className="card flex justify-content-center">
-                <Toast ref={toast} />
-              </div>
+             
             </div>
           </div>
         </div>
@@ -340,6 +325,7 @@ else{
                         <img
                           src={`http://127.0.0.1:8000/${item.image}`}
                           alt=""
+                          onClick={() => whistlist(item.id)}
                         />
                       </div>
                       <div>
@@ -358,7 +344,7 @@ else{
                         <span className="BsCurrencyRupee2"> {item.price}</span>
                       </div>
                       <div className="buy-apple">
-                        <button>buy</button>
+                        <button onClick={()=>notify(item.id)}>Add To Cart</button>
                       </div>
                     </div>
                   </div>
@@ -370,12 +356,10 @@ else{
               )}
             </div>
             <div className="mt-5 w-100 samsung-explore-more-btn">
-                <button onClick={navigateiphone}>explore more </button>
-              </div>
-              <ToastContainer />
-              <div className="card flex justify-content-center">
-                <Toast ref={toast} />
-              </div>
+              <button onClick={navigateiphone}>explore more </button>
+            </div>
+           
+         
           </div>
         </div>
       </section>
@@ -446,28 +430,32 @@ else{
         </div>
       </section>
 
-<section className="" style={{background:"black"}}>
-  <div className="container">
-    <div className="d-padding">
-<div className="mac-contac w-100 d-flex justify-content-between" >
-  <div>
-    <h1>
-      Explore The Products
-    </h1>
-  </div>
-  {/* <div>
+      <section className="" style={{ background: "black" }}>
+        <div className="container">
+          <div className="d-padding">
+            <div className="mac-contac w-100 d-flex justify-content-between">
+              <div>
+                <h1>Explore The Products</h1>
+              </div>
+              {/* <div>
     <h6>Take a Look</h6>
   </div> */}
+            </div>
 
-</div>
-
-   <div className="row justify-content-center">
+            <div className="row justify-content-center">
               {laptop.length > 0 ? (
                 laptop.map((item, index) => (
-                  <div className="col-3 main-apple mt-4 ms-5"style={{background:"white"}} key={index}>
+                  <div
+                    className="col-3 main-apple mt-4 ms-5"
+                    style={{ background: "white" }}
+                    key={index}
+                  >
                     <div className="card-apple  w-100">
                       <div className="sub-card-apple">
-                        <img src={`http://127.0.0.1:8000/${item.image}`} />
+                        <img
+                          src={`http://127.0.0.1:8000/${item.image}`}
+                          onClick={() => whistlist(item.id)}
+                        />
                       </div>
                     </div>
                     <div>
@@ -484,9 +472,7 @@ else{
                       >
                         {" "}
                         <span>add to cart</span>
-                        <span>
-                          {/* <MdArrowOutward /> */}
-                        </span>
+                        <span>{/* <MdArrowOutward /> */}</span>
                       </button>
                     </div>
                   </div>
@@ -498,20 +484,16 @@ else{
               )}
             </div>
             <div className="mac-explore-btn mt-5 mx-5">
-              <button className="bg-white" onClick={navigatelaptop}>explore</button>
+              <button className="bg-white" onClick={navigatelaptop}>
+                explore
+              </button>
             </div>
-            <ToastContainer />
-              <div className="card flex justify-content-center">
-                <Toast ref={toast} />
-              </div>
-
-
-    </div>
-  </div>
-</section>
-
-
-
+       
+          </div>
+        </div>
+     
+      </section>
+      </div>
 
       <Footer />
     </div>

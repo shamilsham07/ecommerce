@@ -94,10 +94,11 @@ navigate("/Forgetpass")
               <div className="col-6">
                 <label for="exampleInputEmail1">Name</label>
                 <input
-                  type="text"
+                  type="email"
                   class="form-control userdetailsemail"
                   id="exampleInputEmail1"
                   value={name}
+                  name="email"
                   onChange={(event)=>setname(event.target.value)}
                   placeholder="Enter name"
                 />

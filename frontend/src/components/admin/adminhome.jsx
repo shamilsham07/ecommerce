@@ -1,135 +1,215 @@
 import React, { useEffect, useState } from "react";
-import Card from "react-bootstrap/Card";
+import { Chart } from "primereact/chart";
 import "./admin.css";
+import "animate.css";
 import csrftoken from "../../csrf";
-import 'animate.css';
+import image from "../../assets/in-stock.png";
+
 export default function Adminhome() {
-const [value,setvalue]=useState('')
-const[order,setorder]=useState('')
-const count=async()=>{
- const res=await fetch("http://localhost:8000/count",{
-  method:"POST",
-  headers:{
-    'Content-Type': 'application/json',
-    'X-CSRFToken': csrftoken,
-  },
- })
- const result=await res.json()
- if (result.message){
- setvalue(result.message);
- }
-else if(result.error){
-   console.log(result.error)
- }
- else{
-  console.log("error")
- }
-}
+  const [chartData, setChartData] = useState({});
+  const [chartOptions, setChartOptions] = useState({});
+  const [productcount, setproductcount] = useState(0);
+  const [review, setreviewcount] = useState(0);
+  const [ordercount, setordercount] = useState(0);
+  const [usercount, setusercount] = useState(0);
+  const [samsungproduct, setsamsungproduct] = useState(0);
+  const [iphoneproduct, setiphoneproduct] = useState(0);
+  const [laptopproduct, setlaptopproduct] = useState(0);
 
-count()
+  const getadminproductcount = async () => {
+    try {
+      const result = await fetch("http://localhost:8000/getadminproductcount", {
+        method: "GET",
+      });
+      const res = await result.json();
+      if (res.message) {
+        console.log("good");
+        console.log(res.message);
+        console.log("jjjj", res.review);
+        setproductcount(res.message || 0);
+        setreviewcount(res.review || 0);
+        setordercount(res.order || 0);
+        setusercount(res.userscount || 0);
+        setsamsungproduct(res.samsungproduct || 0);
+        setlaptopproduct(res.laptopproduct || 0);
+        setiphoneproduct(res.appleproduct || 0);
+      } else {
+        console.log("worng");
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
+  useEffect(() => {
+    getadminproductcount();
+  }, []);
 
+  useEffect(() => {
+    const documentStyle = getComputedStyle(document.documentElement);
+    const data = {
+      labels: ["products", "order", "review"], // Use meaningful labels
+      datasets: [
+        {
+          data: [productcount, ordercount, review],
+          backgroundColor: [
+            documentStyle.getPropertyValue("--primary-500"),
+            documentStyle.getPropertyValue("--yellow-500"),
+            documentStyle.getPropertyValue("--red-500"),
+          ],
+          hoverBackgroundColor: [
+            documentStyle.getPropertyValue("--primary-500"),
+            documentStyle.getPropertyValue("--yellow-400"),
+            documentStyle.getPropertyValue("--red-400"),
+          ],
+        },
+      ],
+    };
 
-useEffect(()=>{
- const orderCount=async()=>{
-   const res=await fetch("http://localhost:8000/orderCount",{
-    method:"POST",
-    headers:{
-      'Content-Type': 'application/json',
-      'X-CSRFToken': csrftoken,
-    },
-   })
-   const result=await res.json()
-   if(result.data){
-    setorder(result.data)
+    const options = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+          },
+        },
+      },
+      responsive: true, // Ensure chart responsiveness
+      maintainAspectRatio: false,
+    };
 
-   }
-   if(result.error){
-   }
-  }
-  orderCount()
-  },[])
-
-
+    setChartData(data);
+    setChartOptions(options);
+  }, [productcount, review, ordercount, usercount]);
 
   return (
-    <div className="animate__animated  animate__zoomIn">
-    
-      
-          <div className="admin-home">
-            <div className="admin-home-heading">
-              <h4> my dashbord</h4>
-            </div>
-            <hr className="hrline" />
-            <div>
-              <div className="row">
-                <div className="col col-4"style={{borderRadius:"20px",backgroundColor:" rgb(68, 10, 10)",color:"white"}}>
-                  <Card border="dark animate__slideInDown " style={{borderRadius:"20px",backgroundColor:" rgb(68, 10, 10)",color:"white"}}>
-                  <Card.Header className="animate__animated  animate__zoomIn" style={{textTransform:"capitalize",fontSize:"30px",fontWeight:"700"}}>total products</Card.Header> 
-                  <Card.Body>
-                      <Card.Title className="animate__animated  animate__zoomIn" style={{fontSize:"30px",fontWeight:"900"}}>{value}</Card.Title>
-                      <Card.Text></Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
+    <div className="card flex justify-content-center p-3">
+      <div className="text-start dashboard-heading">
+        <h2>dashbord</h2>
+      </div>
+      <hr />
 
-                {/* for ordersss */}
+      <div className="row">
+        <div className="col-4">
+          <div className="dashboard-card p-3 d-flex">
+            <div className="text-start">
+              <div
+                className=""
+                style={{
+                  background: "rgb(10, 50, 109)",
+                  height: "70px",
+                  width: "60px",
 
-
-                <div className="col col-4 ms-2"style={{borderRadius:"20px",backgroundColor:" rgb(68, 10, 10)",color:"white"}}>
-                <Card border="dark animate__slideInDown " style={{borderRadius:"20px",backgroundColor:" rgb(68, 10, 10)",color:"white"}}>
-                  
-                  <Card.Header className="animate__animated  animate__zoomIn" style={{textTransform:"capitalize",fontSize:"30px",fontWeight:"700"}}>orders</Card.Header> 
-                   
-                    <Card.Body>
-                    <Card.Title className="animate__animated  animate__zoomIn" style={{fontSize:"30px",fontWeight:"900"}}>{order}</Card.Title>
-                     
-                      <Card.Text></Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div className="col col-3">
-                  <Card border="dark">
-                    <Card.Header>Header</Card.Header>
-                    <Card.Body>
-                      <Card.Title>Dark Card Title</Card.Title>
-                      <Card.Text></Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div className="col col-3">
-                  <Card border="dark">
-                    <Card.Header>Header</Card.Header>
-                    <Card.Body>
-                      <Card.Title>Dark Card Title</Card.Title>
-                      <Card.Text></Card.Text>
-                    </Card.Body>
-                  </Card>
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  className="product-dashboards"
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  <i class="bi bi-tag" style={{ fontSize: "23px" }}></i>
                 </div>
               </div>
-              <div className="row">
-                <div className="col  col-6 mt-5 d-flex justify-content-center align-items-center ">
-                  <Card border="dark">
-                    <Card.Header>Header</Card.Header>
-                    <Card.Body>
-                      <Card.Title>Dark Card Title</Card.Title>
-                      <Card.Text></Card.Text>
-                    </Card.Body>
-                  </Card>
+            </div>
+            <div className="text-start mt-1 ml-3">
+              <h4 className="total-products-card">Total products</h4>
+              <h2 className="total-products-card">{productcount}</h2>
+            </div>
+          </div>
+        </div>
+        <div className="col-4">
+          <div className="dashboard-card p-3 d-flex">
+            <div className="text-start">
+              <div
+                className=""
+                style={{
+                  background: "#307c32",
+                  height: "70px",
+                  width: "60px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  className="product-dashboards"
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  <i class="bi bi-bag-fill" style={{ fontSize: "23px" }}></i>
                 </div>
-                <div className="col  col-6 mt-5">
-                  <Card border="dark">
-                    <Card.Header>Header</Card.Header>
-                    <Card.Body>
-                      <Card.Title>Dark Card Title</Card.Title>
-                      <Card.Text></Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
+              </div>
+            </div>
+            <div>
+              <div className="text-start mt-1 ml-3">
+                <h4 className="total-products-card">orders</h4>
+                <h2 className="total-products-card">{ordercount}</h2>
               </div>
             </div>
           </div>
         </div>
-   
+        <div className="col-4">
+          <div className="dashboard-card p-3 d-flex">
+            <div className="text-start">
+              <div
+                className=""
+                style={{
+                  background: "#fe0e1a",
+                  height: "70px",
+                  width: "60px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  className="product-dashboards"
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  <i class="bi bi-chat-heart" style={{ fontSize: "23px" }}></i>
+                </div>
+              </div>
+            </div>
+            <div className="text-start mt-1 ml-3">
+              <h4 className="total-products-card">Reviews</h4>
+              <h2 className="total-products-card">{review}</h2>
+            </div>
+          </div>
+        </div>
+        <div className="col-3"></div>
+      </div>
+
+      <div className="d-flex justify-content-around align-items-center">
+        <div>
+          <Chart
+            type="pie"
+            data={chartData}
+            options={chartOptions}
+            className="w-full md:w-30rem"
+          />
+        </div>
+        <div className="total-users p-3">
+          <div className="text-center">
+            <h4 className="text-danger">overview</h4>
+          </div>
+          <div className="text-center d-flex justify-content-center">
+            <div className="blank"></div>
+          </div>
+          <div className="text-start mt-3">
+            <h5 className="text-success">No of users : {usercount}</h5>
+          </div>
+          <div className="text-start mt-3">
+            <h5 className="text-success">samsung : {samsungproduct}</h5>
+          </div>
+          <div className="text-start mt-3">
+            <h5 className="text-success">iphone : {iphoneproduct}</h5>
+          </div>
+          <div className="text-start mt-3">
+            <h5 className="text-success">laptop : {laptopproduct}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

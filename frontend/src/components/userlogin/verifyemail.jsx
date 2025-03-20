@@ -5,6 +5,9 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setotp } from "../redux/reducer";
+
 import csrftoken from "../../csrf";
 
 export default function Verifyemail() {
@@ -14,6 +17,8 @@ export default function Verifyemail() {
   const input4ref = useRef(null);
   const input5ref = useRef(null);
   const navigate=useNavigate()
+  const dispatch=useDispatch()
+
 
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
@@ -26,6 +31,7 @@ export default function Verifyemail() {
   const emailverify = async() => {
     const userotps = [input1, input2, input3, input4].join("");
     console.log("user", userotps);
+    console.log("theotp",otp)
 
     if (otp == "") {
       alert("something went wrong please go back");
@@ -34,6 +40,7 @@ export default function Verifyemail() {
       setInput3("");
       setInput4("");
     } else if (userotps == otp) {
+      console.log("hiu")
 
 const res=await fetch("http://localhost:8000/varifyEmail",{
        method:"POST",
@@ -46,9 +53,14 @@ const res=await fetch("http://localhost:8000/varifyEmail",{
 })
 const result=await res.json()
 if(result.message){
+  dispatch(setotp(''))
   navigate("/Confirmpass")
+}else{
+  console.log("kkkkkkklllll")
 }
-
+    }
+    else{
+      console.log("hih")
     }
   };
 
@@ -100,7 +112,8 @@ if(result.message){
           >
             <IoMdArrowRoundBack
               className="IoMdArrowRoundBack"
-              style={{ fontSize: "30px", color: "black" }}
+              style={{ fontSize: "30px", color: "black", cursor:"pointer" }}
+              onClick={()=>navigate("/forgetpass")}
             />
           </div>
           <div className="text-center w-100">

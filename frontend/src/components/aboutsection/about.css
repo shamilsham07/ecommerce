@@ -1,0 +1,148 @@
+.about-us-heading {
+  text-transform: capitalize;
+  font-family: poppins, serif;
+  font-weight: 600;
+  font-size: 50px;
+  color: black;
+  letter-spacing: 4px;
+}
+.about-home-btn button {
+  border: none;
+  outline: none;
+  padding: 7px;
+  background: none;
+  color: black;
+  text-transform: capitalize;
+}
+.blank-content-about {
+  height: 39px;
+  background: black;
+  width: 1px;
+}
+.about-us-btn {
+  border: none;
+  outline: none;
+  padding: 7px;
+  background: none;
+  color: black;
+  text-transform: capitalize;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+  transition: all 0.9s ease-in-out;
+}
+
+.about-image-first-page img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.heaidng-about-section1 {
+  text-align: start;
+  color: black;
+  text-transform: capitalize;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1.2;
+}
+.sub-content-about-first {
+  text-align: start;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.null-content {
+  background: black;
+  width: 254px;
+  height: 3px;
+margin-right: 145px;
+}
+.overview-about{
+    color:white;
+    font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+
+}
+.overview-about-sub{
+    color:white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    text-align: center;
+    width:100%;
+}
+.image-about-second{
+    width:100%;
+    height:100%;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+}
+.our-mission-about{
+  color:#154373;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  text-align: center;
+  text-transform: capitalize;
+}
+.mission-style{
+  list-style: none;
+  text-align: start;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+.mission-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height:100%;
+}
+.second-about-img{
+  width:100%;
+  height: 400px;
+  object-fit: contain;
+}
+.third-page-about{
+  color:#154373;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.third-page-about-page{
+  height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.get-started-button{
+  padding: 7px;
+  border: none;
+  outline: none;
+  background: none;
+  color: black;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  text-transform: capitalize;
+}
+.null-contents{
+  width: 290px;
+  height:1px;
+  background-color: black;
+}
+.mission-p-tag{
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 14px;
+}

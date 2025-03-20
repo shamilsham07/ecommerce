@@ -269,7 +269,7 @@
   font-weight: 300;
   font-family: "Poppins", serif;
   display: flex;
-  gap:7px;
+  gap: 7px;
   align-items: center;
   justify-content: center;
 }
@@ -355,14 +355,14 @@
 .footer-icons i {
   font-size: 18px;
 }
-.footer-align p{
+.footer-align p {
   text-align: center;
-width: 100%;
+  width: 100%;
 }
-.footer-padding{
+.footer-padding {
   padding-block: 35px !important;
 }
-.FcLike{
+.FcLike {
   font-size: 20px;
 }
 
@@ -372,12 +372,16 @@ width: 100%;
   right: 24px;
 }
 
-.here-product-added{
+.here-product-added {
   position: fixed;
-  top:100px;
-  right:20px;
-  width:200px;
-  height:50px;
-padding: 10px;
-  
+  top: 100px;
+  right: 20px;
+  width: 200px;
+  height: 50px;
+  padding: 10px;
+}
+.wishlist-icons{
+  width: 14px;
+  height: 21px;
+  object-fit: contain;
 }

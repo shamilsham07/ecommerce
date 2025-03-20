@@ -3,14 +3,17 @@ import backgroundimage from "../../assets/5968949.jpg";
 import { FaLock } from "react-icons/fa";
 import "./userlog.css";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setemail } from "../redux/reducer";
 import csrftoken from "../../csrf";
 export default function Confirmpass() {
-    const navigate=useNavigate("")
+  const dispatch = useDispatch();
+  const navigate = useNavigate("");
   const [pass1, setpass1] = useState("");
   const [confirmpass, setconfirmpass] = useState("");
-  const userdetails = useSelector((state) => state.auth.userdata);
-  const user_id=userdetails.id
+  const useremail = useSelector((state) => state.auth.email);
+  console.log("first", useremail);
   const confirmSave = async () => {
     if (pass1 == confirmpass) {
       const res = await fetch("http://localhost:8000/Userconfirmpass", {
@@ -19,14 +22,14 @@ export default function Confirmpass() {
           "X-CSRFToken": csrftoken,
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({id:user_id,password:pass1})
+        body: JSON.stringify({ email: useremail, password: pass1 }),
       });
-      const result=await res.json()
-      if(result.message){
-        navigate('/')
-      }
-      else{
-        console.log("error")
+      const result = await res.json();
+      if (result.message) {
+        dispatch(setemail(""));
+        navigate("/");
+      } else {
+        console.log("error");
       }
     } else {
       console.log("wrongpassword");

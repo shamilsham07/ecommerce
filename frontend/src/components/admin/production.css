@@ -108,19 +108,20 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 50vh;
 }
 .prorductsHeading h1 {
-  color: rgb(68, 10, 10);
+  color:#15154a;
   font-family: "Poppins", serif;
-  font-weight: 600;
+  font-weight: 800;
   font-style: normal;
 }
 .prorductsHeading button {
-  background-color: rgb(68, 10, 10);
+  background-color: #15154a;
   color: white;
   padding: 10px;
   border: none;
   outline: none;
-  border-radius: 10px;
+  border-radius: 6px;
   cursor: pointer;
+  width: 178px;
 }
 .newproduct-heading {
   color: rgb(68, 10, 10);
@@ -129,7 +130,6 @@ input[type="number"]::-webkit-outer-spin-button {
   font-style: normal;
   text-transform: capitalize;
 }
-
 
 .FaCheck {
   font-size: 26px;
@@ -151,7 +151,6 @@ input[type="number"]::-webkit-outer-spin-button {
   color: rgb(68, 10, 10);
   margin-top: 33px;
 }
-
 
 .products-main-section {
   margin-left: -1px;
@@ -249,16 +248,132 @@ input[type="number"]::-webkit-outer-spin-button {
   text-transform: capitalize;
   cursor: pointer;
 }
-.update-description{
-    height:100px !important;
+.update-description {
+  height: 100px !important;
 }
-.addmore-update-page-btn button{
-    border: none;
-    outline: none;
-    background: rgb(68, 10, 10);
-    color: white;
-    padding: 5px;
-    width: 100px;
-    font-weight: 100;
-    border-radius: 7px;
+.addmore-update-page-btn button {
+  border: none;
+  outline: none;
+  background: rgb(68, 10, 10);
+  color: white;
+  padding: 5px;
+  width: 100px;
+  font-weight: 100;
+  border-radius: 7px;
+}
+.second-sidebar-back {
+  background: #15154a;
+
+  color: white;
+}
+.second-sidebar-back h5 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.side-link {
+  height: 70px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  padding-inline: 30px;
+  gap: 10px;
+}
+
+
+.side-link h5 {
+  margin-bottom: 0 !important;
+  font-size:16px;
+}
+
+.side-home:hover {
+  transform: scale(1.01);
+}
+.side-dashbord:hover {
+  transform: scale(1.01);
+}
+.side-reviews:hover{
+  transform: scale(1.01);
+}
+.side-earnings:hover{
+  transform: scale(1.01);
+}
+
+.side-product:hover{
+  transform: scale(1.01);
+}
+.side-Logout:hover{
+  transform: scale(1.01);
+}
+/* 
+.side-dashbord {
+  cursor: pointer;
+
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-reviews {
+  cursor: pointer;
+
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-earnings {
+  cursor: pointer;
+
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-product {
+  cursor: pointer;
+
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.side-Logout {
+  cursor: pointer;
+
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+.CgMail {
+  font-size: 26px;
+}
+.CgMail-head {
+  border: 1px solid black;
+  border: 1px solid black;
+  width: 44px;
+  height: 44px;
+  border-radius: 57px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.sidebar-logo img {
+  width: 48%;
+  height: 53px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+.text-update{
+  text-align: start !important;
+}
+.background-table{
+  background-color: white;
+}
+.p-datatable-header{
+  border:none !important;
+  margin-bottom: 10px;
 }

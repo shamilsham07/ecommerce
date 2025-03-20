@@ -5,14 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Toast } from 'primereact/toast';
 import Footer from "../footer"
-import { Link } from "react-router-dom";
+
 import { useRef } from 'react';
 import { FcLike } from "react-icons/fc";
 import Loading from "../loading/loading";
 import csrftoken from "../../csrf";
 import { MdArrowOutward } from "react-icons/md";
-import { ToastContainer, toast as notifytoast } from "react-toastify";
-import { Bounce } from "react-toastify";
+
+
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,6 +26,17 @@ export default function SamsungProducts() {
   const show = () => {
     toast.current.show({ severity: 'error', detail: 'please login' ,className:"something-went-wrong"});
 };
+
+const showSuccess = () => {
+  toast.current.show({
+    severity: "success",
+    detail: "Product Added",
+    life: 3000,
+    className: "here-product-added",
+  });
+};
+
+
 
 
 
@@ -47,56 +58,27 @@ navigate(`/Whistlist/${id}`)
 
   const notify = async (id) => {
 
+    if (userid) {
+      const res = await fetch("http://localhost:8000/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
+        },
 
-    if(userid){
-      try {
-        const res = await fetch("http://localhost:8000/cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrftoken,
-          },
-         
-        body:JSON.stringify({id:id,userid:userid})
-  
-  
-        });
+        body: JSON.stringify({ id: id, userid: userid }),
+      });
 
-const result=await res.json()
+      const result = await res.json();
 
-
-if(result.message){
-  notifytoast("Product added successfully", {
-    position: "top-right",
-    // top:10,
-    autoClose: 1000,
-    hideProgressBar: false,
-    newestOnTop: false,
-    closeOnClick: true,
-    rtl: false,
-    pauseOnFocusLoss: true,
-    draggable: true,
-    pauseOnHover: true,
-    theme: "Success",
-    transition: Bounce,
-    className: "toast-custom",
-  });
-}
-else{
-console.log("wrong")
-}
-
-
-
-
-      } catch (error) {
-        console.log("error",error)
+      if (result.message) {
+        showSuccess();
+      } else {
       }
+    } else {
+      show();
     }
-    else{
-           
- show() 
-}
+ 
    
   };
 
@@ -129,6 +111,9 @@ console.log("wrong")
       <div className="">
         <div className="container">
           <div className="d-padding">
+          <div className="card flex justify-content-center">
+        <Toast ref={toast} />
+
             <div className="w-100 d-flex justify-content-center align-items-center ">
               <div className="left-line"></div>
               <div>
@@ -177,11 +162,9 @@ console.log("wrong")
               )}
             </div>
           </div>
+          </div>
         </div>
-        <ToastContainer />
-        <div className="card flex justify-content-center">
-        <Toast ref={toast} />
-</div>
+  
       </div>
 
 

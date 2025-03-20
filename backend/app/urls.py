@@ -41,5 +41,15 @@ path("gettheclickedproduct",views.gettheclickedproduct),
 path("addtocart",views.addtocart),
 path("addtowishList",views.addtowishList),
 path("getwhistlist",views.getwhistlist),
+path("getWishList",views.getWishList),
+path("deleteWishList",views.deleteWishList),
+path("increaseQuantity",views.increaseQuantity),
+path("decreaseQuantity",views.decreaseQuantity),
+path("getproductforbuy",views.getproductforbuy),
+path("buyingproduct",views.buyingproduct),
+path("getwishlistproductsfor",views.getwishlistproductsfor),
+path("getadminproductcount",views.getadminproductcount),
+path("getmyorders",views.getmyorders),
+path("getinvoiceproduct",views.getinvoiceproduct)
 ]
   

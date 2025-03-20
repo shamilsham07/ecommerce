@@ -3,11 +3,13 @@ import "./cartpage.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSelector } from "react-redux";
 import csrftoken from "../../csrf";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function Addresspage() {
   const navigate = useNavigate("");
   const userdetails = useSelector((state) => state.auth.userdata);
   const user_id = userdetails.id;
+  const{id}=useParams()
 
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Z]{2,}$/i;
   const userAdreass_id = useSelector((state) => state.auth.addreassId);
@@ -81,11 +83,11 @@ export default function Addresspage() {
         if (result.message) {
          
           emptyfield();
-          navigate("/Adreass");
+          navigate(`/adreass/${id}`);
         } else if (result.maximum) {
           alert("already reached maximum number of addreass");
           emptyfield();
-          navigate("/adreass");
+          navigate(`/adreass/${id}`);
         } else {
         
         }

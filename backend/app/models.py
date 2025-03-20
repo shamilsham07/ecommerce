@@ -52,11 +52,19 @@ class Usersignup(models.Model):
 class Cart(models.Model):
     product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
     quantity=models.IntegerField(default=1)
-    totalprice=models.FloatField()
+    price=models.FloatField()
+    totalprice=models.FloatField(blank=True,null=True,default=0)
     image=models.ImageField(upload_to=('images/'), height_field=None, width_field=None, max_length=None,blank=True,null=True)
     name=models.CharField(blank=True,null=True,max_length=300)
     stock_count=models.PositiveIntegerField(default=0)
     user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
+    
+    # def save(self,*args, **kwargs):
+    #     if self.product:
+    #         self.stock_count=self.product.stock_count
+    #     super(Cart, self).save(*args, **kwargs)
+            
+            
     
     
 class Orders(models.Model):
@@ -93,3 +101,23 @@ class Wishlist(models.Model):
     user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
     
     
+class BuyProduct(models.Model):
+    product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
+    user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
+    adreass=models.ForeignKey(Contactdetails,on_delete=models.CASCADE)
+    price=models.FloatField(blank=True,null=True)
+    totalprice=models.FloatField(blank=True,null=True)
+    quantity=models.IntegerField(default=1)
+    is_coupen=models.BooleanField(default=False)
+    coupen_code=models.TextField(blank=True,null=True)
+    paymentmethod=models.TextField(blank=True,null=True)
+    is_orderConfirm=models.BooleanField(default=False)
+    date=models.DateField()
+    order_id=models.TextField(blank=True,null=True)
+    payment_id=models.TextField(blank=True,null=True)
+    name=models.TextField(blank=True,null=True)
+    image=models.ImageField(upload_to=('images/'), max_length=None,blank=True,null=True)
+    
+            
+        
+         

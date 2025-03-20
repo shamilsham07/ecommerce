@@ -6,6 +6,16 @@
   outline: none;
 }
 
+.addreass-card{
+  height: 250px !important;
+  overflow-y: scroll;
+
+}
+.addreass-card::-webkit-scrollbar{
+  display: none;
+}
+
+
 .button-78 {
   align-items: center;
   appearance: none;
@@ -212,11 +222,27 @@
   text-transform: capitalize;
   color: black;
   /* margin-inline: 30px; */
-  font-size: 30px;
-  font-family: "Dancing Script", serif;
+  font-size: 20px;
+  font-family: "poppins", serif;
   font-optical-sizing: auto;
-  font-weight: 800;
+  font-weight: 400;
   font-style: normal;
+}
+.tick-image-img img{
+  width: 70px;
+  height: 70px;
+}
+.dig-visible{
+  height:170px;
+}
+.item-purchase-dialog{
+  color:black;
+  font-family: "poppins", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  
+
 }
 .yes-class {
   margin-inline: 36px;
@@ -387,4 +413,65 @@
   object-fit: contain;
 
 }
+.heading-of-cart h2{
+ color: black;
+}
+.heading-of-cart h3{
+  color: black;
+ }
+th{
+  color: black !important;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: 'Poppins';
+ }
+ .image-of-cart{
+  width:70px;
+  object-fit: contain;
+ }
+ .td-data{
+  vertical-align: middle;
+  color:black !important;
+ }
+.number-coloumn{
+  border: 1px solid #61616152;
+  width: 29px;
+  border-radius: 3px;
+}
+.add-add-cart-btn{
+  font-size: 17px;
 
+
+}
+.bi bi-dash{
+  font-size: 17px;
+  cursor:pointer;
+}
+.buy-it-cart{
+  background-color: orange;
+  padding: 7px;
+  border: none;
+    outline: none;
+    color: white;
+    width: 90px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 300;
+}
+.bi bi-trash3-fill{
+  color:red;
+}
+.delete-header{
+  width:20% !important;
+  height:165px !important;
+}
+.delete-png-addto img{
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+.close-png-img img{
+  width: 25px !important;
+  height: 25px !important;
+  cursor: pointer;
+}

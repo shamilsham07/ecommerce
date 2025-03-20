@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import csrftoken from "../csrf";
-import like from "../assets/heart.png"
-import redLike from "../assets/heart (1).png"
+import like from "../assets/heart.png";
+import redLike from "../assets/heart (1).png";
 import { Dialog } from "primereact/dialog";
 
 import image5 from "../assets/accept.png";
@@ -21,11 +21,11 @@ export default function Whistlist() {
   const [display5, setdisplay5] = useState(true);
   const [value, setvalue] = useState(1);
   const { id } = useParams();
-  const[likeimage,setlikeimage]=useState()
+  const [likeimage, setlikeimage] = useState();
   console.log("jjjjjjjjjjjj", id);
   const [images, setimage] = useState(image);
-  const userdetails = useSelector((state) => state.auth.userdata);
-  const userId = userdetails.id;
+  const userId = useSelector((state) => state.auth.userdata.id);
+
   const [maximumvalue, setmaximumvalue] = useState();
 
   const [productDetails, setproductdetails] = useState(null);
@@ -34,7 +34,7 @@ export default function Whistlist() {
 
   const addtocart = async () => {
     console.log(value);
-  
+
     const res = await fetch("http://localhost:8000/addtocart", {
       method: "POST",
       headers: {
@@ -48,40 +48,54 @@ export default function Whistlist() {
     if (result.message) {
       console.log("good");
       setVisible(true);
-    } if(result.stockmax){
-alert(result.stockmax)
+    }
+    if (result.stockmax) {
+      alert(result.stockmax);
     }
   };
-  const addtowhistlist=async()=>{
+  const addtowhistlist = async () => {
+    if (likeimage == redLike) {
+const results=await fetch("http://localhost:8000/deleteWishList",{
+  method:"POST",
+  headers:{
+    "X-CSRFToken": csrftoken,
+    "Content-Type": "application/json",
+  },
+  body:JSON.stringify({id:id,userid: userId}),
+})
+const ress=await results.json()
+if(ress.data){
+  console.log("daaaaaaaaaaaaaataaaaaa")
+  setlikeimage(like);
+}
+else{
+  console.log("hjijihobhjbhbhj")
+}
 
 
-    if(likeimage==redLike){
-      setlikeimage(like)
-    }
-    else{
-     const res=await fetch('http://localhost:8000/addtowishList',{
-      method:"POST",
-      headers:{
-        "X-CSRFToken": csrftoken,
-        "Content-Type": "application/json",
-      },
-    
-      body:JSON.stringify({id: id, userid: userId})
-     })
-     const result=await res.json()
-      if(result.message){
-        console.log("everything look good")
-        setlikeimage(redLike)
-      }
-      else{
-        console.log("wrong")
+
+     
+    } else {
+      const res = await fetch("http://localhost:8000/addtowishList", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({ id: id, userid: userId }),
+      });
+      const result = await res.json();
+      if (result.message) {
+        console.log("everything look good");
+        setlikeimage(redLike);
+      } else {
+        console.log("wrong");
       }
     }
-  }
+  };
 
   const gettheclickedproduct = async () => {
-
-
     const res = await fetch("http://localhost:8000/gettheclickedproduct", {
       method: "POST",
       headers: {
@@ -124,38 +138,29 @@ alert(result.stockmax)
     }
     setvalue((prevValue) => prevValue - 1);
   };
-const getwhistlist=async()=>{
-  console.log("userrrrrrr",userId)
+  const getwhistlist = async () => {
+    console.log("userrrrrrr", userId);
 
-const result=await fetch("http://localhost:8000/getwhistlist",{
-method:"POST",
-headers:{
-  "Content-Type": "application/json",
-  "X-CSRFToken": csrftoken,
-},
-body: JSON.stringify({ id: userId, productid: id }),
-})
-const res=await result.json()
-if(res.message){
-  console.log("hi everey")
-setlikeimage(redLike)
-}
-else{
-  console.log("wrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
-  setlikeimage(like)
-}
-
-}
+    const result = await fetch("http://localhost:8000/getwhistlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify({ id: userId, productid: id }),
+    });
+    const res = await result.json();
+    if (res.message) {
+      console.log("hi everey");
+      setlikeimage(redLike);
+    } else {
+      console.log("wrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+      setlikeimage(like);
+    }
+  };
   useEffect(() => {
+    getwhistlist();
 
-
-    getwhistlist()
-
-
-
-
-
-  
     if (stock_count > 5) {
       setdisplay5(false);
     }
@@ -171,7 +176,7 @@ else{
       console.log("hi");
       gettheclickedproduct();
     }
-  }, [id, navigate, value,stock_count]);
+  }, [id, navigate, value, stock_count]);
 
   return (
     <>
@@ -254,30 +259,29 @@ else{
                     <h3 className="text-start">{productDetails.name}</h3>
                   </div>
                   <div className="text-start">{productDetails.description}</div>
-                 
+
                   <div className="d-flex">
-                    <div>
-                  {productDetails.stock_count > 0 ? (
-                    <div className="text-success text-start mt-2">
-                      <h5>in stock</h5>
-                      {display5 ? (
-                        <p className="text-success">
-                          only {stock_count} products remaining
-                        </p>
+                    <div className="w-50">
+                      {productDetails.stock_count > 0 ? (
+                        <div className="text-success text-start mt-2 w-100">
+                          <h5>in stock</h5>
+                          {display5 ? (
+                            <p className="text-success">
+                              only {stock_count} products remaining
+                            </p>
+                          ) : (
+                            <div></div>
+                          )}
+                        </div>
                       ) : (
-                        <div></div>
+                        <div className="text-danger text-start mt-2">
+                          <h5>out of stock</h5>
+                        </div>
                       )}
                     </div>
-                  ) : (
-                    <div className="text-danger text-start mt-2">
-                      <h5>out of stock</h5>
+                    <div className="text-end like-png w-100">
+                      <img src={likeimage} alt="" onClick={addtowhistlist} />
                     </div>
-                  )}
-                  </div>
-                  <div className="text-end like-png w-100">
-                    <img src={likeimage} alt="" onClick={addtowhistlist} />
-                  </div>
-
                   </div>
 
                   <div className="text-start mt-3">

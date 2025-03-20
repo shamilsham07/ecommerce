@@ -12,6 +12,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "animate.css";
 import laptop from "../assets/main.png";
 import csrftoken from "../csrf";
+import likes from "../assets/heart.png";
+import redLike from "../assets/heart (1).png";
 
 import { useSelector } from "react-redux";
 
@@ -22,26 +24,106 @@ import iphone2 from "../assets/folable_iPhone.jpg";
 import Footer from "./footer";
 
 import { useNavigate } from "react-router-dom";
+import Wishlist from "../whistlist/wishlist";
+import { IoMdLogIn } from "react-icons/io";
 
 export default function Home() {
   const navigate = useNavigate();
-  const [product, setproduct] = useState("");
+  const [product, setproduct] = useState([]);
+  const [image, setimage] = useState(likes);
+
+  const [wishlist, setwishlist] = useState([]);
   const userdetails = useSelector((state) => state.auth.userdata);
   const userid = userdetails.id;
-
   const userauth = useSelector((state) => state.auth.userauthentication);
 
+  const getwishlistproductsfor = async () => {
+    try {
+      const result = await fetch(
+        "http://localhost:8000/getwishlistproductsfor",
+        {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": csrftoken,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userid: userid }),
+        }
+      );
 
+      const res = await result.json();
+      if (res.data) {
+        setwishlist(res.data);
+        console.log("her your product", res.data);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const whistlist=(id)=>{
+  const whistlist = (id) => {
+    navigate(`/Whistlist/${id}`);
+  };
 
-navigate('/Whistlist')
-  }
+  const addtowishlist = async (id) => {
+    console.log(id);
+    console.log(userid);
+    if (userid && id) {
+      const res = await fetch("http://localhost:8000/addtowishList", {
+        method: "POST",
+        headers
+        : {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userid: userid, id: id }),
+      });
+      const result = await res.json();
+      if (result.message) {
+        console.log("good");
+        setwishlist((prevWishlist) => [...prevWishlist, { product_id: id }]);
+
+      } else {
+        console.log("bad");
+      }
+    }
+    else{
+      alert("please login")
+      navigate("/userlogin")
+    }
+    
+  };
+const deletefromwhistlist=async(id)=>{
+  const results=await fetch("http://localhost:8000/deleteWishList",{
+    method:"POST",
+    headers:{
+      "X-CSRFToken": csrftoken,
+      "Content-Type": "application/json",
+    },
+    body:JSON.stringify({userid:userid,id:id}),
+})
+const res=await results.json()
+if(res.message){
+  console.log("good")
+  setwishlist((prevWishlist)=>prevWishlist.filter((product)=>product.product_id!==id))
+  console.log("mmmmmmm")
+  console.log(wishlist)
+
+}
+}
+
 
 
   const showSuccess = () => {
-    toast.current.show({severity:'success', detail:'Productadded', life: 3000,className:"here-product-added"});
-}
+    toast.current.show({
+      severity: "success",
+      detail: "Product added",
+      life: 3000,
+      className: "here-product-added",
+    });
+  };
 
   const toast = useRef(null);
   const show = () => {
@@ -70,17 +152,12 @@ navigate('/Whistlist')
     const result = await res.json();
 
     if (result.data) {
-    
       setproduct(result.data);
-   
     } else {
-   
     }
   };
 
   const notify = async (id) => {
-
-
     if (userid) {
       const res = await fetch("http://localhost:8000/cart", {
         method: "POST",
@@ -95,12 +172,8 @@ navigate('/Whistlist')
       const result = await res.json();
 
       if (result.message) {
-
-
-showSuccess()
-
+        showSuccess();
       } else {
-      
       }
     } else {
       show();
@@ -109,7 +182,8 @@ showSuccess()
 
   useEffect(() => {
     get4products();
-  }, []);
+    getwishlistproductsfor();
+  }, [userid]);
 
   // $(document).on('scroll',)
 
@@ -120,10 +194,10 @@ showSuccess()
         {/* <div className="card flex justify-content-center">
         <ToastContainer />
               </div> */}
-    
-              <div className="card flex justify-content-center">
-                <Toast ref={toast} />
-              </div>
+
+        <div className="card flex justify-content-center">
+          <Toast ref={toast} />
+        </div>
 
         <section className="first-page w-100  ">
           <div className="container">
@@ -176,45 +250,80 @@ showSuccess()
               </div>
               <div className="row">
                 {product.length > 0 ? (
-              
-                  product.map((product, index) => (
-                    <div className="col-lg-3 mt-4" key={index}>
-                      <div className="card-best-products">
-                        <div className="text-end">
-                          <FcLike className="FcLike" onClick={()=>whistlist(product.id)}/>
-                        </div>
-                        <div>
-                          <h4 className="card-best-products-heading text-dark">
-                            {product.name}
-                          </h4>
-                        </div>
-                        <div className="card-img-div">
-                          <img
-                            src={`http://127.0.0.1:8000/${product.image}`}
-                            alt=""
-                            className="card-best-products-img"
-                          />
-                        </div>
-                        <div>
-                          <h6 className="card-best-products-heading text-danger mt-2">
-                            ${product.price}
-                          </h6>
-                        </div>
-                        <div className="d-flex justify-content-around">
-                          <button
-                            className="add-to-btn"
-                            onClick={() => notify(product.id)}
-                          >
-                            {" "}
-                            <span>add to cart</span>
-                            <span>
-                              <MdArrowOutward />
-                            </span>
-                          </button>
+                  product.map((product, index) => {
+                    const theitem = Object.values(wishlist).find(
+                      (item) => item.product_id === product.id
+                    );
+                    return (
+                      <div className="col-lg-3 mt-4" key={index}>
+                        <div className="card-best-products">
+                          <div className="text-end">
+                            {theitem ? (
+                              <div>
+                                {" "}
+                                <img
+                                  src={redLike}
+                                  alt=""
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                  }}
+                                  onClick={()=>
+                                    deletefromwhistlist(product.id)
+                                  }
+                                />
+                              </div>
+                            ) : (
+                              <div>
+                                <img
+                                  onClick={() =>
+                                    addtowishlist(product.id, index)
+                                  }
+                                  src={image}
+                                  data={index}
+                                  alt=""
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                  }}
+                                />
+                              </div>
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="card-best-products-heading text-dark">
+                              {product.name}
+                            </h4>
+                          </div>
+                          <div className="card-img-div">
+                            <img
+                              src={`http://127.0.0.1:8000/${product.image}`}
+                              alt=""
+                              className="card-best-products-img"
+                              onClick={() => whistlist(product.id)}
+                            />
+                          </div>
+                          <div>
+                            <h6 className="card-best-products-heading text-danger mt-2">
+                              ${product.price}
+                            </h6>
+                          </div>
+                          <div className="d-flex justify-content-around">
+                            <button
+                              className="add-to-btn"
+                              onClick={() => notify(product.id)}
+                            >
+                              {" "}
+                              <span>add to cart</span>
+                              <span>
+                                <MdArrowOutward />
+                              </span>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <div>no data</div>
                 )}

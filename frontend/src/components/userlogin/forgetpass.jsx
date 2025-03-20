@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { loading } from "../redux/reducers";
 import csrftoken from "../../csrf";
 import { useNavigate } from "react-router-dom";
-import { setotp } from "../redux/reducer";
+import { setemail, setotp } from "../redux/reducer";
 
 import { IoMdArrowRoundBack } from "react-icons/io";
 export default function Forgetpass() {
@@ -20,12 +20,12 @@ export default function Forgetpass() {
   const userdetails = useSelector((state) => state.auth.userdata);
   const [mailvalue, setmailvalue] = useState("");
 
-  const email = userdetails.email;
-  const user_id = userdetails.id;
+  
+ 
   const forgetpass = async () => {
     try {
       dispatch(loading(true));
-      if (email == mailvalue) {
+      if (mailvalue) {
      
         const res = await fetch("http://localhost:8000/forgetpass", {
           method: "POST",
@@ -33,14 +33,15 @@ export default function Forgetpass() {
             "X-CSRFToken": csrftoken,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email: email, user_id: user_id }),
+          body: JSON.stringify({ email: mailvalue}),
         });
         const result = await res.json();
         if (result.message) {
       
           dispatch(loading(false));
           if (result.otp) {
-          
+            console.log('uuuu',mailvalue)
+            dispatch(setemail(mailvalue))
             dispatch(setotp(result.otp));
             navigate("/verifyemail");
           }
@@ -54,7 +55,7 @@ export default function Forgetpass() {
         dispatch(loading(false));
       }
     } catch (error) {
-   
+   console.log("error",error)
     }
   };
 
@@ -72,7 +73,8 @@ export default function Forgetpass() {
               <div className="ml-5 mt-5">
                 <IoMdArrowRoundBack
                   className="IoMdArrowRoundBack"
-                  style={{ fontSize: "30px" }}
+                  style={{ fontSize: "30px", cursor:"pointer" }}
+                  onClick={()=>navigate('/userlogin')}
                 />
               </div>
               <div className="text-center d-flex  justify-content-center align-items-center w-100 mt-5">

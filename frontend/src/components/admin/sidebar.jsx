@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
-import "./admin.css";
+import React from "react";
+import "./production.css";
+import { CgMail } from "react-icons/cg";
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa6";
+import { IoLogoYoutube } from "react-icons/io";
+import { FaHome } from "react-icons/fa";
+import logo from "../../assets/LOGO-1.png";
+import { useEffect } from "react";
 import { MdPlayArrow } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { change } from "../redux/reducers";
 import csrftoken from "../../csrf";
 import Cookies from "universal-cookie";
-import 'animate.css';
-
 import { authenticate } from "../redux/reducer";
 export default function MainSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const productClick = () => {
     dispatch(change(false));
-    navigate('/ProductsSection')
+    navigate("/ProductsSection");
   };
   const home = () => {
     dispatch(change(true));
-    navigate('/adminproductpage')
+    navigate("/adminproductpage");
   };
 
   const logout = async () => {
@@ -35,11 +40,10 @@ export default function MainSidebar() {
     });
     const result = await res.json();
     if (result.message) {
-      cookie.remove('username')
-      cookie.remove('userKey')
-      dispatch(authenticate(false))
-      navigate('/admin')
-
+      cookie.remove("username");
+      cookie.remove("userKey");
+      dispatch(authenticate(false));
+      navigate("/admin");
     }
     if (result.error) {
       console.log("hello");
@@ -47,42 +51,58 @@ export default function MainSidebar() {
   };
 
   return (
-    <>
-      <div className="sidebar  animate__animated animate__backInLeft position-fixed">
-        <div className="sidebar-heading">
-          <div>
-            <h4>discover </h4>
-          </div>
-          <div>
-            {" "}
-            <MdPlayArrow className="md" style={{ fontSize: "20px" }} />{" "}
-          </div>
-        </div>
-        <div className="view-products">
-          <div>
-            {" "}
-            <h6 onClick={productClick}>products</h6>
-          </div>
-        </div>
-        <div className="view-reviews">
-          <h6>reviews</h6>
-        </div>
-        <div className="view-category">
-          <h6>category</h6>
-        </div>
-        <div className="view-orders">
-          <h6>orders</h6>
-        </div>
-        <div className="view-settings">
-          <h6>settings</h6>
-        </div>
-        <div className="view-settings">
-          <h6 onClick={home}>home</h6>
-        </div>
-        <div className="view-settings">
-          <h6 onClick={logout}>logout</h6>
-        </div>
+    
+    
+          <div className="second-sidebar-back" style={{ height: "100vh",position:"fixed" }}>
+            <div className="sidebar-logo">
+              <img src={logo} alt="" />
+            </div>
+            <hr />
+            <div className="side-home side-link"onClick={home}>
+              <span>
+                <i class="bi bi-house-door-fill"></i>
+              </span>
+              <h5 className="mb-0">Home</h5>
+            </div>
+            <div className="side-dashbord side-link">
+              <span>
+                <i class="bi bi-graph-up-arrow"></i>
+              </span>
+              <h5>Dashbord</h5>
+            </div>
+            <div className="side-reviews side-link">
+              <span>
+                <i class="bi bi-stars"></i>
+              </span>
+              <h5>Reviews</h5>
+            </div>
+            <div className="side-earnings side-link  ">
+              <span>
+                <i class="bi bi-bank"></i>
+              </span>
+              <h5>Earnings</h5>
+            </div>
+            <div className="side-product side-link" onClick={productClick}>
+              <span>
+                <i class="bi bi-folder-plus"></i>
+              </span>
+              <h5>ProductPage</h5>
+            </div>
+            <div className="side-product side-link" onClick={productClick}>
+              <span>
+                <i class="bi bi-folder-plus"></i>
+              </span>
+              <h5>category</h5>
+            </div>
+            <div className="side-Logout side-link" onClick={logout}>
+              <span>
+                <i class="bi bi-box-arrow-left"></i>
+              </span>
+              <h5>Logout</h5>
+            </div>
+            <hr />
+        
       </div>
-    </>
+   
   );
 }

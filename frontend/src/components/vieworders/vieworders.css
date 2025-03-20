@@ -1,0 +1,55 @@
+.order-view-heading h3{
+    text-transform: capitalize;
+    font-family: poppins, serif;
+    font-weight: 800;
+    color:black;
+}
+.order-view-heading button{
+    border: none;
+    background: white;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    /* text-transform: capitalize; */
+    text-transform: capitalize;
+    font-family: poppins, serif;
+    font-weight: 500;
+    padding:7px;
+}
+.image-of-cart{
+    width:60px;
+    height:60px;
+}
+.verticls td{
+    vertical-align: middle;
+    color:black;
+}
+.download-invoice-btn{
+  background-color:
+  #154373;
+  color: white;
+    padding: 7px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-transform: capitalize;
+    font-family: poppins, serif;
+    font-weight: 400;
+}
+/* @media print {
+    .print-the-{
+display: none;
+    }
+   
+} */
+@media print{
+    page{
+        margin:0;
+    }
+}
+
+.heretable{
+    margin-left: auto;
+    margin-right: auto;
+
+}

@@ -3,7 +3,7 @@ import "./App.css";
 import UserSignup from "./components/userlogin/usersignup";
 import Adminhome from "./components/admin/adminhome";
 import Products from "./components/products";
-
+import PaymentComponent from "./components/razorpay/razorpay";
 import Wishlist from "./whistlist/wishlist";
 import Footer from "./components/footer";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -14,6 +14,9 @@ import Addproducts from "./components/admin/addProductpage/addproduct";
 import Loading from "./components/loading/loading";
 import Admin from "./components/admin/admin";
 import Home from "./components/home";
+import About from "./components/aboutsection/about";
+import Vieworders from "./components/vieworders/vieworders";
+
 import Confirmpass from "./components/userlogin/confirmpass";
 import Cartpage from "./components/cart/cartpage";
 import Productsupdate from "./components/admin/products/productsupdate";
@@ -37,10 +40,10 @@ import { useDispatch } from "react-redux";
 import Forgetpass from "./components/userlogin/forgetpass";
 import { useNavigate } from "react-router-dom";
 import { authenticate } from "./components/redux/reducer";
-
 import Updatepage from "./components/admin/updatepage";
 import ProductsSection from "./components/admin/productsSection";
 import { setUserData } from "./components/redux/reducer";
+import  PdfComponent from "./components/invoice/invoice"
 import Userdetails from "./components/userlogin/userdetailspage";
 import { setuserauthentication } from "./components/redux/reducer";
 import Appleproducts from "./components/appleProducts/appleproducts";
@@ -154,8 +157,8 @@ function App() {
         <Route path="/loading" element={<Loading />} />
         <Route path="/Cartpage" element={<Cartpage />} />
         <Route path="/Productsupdate" element={<Productsupdate />} />
-        <Route path="/ProductsSection" element={<ProductsSection />} />
-        <Route path="/Updatepage" element={<Updatepage />} />
+        <Route path="/ProductsSection" element={isAuthenticated?<ProductsSection />:<Admin/>} />
+        <Route path="/Updatepage" element={isAuthenticated?<Updatepage />:<Admin/>} />
         <Route
           path="/UserLogin"
           element={userauth ? <Home /> : <UserLogin />}
@@ -165,8 +168,8 @@ function App() {
         <Route path="/Forgetpass" element={<Forgetpass />} />
         <Route path="/verifyemail" element={<Verifyemail />} />
         <Route path="/Confirmpass" element={<Confirmpass />} />
-        <Route path="/Addresspage" element={<Addresspage />} />
-        <Route path="/Adreass" element={<Adreass />} />
+        <Route path="/Addresspage/:id" element={<Addresspage />} />
+        <Route path="/Adreass/:id" element={<Adreass />} />
         <Route path="/nav2" element={<Nav2 />} />
         <Route path="/Footer" element={<Footer />} />
 <Route path="/ResponsiveDemo"  element={<ResponsiveDemo/>}/>
@@ -175,8 +178,16 @@ function App() {
         <Route path="/LaptopProducts" element={<LaptopProducts />} />
         <Route path="/ContactPage"  element={<ContactPage/>}/>
         <Route path="/Whistlist/:id" element={<Whistlist/>}/>
-        <Route path="/Addproduct" element={<Addproducts/>}/>
+        <Route path="/Addproduct" element={isAuthenticated?<Addproducts/>:<Admin/>}/>
         <Route path="/Wishlist" element={<Wishlist/>}/>
+        <Route path="/PaymentComponent" element={<PaymentComponent/>}/>
+        <Route path="/PdfComponent" element={<PdfComponent/>}/>
+        <Route path="/Vieworders" element={<Vieworders/>}/>
+        <Route path="/About" element={<About/>}/>
+
+
+       
+
 
       </Routes>
     </div>
