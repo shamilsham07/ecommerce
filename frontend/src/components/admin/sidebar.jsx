@@ -14,6 +14,7 @@ import { change } from "../redux/reducers";
 import csrftoken from "../../csrf";
 import Cookies from "universal-cookie";
 import { authenticate } from "../redux/reducer";
+import Categorypage from "./addProductpage/categorypage";
 export default function MainSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -88,11 +89,17 @@ export default function MainSidebar() {
               </span>
               <h5>ProductPage</h5>
             </div>
-            <div className="side-product side-link" onClick={productClick}>
+            <div className="side-product side-link" onClick={()=>navigate("/Categorypage")}>
               <span>
                 <i class="bi bi-folder-plus"></i>
               </span>
               <h5>category</h5>
+            </div>
+            <div className="side-product side-link" onClick={()=>navigate("/Userauthuenticationpage")}>
+              <span>
+              <i class="bi bi-person-fill"></i>
+              </span>
+              <h5>User Authentication</h5>
             </div>
             <div className="side-Logout side-link" onClick={logout}>
               <span>

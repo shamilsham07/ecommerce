@@ -7,6 +7,7 @@ from .models import Useradress
 from .models import ProductImages
 from .models import Wishlist
 from .models import BuyProduct
+from .models import Category
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,6 +21,8 @@ class Serializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class Cartserializer(serializers.ModelSerializer):
+    order_count = serializers.IntegerField(source='order_Count', read_only=True)  
+    order_totalprice=serializers.IntegerField(source="order_Totalprice",read_only=True)
     class Meta:
         model = Usersignup
         fields = "__all__"
@@ -52,3 +55,7 @@ class buyingserializer(serializers.ModelSerializer):
         model= BuyProduct
         fields= "__all__"
     
+class Categoryserializer(serializers.ModelSerializer):
+    class Meta:
+        model=Category
+        fields="__all__"

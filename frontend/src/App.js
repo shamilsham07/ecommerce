@@ -16,7 +16,8 @@ import Admin from "./components/admin/admin";
 import Home from "./components/home";
 import About from "./components/aboutsection/about";
 import Vieworders from "./components/vieworders/vieworders";
-
+import Categorypage from "./components/admin/addProductpage/categorypage";
+import Userauthuenticationpage from "./components/admin/userauthentication/userauth";
 import Confirmpass from "./components/userlogin/confirmpass";
 import Cartpage from "./components/cart/cartpage";
 import Productsupdate from "./components/admin/products/productsupdate";
@@ -44,6 +45,7 @@ import Updatepage from "./components/admin/updatepage";
 import ProductsSection from "./components/admin/productsSection";
 import { setUserData } from "./components/redux/reducer";
 import  PdfComponent from "./components/invoice/invoice"
+
 import Userdetails from "./components/userlogin/userdetailspage";
 import { setuserauthentication } from "./components/redux/reducer";
 import Appleproducts from "./components/appleProducts/appleproducts";
@@ -172,7 +174,7 @@ function App() {
         <Route path="/Adreass/:id" element={<Adreass />} />
         <Route path="/nav2" element={<Nav2 />} />
         <Route path="/Footer" element={<Footer />} />
-<Route path="/ResponsiveDemo"  element={<ResponsiveDemo/>}/>
+        <Route path="/ResponsiveDemo"  element={<ResponsiveDemo/>}/>
         <Route path="/Appleproducts" element={<Appleproducts />} />
         <Route path="/SamsungProducts" element={<SamsungProducts />} />
         <Route path="/LaptopProducts" element={<LaptopProducts />} />
@@ -184,6 +186,11 @@ function App() {
         <Route path="/PdfComponent" element={<PdfComponent/>}/>
         <Route path="/Vieworders" element={<Vieworders/>}/>
         <Route path="/About" element={<About/>}/>
+        <Route path="/Categorypage" element={<Categorypage/>}/>
+        <Route path="/Userauthuenticationpage" element={<Userauthuenticationpage/>}/>
+
+
+
 
 
        

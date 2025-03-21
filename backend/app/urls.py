@@ -50,6 +50,12 @@ path("buyingproduct",views.buyingproduct),
 path("getwishlistproductsfor",views.getwishlistproductsfor),
 path("getadminproductcount",views.getadminproductcount),
 path("getmyorders",views.getmyorders),
-path("getinvoiceproduct",views.getinvoiceproduct)
+path("getinvoiceproduct",views.getinvoiceproduct),
+path("Createcategoy",views.Createcategoy),
+path("getcategory",views.getcategory),
+path("deletecategory",views.deletecategory),
+path("updatecategory",views.updatecategory),
+path("getuserauthpage",views.getuserauthpage),
+
 ]
   

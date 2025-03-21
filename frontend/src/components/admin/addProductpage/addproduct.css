@@ -1,110 +1,204 @@
-.add-product-heading-main{
-    color:black;
-    text-transform: capitalize;
-    letter-spacing: 2px;
-    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+.add-product-heading-main {
+  color: black;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
     sans-serif;
 }
-.add-product-form-submit input{
-background-color: #fff;
-border:none;
-outline:none;
+.add-product-form-submit input {
+  background-color: #fff;
+  border: none;
+  outline: none;
 }
 /* .add-product-form-submit label{
     background-color: #cec9c9;
 } */
-.add-product-form-submit label:focus{
-    background-color: none !important;
+.add-product-form-submit label:focus {
+  background-color: none !important;
 }
-.add-product-form-submit input:focus{
-    background-color:  #fff;
-    border:none;
-    outline:none;
-    box-shadow: none;
-    }
-
-.add-product-top-bar{
-      
-        height: 43px;
-      
-        border-top-left-radius: 45px;
-        border-top-right-radius: 45px;
-        background: rgb(68, 10, 10);
-}
-.add-product-add-more-btn{
-    padding: 7px;
-    border: none;
-    outline: none;
-    background: rgb(68, 10, 10);
-    color: white;
-    border-radius: 0px;
-    width: 100px;
-    margin-bottom: 17px;
-    text-transform: capitalize;
-    height: 35px;
-    font-size: 14px;
-    font-weight: 100;
-    border-radius: 4px;
-}
-.add-product-add-more-btn1{
-    padding: 7px;
-    border: none;
-    outline: none;
-    background: red;
-    color: white;
-    border-radius: 0px;
-    width: 100px;
-    margin-bottom: 17px;
-    text-transform: capitalize;
-    height: 35px;
-    font-size: 14px;
-    font-weight: 100;
-    border-radius: 4px;
-}
-#dropdown-basic{
-    background-color: rgb(68, 10, 10);
-    color:white;
-}
-.add-product-bottom-bar
-{
-    
-    height: 43px;
-      
-    border-bottom-left-radius: 45px;
-    border-bottom-right-radius: 45px;
-    background: rgb(68, 10, 10);
-}
-.add-products-btn-submit{
-    
+.add-product-form-submit input:focus {
+  background-color: #fff;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
-.add-products-btn-submit button{
-    padding: 7px;
-    border: none;
-    outline: none;
-    background: rgb(68, 10, 10);
-    color: white;
-    text-transform: capitalize;
-    font-size: 14px;
-    border-radius: 5px;
+.add-product-top-bar {
+  height: 43px;
+
+  border-top-left-radius: 45px;
+  border-top-right-radius: 45px;
+  background: rgb(68, 10, 10);
 }
-.image-cover-input{
-    width:42% !important;
+.add-product-add-more-btn {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background: rgb(68, 10, 10);
+  color: white;
+  border-radius: 0px;
+  width: 100px;
+  margin-bottom: 17px;
+  text-transform: capitalize;
+  height: 35px;
+  font-size: 14px;
+  font-weight: 100;
+  border-radius: 4px;
 }
-.add-product-form-submit textarea{
-    height:100px;
+.add-product-add-more-btn1 {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background: red;
+  color: white;
+  border-radius: 0px;
+  width: 100px;
+  margin-bottom: 17px;
+  text-transform: capitalize;
+  height: 35px;
+  font-size: 14px;
+  font-weight: 100;
+  border-radius: 4px;
 }
-.remove-input-image{
-    width: 42% !important;
+#dropdown-basic {
+  background-color: rgb(68, 10, 10);
+  color: white;
 }
-.product-details-heading h3{
-    color:black !important;
-    text-transform: capitalize;
-    letter-spacing: 2px;
-    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+.add-product-bottom-bar {
+  height: 43px;
+
+  border-bottom-left-radius: 45px;
+  border-bottom-right-radius: 45px;
+  background: rgb(68, 10, 10);
+}
+.add-products-btn-submit {
+}
+
+.add-products-btn-submit button {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background: rgb(68, 10, 10);
+  color: white;
+  text-transform: capitalize;
+  font-size: 14px;
+  border-radius: 5px;
+}
+.image-cover-input {
+  width: 42% !important;
+}
+.add-product-form-submit textarea {
+  height: 100px;
+}
+.remove-input-image {
+  width: 42% !important;
+}
+.product-details-heading h3 {
+  color: black !important;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
     sans-serif;
-    font-weight: 600;
+  font-weight: 600;
 }
-.c-padding{
-    padding: 80px;
+.c-padding {
+  padding: 80px;
+}
+.table-heads th {
+  background-color: #15154a !important;
+  color: white !important;
+}
+.add-category-main {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.category-page-heading {
+  text-transform: capitalize;
+
+  font-weight: 600;
+  color: #15154a;
+  font-family: "Poppins", sans-serif;
+}
+.add-category-btn-cate {
+  padding: 7px;
+  border: none;
+  border-radius: 5px;
+  text-transform: capitalize;
+  background: orange;
+  color: white;
+}
+.header-of-modal-category {
+  border: none !important;
+}
+.header-of-modal-category h5 {
+  color: #15154a;
+  text-transform: capitalize;
+
+  font-weight: 600;
+
+  font-family: "Poppins", sans-serif;
+}
+.body-of-modal-category {
+  border: none;
+}
+.input-modal-catgory {
+  background-color: #fafafa;
+  border: 1px solid #e6e6e6;
+  outline: none;
+  color: black;
+  border-radius: 3px;
+  margin-top: 1px;
+}
+.body-of-modal-category label {
+  color: black;
+  text-transform: capitalize;
+
+  font-weight: 600;
+
+  font-family: "Poppins", sans-serif;
+}
+.input-file-cat {
+  background-color: #fafafa !important;
+  border: 1px solid #e6e6e6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+}
+.input-modal-catgory::placeholder {
+  color: #9d9d9d;
+}
+.footer-of-modal-category{
+    border:none;
+}
+.submit-category-btn{
+    color:white !important;
+    background-color:orange !important;
+}
+.delete-category-btn{
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: red;
+    color:white;
+    width:70px;
+    padding: 7px;
+}
+.update-category-btn{
+    padding: 7px;
+    border: none;
+    outline: none;
+    background: orange;
+    color: white;
+    border-radius: 5px;
+    width:70px;
+}
+.update-input-cat{
+  background-color: #fafafa !important;
+  border: 1px solid #e6e6e6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding:7px;
 }

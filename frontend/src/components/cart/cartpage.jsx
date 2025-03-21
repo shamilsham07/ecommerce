@@ -183,7 +183,7 @@ export default function Cartpage() {
                           className="image-of-cart"
                         />
                       </th>
-                      <td className="td-data">{item.name}</td>
+                      <td className="td-data" style={{verticalAlign:"middle"}}>{item.name}</td>
                       <td className="td-data">
                         <div
                           className="d-flex justify-content-center  align-items-center"

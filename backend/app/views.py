@@ -10,6 +10,7 @@ import json
 from django.contrib.auth.models import User
 # Create your views here.
 from .cartserializer import CartSerializer
+from .cartserializer import Categoryserializer
 from .cartserializer import Userserializer
 from .cartserializer import Serializer
 from.cartserializer import Cartserializer
@@ -1223,6 +1224,83 @@ def getinvoiceproduct(request):
     
    
     
+@api_view(["POST"])
+def Createcategoy(request):
+    try:
+        data=request.data
+        categoryname=data.get("name")
+        name=''.join(categoryname.split()).lower()
+        print(name)
+        image=data.get('image')
+        print("name is",categoryname)
+        print("image",image)
+        yesExits=Category.objects.filter(categoryName=name).exists()
+        if yesExits:
+            return JsonResponse({"alert":"the cataegory is already exists"})
+        Category.objects.create(categoryName=name,image=image)
+        category=Category.objects.all()
+        serializer=Categoryserializer(category,many=True)
+        return JsonResponse({"data":serializer.data},safe=False)
+    except  Exception  as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
     
  
+@api_view(["GET"])
+def getcategory(request):
+    category=Category.objects.all()
+    serializer=Categoryserializer(category,many=True)
+    return JsonResponse({"data":serializer.data},safe=False)
+    
+        
+@api_view(["POST"])
+def deletecategory(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        print(id)
+        cat=Category.objects.filter(id=id).delete()
+      
+        category=Category.objects.all()
+        serializer=Categoryserializer(category,many=True)
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("e",e)
+        return JsonResponse({"error":"worng"})
+    
+@api_view(["POST"])
+def updatecategory(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        print(id)
+        name=data.get("name")
+        image=data.get("image")
+        print(image)
+        if id:
+            updateproduct=Category.objects.filter(id=id).first()
+            print(updateproduct.categoryName)
+            if name:
+                updateproduct.categoryName=name
+            if image =="null":
+                updateproduct.image=updateproduct.image
+            else:
+                image=updateproduct.image=image
+            updateproduct.save()
+            getall=Category.objects.all()
+            serializer=Categoryserializer(getall,many=True)
+            return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"recieved successfully"})
+    
+@api_view(["GET"])
+def getuserauthpage(request):
+    users=Usersignup.objects.all()
+    serializer=Cartserializer(users,many=True)
+    print(serializer.data)
+    return JsonResponse({'data':serializer.data},safe=False)
+    
+
+
         

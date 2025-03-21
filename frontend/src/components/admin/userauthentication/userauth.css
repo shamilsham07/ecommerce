@@ -1,0 +1,38 @@
+.user-managment-heading {
+  color: #15154a;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-family: "Poppins", sans-serif;
+}
+.main-userauth-cont{
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    height:75px;
+    border-radius: 20px;
+}
+.headings-f-table th{
+background-color: #15154a !important;
+color:white !important;
+}
+.block-user-btn{
+    padding:7px;
+    border:none;
+    outline: none;
+    background-color: orange;
+    color: black;
+    border-radius: 10px;
+    width: 70px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+.delete-user-btn{
+    padding:7px;
+    border:none;
+    outline: none;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    width: 70px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+
+}

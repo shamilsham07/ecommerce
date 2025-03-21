@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 
 # Create your models here.
 
@@ -45,9 +46,22 @@ class Usersignup(models.Model):
     email=models.EmailField(max_length=254)
     pasword=models.TextField()
     is_active=models.BooleanField(default=True)
+    
      
     def __str__(self):
          return self.name
+     
+    @property
+    def order_Count(self):
+       order_count= BuyProduct.objects.filter(user=self).count()
+       return order_count
+   
+    @property
+    def order_Totalprice(self):
+        total_price = BuyProduct.objects.filter(user=self).aggregate(total=Sum('totalprice'))
+        return total_price['total'] or 0 
+        
+          
      
 class Cart(models.Model):
     product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
@@ -117,6 +131,13 @@ class BuyProduct(models.Model):
     payment_id=models.TextField(blank=True,null=True)
     name=models.TextField(blank=True,null=True)
     image=models.ImageField(upload_to=('images/'), max_length=None,blank=True,null=True)
+    
+    
+    
+class Category(models.Model):
+    categoryName=models.TextField(blank=True,null=True)
+    image=models.ImageField(upload_to=('images/'), height_field=None, width_field=None, max_length=None,blank=True,null=True)
+    
     
             
         
