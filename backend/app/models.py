@@ -124,6 +124,8 @@ class BuyProduct(models.Model):
     coupen_code=models.TextField(blank=True,null=True)
     paymentmethod=models.TextField(blank=True,null=True)
     is_orderConfirm=models.BooleanField(default=False)
+    discount=models.DecimalField(default=0,blank=True,decimal_places=2,max_digits=5)
+    discountedamount=models.FloatField(default=0,blank=True)
     date=models.DateField()
     order_id=models.TextField(blank=True,null=True)
     payment_id=models.TextField(blank=True,null=True)
@@ -140,6 +142,7 @@ class Category(models.Model):
 class Coupen(models.Model):
     CoupenName=models.TextField(blank=True,null=True)
     discount=models.FloatField(blank=True,null=True)
+    is_active=models.BooleanField(default=True)
             
         
          

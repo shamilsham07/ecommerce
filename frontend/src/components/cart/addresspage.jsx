@@ -71,6 +71,7 @@ export default function Addresspage() {
         formdata.append("phonenumber", phonenumber);
         formdata.append("email", email);
         formdata.append("user_id", user_id);
+        console.log("FFFFFFFFFFFFFFFFFF")
 
         const res = await fetch("http://localhost:8000/adresssave", {
           method: "POST",

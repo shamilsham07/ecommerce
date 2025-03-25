@@ -475,3 +475,28 @@ th{
   height: 25px !important;
   cursor: pointer;
 }
+.discount-dalog{
+  font-weight: 800;
+}
+.img-emoji-disc{
+  width: 41px;
+    height: 42px;
+  object-fit: contain;
+}
+.congratulation{
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  
+}
+.popper{
+
+  transition: opacity 0.5s ease-out;
+}
+.discount-addreass{
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 13px;
+  color: black;
+}

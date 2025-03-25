@@ -1076,9 +1076,12 @@ def buyingproduct(request):
         product_id=data.get("product")[0]
         user_id=data.get("user_id")
         paymentmethod=data.get("paymentmethod")
-        
+        discount=data.get("discount")
+        originalprice=data.get("originalprice")
         addreassid=data.get("addreassid")
-        coupen=data.get("coupen")
+        coupen=data.get("coupenvalue")
+        coupesisactive=Coupen.objects.filter(CoupenName=coupen).first()
+        
         if product_id and user_id:
             productdetails=Cart.objects.filter(user_id=user_id,id=product_id).first()
             product_name=productdetails.name
@@ -1113,9 +1116,40 @@ def buyingproduct(request):
                     new_product_id="ODR:200"
                     print("here is me")
                 
-                if coupen:
+                if coupen and coupesisactive.is_active:
+                    price=product_quantity*product_price
+                    discountedprice=discount*price/100
+                    total_price=price-discountedprice
+                    if paymentmethod=="COD":
+                        is_order_confirm=True
+                        lastpaymentid=BuyProduct.objects.order_by("-payment_id").first()
+                        print("ji")
+                        if lastpaymentid:
+                           res=lastpaymentid.order_id[4:]
+                           newpaymentidint=(int(res)+1)
+                           new=(str(newpaymentidint))
+                           newpaymentid="ODR:"+new
+                        else:
+                            newpaymentid="ODR:200"
+                    else:
+                        print("hi")
+                        is_order_confirm=False
+                        
+                    buyingproduct=BuyProduct.objects.create(product_id=product_id,user_id=user_id,adreass_id=addreassid,date=date,quantity=product_quantity,paymentmethod=paymentmethod,order_id=new_product_id,price= product_price,totalprice=total_price,is_orderConfirm=is_order_confirm,payment_id=newpaymentid,name=product_name,image=product_image,coupen_code=coupen,is_coupen=True,
+                                                            discount=discount,discountedamount=discountedprice
+                                                            )
+                    updatecoupen=Coupen.objects.filter(CoupenName=coupen).first()
+                    updatecoupen.is_active=0
+                    updatecoupen.save()
                     print("hello")
+                    print(user_id)
+                    print(product_id)
+                    Cart.objects.filter(user_id=user_id,id=product_id).delete()
+                    countofproduct.stock_count=stock-product_quantity
                     
+                    
+                    countofproduct.save()
+                    return JsonResponse({"message":"everything looks good"})
                 else:
                     print("hi")
                     total_price=product_quantity*product_price
@@ -1394,3 +1428,32 @@ def coupendelete(request):
         return JsonResponse({"wrong":"something wwnt wrong"})
         
         
+@api_view(["POST"])
+def apllypromocode(request):
+    try:
+        data=request.data
+        coupen=data.get("coupenvalue")
+        print(coupen)
+        if Coupen.objects.filter(CoupenName=coupen).exists():
+            print("jhi")
+            item=Coupen.objects.filter(CoupenName=coupen).first()
+            if item.is_active==True:
+                discount=item.discount
+                print("sanamin")
+                return JsonResponse({"data":discount})
+            else:
+                return JsonResponse({"error":"wrong"})
+        else:
+            print("sanamilla")
+            return JsonResponse({"errors":"wrong"})
+    except Exception as e:
+        print("errror",e)
+        return JsonResponse({"wrong":"something went worng"})
+    
+
+@api_view(["POST"])
+def coupenupdatepage(request):
+    print hi
+        
+    
+    

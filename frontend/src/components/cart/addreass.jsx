@@ -4,15 +4,18 @@ import "./cartpage.css";
 import { useNavigate } from "react-router-dom";
 import csrftoken from "../../csrf";
 import { useDispatch, useSelector } from "react-redux";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdDomainVerification } from "react-icons/md";
+import Loading from "../loading/loading";
 import { MdDelete } from "react-icons/md";
 import { FaPencilAlt } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import image from "../../assets/41jOEM5KONL._SX569_.jpg";
 import { setaddreass } from "../redux/reducer";
 import image1 from "../../assets/check (2).png";
+import emoji from "../../assets/emoji.png";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+
 export default function Adreass() {
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -25,8 +28,63 @@ export default function Adreass() {
   const [addressdetails, setaddreassdetails] = useState([]);
   const userdetails = useSelector((state) => state.auth.userdata);
   const [value, setvaalue] = useState(false);
+  const [discount, setdiscount] = useState();
+  const [coupenvalue, setcoupenvalue] = useState("");
   const user_id = userdetails ? userdetails.id : null;
+  const [popper, setpopper] = useState(false);
+  const [totalprice, settotalprice] = useState();
+  const [visibleofprice, setofvisbleprice] = useState(false);
   const { id } = useParams();
+  const [originalprice, setoriginalprice] = useState();
+  const [variable, setvariable] = useState(false);
+
+  const [loader, setloader] = useState(true);
+
+  const apllypromocode = async () => {
+    setloader(false);
+    if (coupenvalue == "") {
+      alert("enter valid coupen");
+      setloader(true);
+    } else {
+      console.log("first");
+      const result = await fetch("http://localhost:8000/apllypromocode", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ coupenvalue: coupenvalue }),
+      });
+      const res = await result.json();
+      if (res.data) {
+        setdiscount(res.data);
+
+        setTimeout(() => {
+          setloader(true);
+        }, 1000);
+        setpopper(true);
+      }
+      if (res.error) {
+        console.log("firstly");
+        setvariable(true);
+        setTimeout(() => {
+          setloader(true);
+        }, 500);
+        alert("thecoupen already used");
+      }
+      if(res.errors){
+        setTimeout(() => {
+        setloader(true)
+        }, 500);
+        alert("the coupen is not found")
+      } 
+      else if (res.wrong) {
+        setloader(true);
+
+        console.log("firstzzzzzzzzzzz");
+      }
+    }
+  };
 
   const buyit = async () => {
     console.log(PaymentMethod);
@@ -50,7 +108,9 @@ export default function Adreass() {
               paymentmethod: PaymentMethod,
               user_id: user_id,
               addreassid: addreassid,
-              coupen: "",
+              coupenvalue: coupenvalue,
+              discount: discount,
+              originalprice: originalprice,
             }),
           });
 
@@ -58,6 +118,10 @@ export default function Adreass() {
           if (res.message) {
             console.log(res.message);
             setVisible(true);
+            setTimeout(() => {
+            navigation("/")
+              
+            }, 500);
           }
           if (res.outofstock) {
             alert(res.outofstock);
@@ -102,7 +166,8 @@ export default function Adreass() {
       if (res.data) {
         console.log("Product data received:", res.data);
         setproduct([res.data]);
-        console.log("jelli",res.stocks)
+        console.log("jelli", res.stocks);
+        settotalprice(res.data.totalprice);
         if (res.stocks != null) {
           setstock(true);
           console.log("kk", res.stocks);
@@ -142,7 +207,9 @@ export default function Adreass() {
       console.log("error", error);
     }
   };
-
+  const onClose = () => {
+    setpopper(false);
+  };
   const ondeleteaddreass = async (id) => {
     const addreass_id = id;
     try {
@@ -195,184 +262,272 @@ export default function Adreass() {
     console.log("updated product", product);
   }, [product]);
 
+  useEffect(() => {
+    if (popper) {
+      const timer = setTimeout(() => {
+        setpopper(false);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [popper, onClose]);
+
+  useEffect(() => {
+    if (discount) {
+      console.log("ooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+      const discountprice = (discount * totalprice) / 100;
+      console.log(discountprice);
+      console.log("toto", totalprice);
+      setoriginalprice(totalprice - discountprice);
+      console.log("oo", originalprice);
+      setofvisbleprice(true);
+    }
+  }, [discount]);
+
   return (
     <>
       <Nav2 />
 
-      <div className="adreass-section container">
-        <div className="card flex justify-content-center">
-          <Dialog
-            header=""
-            visible={visible}
-            className="dig-visible"
-            onHide={() => {
-              if (!visible) return;
-              setVisible(false);
-            }}
-            style={{ width: "40vw" }}
-            breakpoints={{ "960px": "75vw", "641px": "100vw" }}
-          >
+      {loader ? (
+        <div className="adreass-section container">
+          <div className="card flex justify-content-center">
+            <Dialog
+              header=""
+              visible={visible}
+              className="dig-visible"
+              onHide={() => {
+                if (!visible) return;
+                setVisible(false);
+              }}
+              style={{ width: "40vw" }}
+              breakpoints={{ "960px": "75vw", "641px": "100vw" }}
+            >
+              <div>
+                <div className="tick-image-img d-flex justify-content-center align-items-center">
+                  <img src={image1} alt="" />
+                </div>
+                <div className="text-center mt-2">
+                  <h4 className="item-purchase-dialog">
+                    item purchased succesfully
+                  </h4>
+                </div>
+              </div>
+            </Dialog>
+          </div>
+          <div className="d-flex justify-content-between align-items-center">
             <div>
-              <div className="tick-image-img d-flex justify-content-center align-items-center">
-                <img src={image1} alt="" />
-              </div>
-              <div className="text-center mt-2">
-                <h4 className="item-purchase-dialog">
-                  item purchased succesfully
-                </h4>
-              </div>
+              <h2 className="heading-main-add">Addresses</h2>
             </div>
-          </Dialog>
-        </div>
-        <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <h2 className="heading-main-add">Addresses</h2>
+            <div>
+              <button className="new-add-btn" onClick={AddnewAddreass}>
+                {" "}
+                <span>
+                  <MdAdd />
+                </span>
+                add new addreass
+              </button>
+            </div>
           </div>
-          <div>
-            <button className="new-add-btn" onClick={AddnewAddreass}>
-              {" "}
-              <span>
-                <MdAdd />
-              </span>
-              add new addreass
-            </button>
-          </div>
-        </div>
 
-        {value ? (
-          <div className="row p-5 w-100">
-            <div className="col-9">
-              <div className="row">
-                {addressdetails.map((addreass, index) => (
-                  <div className="col-4" key={index}>
-                    <div
-                      className="card addreass-card"
-                      data-id={addreass.id}
-                      onClick={() => {
-                        handleAddreass(addreass.id);
-                        setaddreassid(addreass.id);
-                      }}
-                    >
-                      <div class="card-body  body-of-card">
-                        <h5 class="card-title card-heads text-dark">
-                          {addreass.city}
-                        </h5>
+          {value ? (
+            <div className="row p-5 w-100">
+              <div className="col-9">
+                <div className="row">
+                  {addressdetails.map((addreass, index) => (
+                    <div className="col-4" key={index}>
+                      <div
+                        className="card addreass-card"
+                        data-id={addreass.id}
+                        onClick={() => {
+                          handleAddreass(addreass.id);
+                          setaddreassid(addreass.id);
+                        }}
+                      >
+                        <div class="card-body  body-of-card">
+                          <h5 class="card-title card-heads text-dark">
+                            {addreass.city}
+                          </h5>
 
-                        <h6 class="card-subtitle mb-2 card-names text-dark">
-                          {addreass.name}
-                        </h6>
-                        <p class="card-text w-100 text-dark card-addreass-p m-0 p-0 ">
-                          PH: {addreass.phonenumber}
-                        </p>
-                        <p className="card-text card-ph m-0">
-                          {addreass.email}
-                        </p>
-                        <p className="card-text card-ph m-0">
-                          {addreass.addreass}
-                        </p>
-                        <div className="addreass-edit">
-                          <span className="md-addreass">
-                            <MdDelete
-                              className="text-white"
-                              onClick={() => ondeleteaddreass(addreass.id)}
-                            />
-                          </span>
-                          <span className="md-addreass">
-                            <FaPencilAlt className="text-white" />
-                          </span>
+                          <h6 class="card-subtitle mb-2 card-names text-dark">
+                            {addreass.name}
+                          </h6>
+                          <p class="card-text w-100 text-dark card-addreass-p m-0 p-0 ">
+                            PH: {addreass.phonenumber}
+                          </p>
+                          <p className="card-text card-ph m-0">
+                            {addreass.email}
+                          </p>
+                          <p className="card-text card-ph m-0">
+                            {addreass.addreass}
+                          </p>
+                          <div className="addreass-edit">
+                            <span className="md-addreass">
+                              <MdDelete
+                                className="text-white"
+                                onClick={() => ondeleteaddreass(addreass.id)}
+                              />
+                            </span>
+                            <span className="md-addreass">
+                              <FaPencilAlt className="text-white" />
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="col-3">
-              <div className="product-details-buy">
-                <h5>Order Summary</h5>
-                <hr />
-
-                <div className="d-flex">
-                  <div className="summaryimage">
-                    <img src={image} alt="jj" />
-                  </div>
-
-                  <div>
-                    {product.map((item) => (
-                      <div className="ml-5 mt-4" key={item.id}>
-                        <div>{item.name}</div>
-                        <div>Quantity: {item.quantity}</div>
-                        <div className="text-danger">
-                          price: {item.totalprice}
-                        </div>
-                        <div className="">
-                          {stock ? (
-                            <div className="text-danger">out of stock</div>
-                          ) : (
-                            <div className="text-success">in stock</div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                  ))}
                 </div>
-                <div>
-                  <div className="mt-4 promocode">
-                    <h5>Promo Code</h5>
-                  </div>
-                  <div className="promoinput">
-                    <input type="text" placeholder="Enter your code" />
-                    <button>Apply</button>
-                  </div>
+              </div>
+              <div className="col-3">
+                <div className="product-details-buy">
+                  <h5>Order Summary</h5>
                   <hr />
+
+                  <div className="d-flex">
+                    <div className="summaryimage">
+                      <img src={image} alt="jj" />
+                    </div>
+
+                    <div>
+                      {product.map((item) => (
+                        <div className="ml-5 mt-4" key={item.id}>
+                          <div>{item.name}</div>
+                          <div>Quantity: {item.quantity}</div>
+                          <div className="text-danger">
+                            {visibleofprice ? (
+                              <div>
+                                <div>
+                                  <del className="text-dark">
+                                    Price: {item.totalprice}
+                                  </del>{" "}
+                                  <span className="text-success">
+                                    {originalprice}
+                                  </span>
+                                </div>
+                                <div className="discount-addreass">
+                                  Discount: {discount}%
+                                </div>
+                              </div>
+                            ) : (
+                              <div>
+                                <div> price: {item.totalprice}</div>
+                              </div>
+                            )}
+                          </div>
+                          <div className="">
+                            {stock ? (
+                              <div className="text-danger">out of stock</div>
+                            ) : (
+                              <div className="text-success">in stock</div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                   <div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault1"
-                        value="COD"
-                        defaultChecked
-                        checked={PaymentMethod === "COD"}
-                        onChange={(e) => setpaymentMethod(e.target.value)}
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexRadioDefault1"
-                      >
-                        COD
-                      </label>
+                    <div className="mt-4 promocode">
+                      <h5>Promo Code</h5>
                     </div>
-                    <div className="form-check">
+                    <div className="promoinput">
                       <input
-                        className="form-check-input"
-                        type="radio"
-                        name="flexRadioDefault"
-                        id="flexRadioDefault2"
-                        value="RAZER PAY"
-                        checked={PaymentMethod === "RAZER PAY"}
-                        onChange={(e) => setpaymentMethod(e.target.value)}
+                        type="text"
+                        placeholder="Enter your code"
+                        value={coupenvalue}
+                        onChange={(e) => setcoupenvalue(e.target.value)}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor="flexRadioDefault2"
+                      <button
+                        onClick={() => {
+                          apllypromocode();
+                        }}
                       >
-                        Razer Pay
-                      </label>
+                        Apply
+                      </button>
                     </div>
-                    <div className="order-summary-btn">
-                      <button onClick={buyit}>buy</button>
+                    <hr />
+                    <div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault1"
+                          value="COD"
+                          defaultChecked
+                          checked={PaymentMethod === "COD"}
+                          onChange={(e) => setpaymentMethod(e.target.value)}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="flexRadioDefault1"
+                        >
+                          COD
+                        </label>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="flexRadioDefault"
+                          id="flexRadioDefault2"
+                          value="RAZER PAY"
+                          checked={PaymentMethod === "RAZER PAY"}
+                          onChange={(e) => setpaymentMethod(e.target.value)}
+                        />
+                        <label
+                          className="form-check-label"
+                          htmlFor="flexRadioDefault2"
+                        >
+                          Razer Pay
+                        </label>
+                      </div>
+                      <div className="order-summary-btn">
+                        <button onClick={buyit}>buy</button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div>nodataaaaaaa</div>
-        )}
-      </div>
+          ) : (
+            <div>nodataaaaaaa</div>
+          )}
+
+          {popper && (
+            <div
+              className="modal show d-block popper"
+              tabIndex="-1"
+              role="dialog"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title text-dark">Congratulations!</h5>
+                    <button className="btn-close" onClick={onClose}></button>
+                  </div>
+                  <div className="modal-body">
+                    <img src={emoji} alt="" className="img-emoji-disc" />
+                    <p className="text-success congratulation mt-2">
+                      Congratulations! You Got a{" "}
+                      <span className="text-danger discount-dalog">
+                        {discount}%
+                      </span>{" "}
+                      Discount
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div>
+          <Loading />
+        </div>
+      )}
     </>
   );
 }

@@ -4,97 +4,140 @@
   font-weight: 600;
   font-family: "Poppins", sans-serif;
 }
-.main-userauth-cont{
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-    height:75px;
-    border-radius: 20px;
+.main-userauth-cont {
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+  height: 75px;
+  border-radius: 20px;
 }
-.headings-f-table th{
-background-color: #15154a !important;
-color:white !important;
+.headings-f-table th {
+  background-color: #15154a !important;
+  color: white !important;
 }
-.block-user-btn{
-    padding:7px;
-    border:none;
-    outline: none;
-    background-color: orange;
-    color: black;
-    border-radius: 10px;
-    width: 100px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
+.block-user-btn {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background-color: orange;
+  color: black;
+  border-radius: 10px;
+  width: 100px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
-.delete-user-btn{
-    padding:7px;
-    border:none;
-    outline: none;
-    background-color: red;
-    color: white;
-    border-radius: 10px;
-    width: 70px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
+.delete-user-btn {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  width: 70px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+.blocks-user-btn {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background-color: green;
+  color: black;
+  border-radius: 10px;
+  width: 100px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+.add-coupen-btn {
+  padding: 7px;
+  width: 119px;
+  border: none;
+  outline: none;
+  color: white;
 
+  border-radius: 5px;
+  text-transform: capitalize;
+  background: #15154a;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
-.blocks-user-btn{
-    padding:7px;
-    border:none;
-    outline: none;
-    background-color: green;
-    color: black;
-    border-radius: 10px;
-    width: 100px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
+.delete-coupen-btn {
+  border: none;
+  outline: none;
+  padding: 7px;
+  background-color: red;
+  color: white;
+  width: 100px;
+
+  text-transform: capitalize;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  border-radius: 5px;
 }
-.add-coupen-btn{
-    padding: 7px;
-    width: 119px;
+.add-coupen-title-modal {
+  text-transform: capitalize;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  border-radius: 5px;
+  color: #15154a;
+}
+.coupen-input {
+  background-color: #fafafa;
+  border: 1px solid #e6e6e6;
+  outline: none;
+  color: black;
+  border-radius: 3px;
+}
+.label-coupen {
+  color: #15154a;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: capitalize;
+}
+.expired-btn{
     border: none;
     outline: none;
+    padding: 7px;
+    background-color: green;
     color: white;
-   
-    border-radius: 5px;
+    width: 100px;
     text-transform: capitalize;
-    background: #15154a;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
+    border-radius: 5px;
+
 }
-.delete-coupen-btn{
-    border:none;
+.non-expired-btn{
+    border: none;
     outline: none;
-    padding:7px;
+    padding: 7px;
     background-color: red;
-    color:white;
-    width :70px;
+    color: white;
+    width: 100px;
     text-transform: capitalize;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
     border-radius: 5px;
+
 }
-.add-coupen-title-modal{
-    text-transform: capitalize;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    border-radius: 5px;
-    color: #15154a;
-}
-.coupen-input{
-    background-color: #fafafa;
-    border: 1px solid #e6e6e6;
+.update-btn-coupen{
+
+    border: none;
     outline: none;
-    color: black;
-    border-radius: 3px;
-}
-.label-coupen{
-    color:#15154a;
+    padding: 7px;
+    background-color: green;
+    color: white;
+    width: 100px;
+    text-transform: capitalize;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
-    text-transform: capitalize;
-
-
+    border-radius: 5px;
+}
+.modal{
+    transition:2s ease-in-out !important;
 }
