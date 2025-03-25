@@ -45,7 +45,7 @@ import Updatepage from "./components/admin/updatepage";
 import ProductsSection from "./components/admin/productsSection";
 import { setUserData } from "./components/redux/reducer";
 import  PdfComponent from "./components/invoice/invoice"
-
+import Coupen from "./components/admin/userauthentication/coupen";
 import Userdetails from "./components/userlogin/userdetailspage";
 import { setuserauthentication } from "./components/redux/reducer";
 import Appleproducts from "./components/appleProducts/appleproducts";
@@ -188,7 +188,9 @@ function App() {
         <Route path="/About" element={<About/>}/>
         <Route path="/Categorypage" element={<Categorypage/>}/>
         <Route path="/Userauthuenticationpage" element={<Userauthuenticationpage/>}/>
+        <Route path="/Coupen" element={<Coupen/>}/>
 
+        
 
 
 

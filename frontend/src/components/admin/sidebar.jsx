@@ -6,6 +6,7 @@ import { FaInstagram } from "react-icons/fa6";
 import { IoLogoYoutube } from "react-icons/io";
 import { FaHome } from "react-icons/fa";
 import logo from "../../assets/LOGO-1.png";
+import image2 from "../../assets/coupon (1).png"
 import { useEffect } from "react";
 import { MdPlayArrow } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -100,6 +101,12 @@ export default function MainSidebar() {
               <i class="bi bi-person-fill"></i>
               </span>
               <h5>User Authentication</h5>
+            </div>
+            <div className="side-product side-link" onClick={()=>navigate("/Coupen")}>
+              <span>
+              <img src={image2} alt="" className="coupen-icon" />
+              </span>
+              <h5>Coupen Code</h5>
             </div>
             <div className="side-Logout side-link" onClick={logout}>
               <span>

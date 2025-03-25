@@ -56,6 +56,14 @@ path("getcategory",views.getcategory),
 path("deletecategory",views.deletecategory),
 path("updatecategory",views.updatecategory),
 path("getuserauthpage",views.getuserauthpage),
+path("userdeletes",views.userdeletes),
+path("userblock",views.userblock),
+path("coupenadd",views.coupenadd),
+path("getcoupeninitally",views.getcoupeninitally),
+path("coupendelete",views.coupendelete),
+
+
+
 
 ]
   

@@ -60,8 +60,6 @@ class Usersignup(models.Model):
     def order_Totalprice(self):
         total_price = BuyProduct.objects.filter(user=self).aggregate(total=Sum('totalprice'))
         return total_price['total'] or 0 
-        
-          
      
 class Cart(models.Model):
     product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
@@ -139,6 +137,9 @@ class Category(models.Model):
     image=models.ImageField(upload_to=('images/'), height_field=None, width_field=None, max_length=None,blank=True,null=True)
     
     
+class Coupen(models.Model):
+    CoupenName=models.TextField(blank=True,null=True)
+    discount=models.FloatField(blank=True,null=True)
             
         
          

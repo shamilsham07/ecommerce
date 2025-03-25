@@ -377,3 +377,9 @@ input[type="number"]::-webkit-outer-spin-button {
   border:none !important;
   margin-bottom: 10px;
 }
+.coupen-icon{
+  width: 16px;
+  color: white;
+  filter: invert(1);
+  object-fit: contain;
+}

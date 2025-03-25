@@ -16,6 +16,7 @@ from .cartserializer import Serializer
 from.cartserializer import Cartserializer
 from.cartserializer import Productserializer
 from .cartserializer import wishlistserializer
+from .cartserializer import Coupenserializer
 from .cartserializer import buyingserializer
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
@@ -448,15 +449,17 @@ def usersignup(request):
 @api_view(["POST"])
 def userLog(request):
     try:
-        print("cccccccc")
+    
         data=request.data
-        print(data)
+       
         usermail=data.get("usermail")
         print(usermail)
         userpass=(data.get("userpass"))
         print("the pasword",userpass)
+        
         getuser= Usersignup.objects.get(email=usermail)
-        if getuser:
+        
+        if getuser.is_active:
            id=getuser.id
            passwords=getuser.pasword
            print(passwords)
@@ -466,7 +469,9 @@ def userLog(request):
                 serializer=Cartserializer(getuser)
                 return JsonResponse({"data":serializer.data},safe=False)
            else:
-               return JsonResponse({"error":"wrong"})    
+               return JsonResponse({"error":"wrong"})  
+        else:
+            return JsonResponse({"nouse":"User have no permisson to login, please contact customer care"})  
      
     except Exception as e:
         print ("error",e)       
@@ -1300,7 +1305,92 @@ def getuserauthpage(request):
     serializer=Cartserializer(users,many=True)
     print(serializer.data)
     return JsonResponse({'data':serializer.data},safe=False)
-    
 
+@api_view(["POST"])
+def userdeletes(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        print("this is your id")
+        if id:
+            Usersignup.objects.filter(id=id).delete()
+            users=Usersignup.objects.all()
+            print(users)
+            serializer=Cartserializer(users,many=True)
+            print(serializer.data)
+            return JsonResponse({"data":serializer.data},safe=False)
+        else:
+            return JsonResponse({"nouser":"no user is found"})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"full of error"})
 
+@api_view(["POST"])
+def userblock(request):
+    try:
+      data=request.data
+      id=data.get("id")
+      print("id",id)
+      user=Usersignup.objects.filter(id=id).first()
+      if user:
+         if not user.is_active:
+             user.is_active=True
+             
+         else:
+             user.is_active=False
+         user.save()
+         userdetails=Usersignup.objects.all()
+         serializer=Cartserializer(userdetails,many=True)
+         
+         return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+      
+@api_view(["POST"])
+def coupenadd(request):
+    try:
+        data=request.data
+        coupenvalue=data.get("coupenvalue")
+        discvalue=data.get("coupendisc")
+        Coupen.objects.create(CoupenName=coupenvalue,discount=discvalue)
+        coupens=Coupen.objects.all()
+        if coupens:
+         serializer=Coupenserializer(coupens,many=True)
+         print("hi")
+         return JsonResponse({"data":serializer.data},safe=False)
+        return JsonResponse({"error":"wrong"})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"wrong":"error"})
+        
+@api_view(["GET"])
+def getcoupeninitally(request):
+    try:
+        coupens=Coupen.objects.all()
+        if coupens:
+                serializer=Coupenserializer(coupens,many=True)
+                print("hi")
+                return JsonResponse({"data":serializer.data},safe=False)
+        else:
+            return JsonResponse({"message":"wrong"},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"wrong":"something wwnt wrong"})
+
+@api_view(["POST"])    
+def coupendelete(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        print(id)
+        Coupen.objects.filter(id=id).delete()
+        coupens=Coupen.objects.all()
+        serializer=Coupenserializer(coupens,many=True)
+        print("hi")
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"wrong":"something wwnt wrong"})
+        
         

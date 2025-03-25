@@ -8,7 +8,7 @@ from .models import ProductImages
 from .models import Wishlist
 from .models import BuyProduct
 from .models import Category
-
+from.models import Coupen
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
@@ -58,4 +58,9 @@ class buyingserializer(serializers.ModelSerializer):
 class Categoryserializer(serializers.ModelSerializer):
     class Meta:
         model=Category
+        fields="__all__"
+        
+class Coupenserializer(serializers.ModelSerializer):
+    class Meta:
+        model=Coupen
         fields="__all__"

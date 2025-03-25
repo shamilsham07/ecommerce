@@ -56,6 +56,9 @@ export default function UserLogin() {
 
           navigate("/");
         }
+        if(result.nouse){
+          alert(result.nouse)
+        }
         if (result.error) {
           alert("wrong id and pass");
           setmail("");

@@ -20,7 +20,7 @@ color:white !important;
     background-color: orange;
     color: black;
     border-radius: 10px;
-    width: 70px;
+    width: 100px;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
 }
@@ -34,5 +34,67 @@ color:white !important;
     width: 70px;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
+
+}
+.blocks-user-btn{
+    padding:7px;
+    border:none;
+    outline: none;
+    background-color: green;
+    color: black;
+    border-radius: 10px;
+    width: 100px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+.add-coupen-btn{
+    padding: 7px;
+    width: 119px;
+    border: none;
+    outline: none;
+    color: white;
+   
+    border-radius: 5px;
+    text-transform: capitalize;
+    background: #15154a;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.delete-coupen-btn{
+    border:none;
+    outline: none;
+    padding:7px;
+    background-color: red;
+    color:white;
+    width :70px;
+    text-transform: capitalize;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 5px;
+}
+.add-coupen-title-modal{
+    text-transform: capitalize;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    border-radius: 5px;
+    color: #15154a;
+}
+.coupen-input{
+    background-color: #fafafa;
+    border: 1px solid #e6e6e6;
+    outline: none;
+    color: black;
+    border-radius: 3px;
+}
+.label-coupen{
+    color:#15154a;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: capitalize;
+
 
 }
