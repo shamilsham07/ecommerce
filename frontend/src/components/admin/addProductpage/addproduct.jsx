@@ -2,7 +2,8 @@ import React from "react";
 import MainSidebar from "../sidebar";
 import "./addproduct.css";
 import { useState } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
+
+import { Dropdown } from 'primereact/dropdown';
 import csrftoken from "../../../csrf";
 
 import { MdDelete } from "react-icons/md";
@@ -273,6 +274,7 @@ export default function Addproducts() {
           </div>
         </div>
       </section>
+
     </>
   );
 }

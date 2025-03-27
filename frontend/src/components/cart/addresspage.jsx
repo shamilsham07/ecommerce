@@ -3,6 +3,7 @@ import "./cartpage.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useSelector } from "react-redux";
 import csrftoken from "../../csrf";
+import Nav2 from "../nav2";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function Addresspage() {
@@ -100,7 +101,8 @@ export default function Addresspage() {
 
   return (
     <>
-      <div className="main-address w-100 d-flex">
+    <Nav2/>
+      <div className="main-address w-100 d-flex mt-5">
         <div className="left-adress">
           <div className="container">
             <form action="" className="p-5">
@@ -231,7 +233,7 @@ export default function Addresspage() {
                 <div className="col-12">
                   <button
                     className="add-new-adreass  w-100"
-                    style={{ backgroundColor: "green" }}
+                  
                     onClick={(event) => adresssave(event)}
                     type="submit"
                   >

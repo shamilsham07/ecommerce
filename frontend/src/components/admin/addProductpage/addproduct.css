@@ -34,7 +34,7 @@
   padding: 7px;
   border: none;
   outline: none;
-  background: rgb(68, 10, 10);
+  background: #15154a;
   color: white;
   border-radius: 0px;
   width: 100px;
@@ -61,7 +61,7 @@
   border-radius: 4px;
 }
 #dropdown-basic {
-  background-color: rgb(68, 10, 10);
+  background-color:#15154a;
   color: white;
 }
 .add-product-bottom-bar {
@@ -78,14 +78,15 @@
   padding: 7px;
   border: none;
   outline: none;
-  background: rgb(68, 10, 10);
+  background: #15154a;
   color: white;
   text-transform: capitalize;
   font-size: 14px;
   border-radius: 5px;
 }
 .image-cover-input {
-  width: 42% !important;
+  /* width: 42% !important; */
+  
 }
 .add-product-form-submit textarea {
   height: 100px;
@@ -201,4 +202,40 @@
   outline: none !important;
   box-shadow: none !important;
   padding:7px;
+}
+.add-product-heading-section h1{
+  text-transform: capitalize;
+  font-weight: 600;
+  color: #15154a;
+  font-family: "Poppins", sans-serif;
+}
+.add-product-2-name{
+  background-color: #fafafa;
+  border: 1px solid #e6e6e6;
+  outline: none;
+  color: black;
+  border-radius: 3px;
+  margin-top: 1px;
+
+}
+.add-product-2-name-label{
+  color:#15154a;
+}
+.border-for-form{
+  border:2px solid#e6e6e6;
+  border-radius: 10px;
+}
+.selector-category{
+  background-color: #fafafa !important;
+  border: 1px solid #e6e6e6 !important;
+  outline: none;
+  color: black;
+  border-radius: 3px;
+}
+.description-text-area{
+  background-color: #fafafa !important;
+  border: 1px solid #e6e6e6 !important;
+  outline: none;
+  color: black;
+  border-radius: 3px;
 }

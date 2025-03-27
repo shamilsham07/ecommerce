@@ -7,10 +7,12 @@
 }
 
 .addreass-card{
-  height: 250px !important;
+ 
   overflow-y: scroll;
 
 }
+
+
 .addreass-card::-webkit-scrollbar{
   display: none;
 }
@@ -159,10 +161,11 @@
   margin-top: 30px;
   font-family: "Poppins", serif;
   font-weight: 700;
+  color:#15154a;
   font-style: normal;
 }
 .add-new-adreass {
-  background-color: green;
+  background-color: #15154a;
   height: 64px;
   border: none;
   outline: none;
@@ -208,13 +211,13 @@
   height: 50px;
 }
 .card-heads {
-  border-bottom: 1px solid #212121;
+ 
   text-align: start;
-  color: black;
-  text-transform: uppercase;
-  text-decoration: solid;
-  width: fit-content;
-  font-weight: 300;
+
+  text-transform: capitalize;
+  font-family: "poppins", serif;
+  font-weight: 700;
+  color: #15154a;
 }
 .card-names {
   text-align: start;
@@ -257,13 +260,12 @@
 }
 .card-ph {
   width: 100%;
-  text-align: start;
-  margin-inline: 30px;
   text-transform: capitalize;
   font-family: "Poppins", serif;
   font-weight: 500;
   font-style: normal;
   color: black;
+  font-size: 14px;
 }
 .addreass-edit {
   display: flex;
@@ -281,11 +283,15 @@
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 .card-addreass-p {
-  margin-inline: 30px;
+  display: flex;
+  flex-flow: column;
+  text-transform: capitalize;
   font-family: "Poppins", serif;
   font-weight: 500;
   font-style: normal;
   text-align: start;
+  color: #15154a;
+  font-size: 14px;
 }
 .order-summary {
   font-family: "Poppins", serif;
@@ -499,4 +505,32 @@ th{
   font-style: normal;
   font-size: 13px;
   color: black;
+}
+.addreass-email-field{
+  height: 20px;
+    width: 212px;
+    text-align: start;
+    
+}
+
+.addreass-side-addreass-page{
+  width:212px;
+  height:45px;
+}
+.mail-field-addreass{
+  text-transform: capitalize;
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-style: normal;
+    text-align: start;
+    color: #15154a;
+    font-size: 14px;
+}
+.addreass-height-manage{
+  height:48px !important;
+  overflow: hidden ;
+  overflow-y: scroll;
+}
+.addreass-height-manage::-webkit-scrollbar {
+  display: none
 }

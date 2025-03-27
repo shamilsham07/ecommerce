@@ -72,13 +72,12 @@ export default function Adreass() {
         }, 500);
         alert("thecoupen already used");
       }
-      if(res.errors){
+      if (res.errors) {
         setTimeout(() => {
-        setloader(true)
+          setloader(true);
         }, 500);
-        alert("the coupen is not found")
-      } 
-      else if (res.wrong) {
+        alert("the coupen is not found");
+      } else if (res.wrong) {
         setloader(true);
 
         console.log("firstzzzzzzzzzzz");
@@ -119,8 +118,7 @@ export default function Adreass() {
             console.log(res.message);
             setVisible(true);
             setTimeout(() => {
-            navigation("/")
-              
+              navigation("/");
             }, 500);
           }
           if (res.outofstock) {
@@ -333,7 +331,7 @@ export default function Adreass() {
               <div className="col-9">
                 <div className="row">
                   {addressdetails.map((addreass, index) => (
-                    <div className="col-4" key={index}>
+                    <div className="col-6" key={index}>
                       <div
                         className="card addreass-card"
                         data-id={addreass.id}
@@ -344,31 +342,56 @@ export default function Adreass() {
                       >
                         <div class="card-body  body-of-card">
                           <h5 class="card-title card-heads text-dark">
-                            {addreass.city}
+                            {addreass.name}
                           </h5>
 
-                          <h6 class="card-subtitle mb-2 card-names text-dark">
+                          {/* <h6 class="card-subtitle mb-2 card-names text-dark">
                             {addreass.name}
-                          </h6>
-                          <p class="card-text w-100 text-dark card-addreass-p m-0 p-0 ">
-                            PH: {addreass.phonenumber}
-                          </p>
-                          <p className="card-text card-ph m-0">
-                            {addreass.email}
-                          </p>
-                          <p className="card-text card-ph m-0">
-                            {addreass.addreass}
-                          </p>
-                          <div className="addreass-edit">
-                            <span className="md-addreass">
-                              <MdDelete
-                                className="text-white"
+                          </h6> */}
+                          <div className="card-text w-100 text-dark card-addreass-p ">
+                            <span class="fw-bold ">Phone :</span> 
+                            <span style={{ fontWeight: "300" }}>
+                              {" "}
+                              {addreass.phonenumber}
+                            </span>
+                          </div>
+                          <div className="w-100 text-start card-addreass-p ">
+                            <span className="fw-bold text-start mail-field-addreass">
+                              Mail :
+                            </span>
+                            <span
+                              className="addreass-email-field"
+                              style={{ fontWeight: "300" }}
+                            >
+                              {addreass.email}
+                            </span>
+                          </div>
+                          <div className="card-text w-100 text-dark card-addreass-p ">
+                            <span class="fw-bold ">Addreass:</span>
+                            <div className="addreass-height-manage">
+                            <span style={{ fontWeight: "300" }} >
+                              {" "}
+                              {addreass.addreass}
+                            </span>
+                            </div>
+                           
+                          </div>
+
+                          <hr />
+                          <div className="d-flex justify-content-center w-100 align-items-center">
+                            <div className="w-50">
+                              <button
+                                className="btn btn-danger w-100 "
                                 onClick={() => ondeleteaddreass(addreass.id)}
-                              />
-                            </span>
-                            <span className="md-addreass">
-                              <FaPencilAlt className="text-white" />
-                            </span>
+                              >
+                                Delete
+                              </button>
+                            </div>
+                            <div className="w-50 ml-2">
+                              <button className="btn btn-success w-100">
+                                Edit
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>

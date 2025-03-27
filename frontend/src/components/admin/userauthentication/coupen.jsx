@@ -6,34 +6,37 @@ import { FloatLabel } from "primereact/floatlabel";
 import csrftoken from "../../../csrf";
 export default function Coupen() {
   const [visible, setvisible] = useState(false);
-  const[updatecoupen,setupdatecoupen]=useState(false)
+  const [updatecoupen, setupdatecoupen] = useState(false);
   const [coupenvalue, setcoupenvalue] = useState("");
   const [coupendisc, setcoupendisc] = useState();
   const [valuealert, setvaluealert] = useState(false);
   const [coupen, setcoupen] = useState([]);
   const [id, setid] = useState();
-  const[deletevisible,setdeletevisible]=useState(false)
+  const [deletevisible, setdeletevisible] = useState(false);
   const [discvaluealert, setdiscvaluealert] = useState(false);
-  const[updatecoupens,setupdatecoupens]=useState("")
-  const[updatedisc,setupdatedisc]=useState()
+  const [updatecoupens, setupdatecoupens] = useState("");
+  const [updatedisc, setupdatedisc] = useState();
 
- 
-const coupenupdatepage=async()=>{
-  const result = await fetch("http://localhost:8000/coupenupdatepage", {
-    method:'POST',
-    headers: {
-      "X-CSRFToken": csrftoken,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({id: id,updatedisc:updatedisc,updatecoupens:updatecoupens})
-}
-  )
-  const res=await result.json()
-  if(res.message){
-    
-  }
+  const coupenupdatepage = async () => {
+    const result = await fetch("http://localhost:8000/coupenupdatepage", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        updatedisc: updatedisc,
+        updatecoupens: updatecoupens,
+      }),
+    });
+    const res = await result.json();
+    if (res.data) {
+      setcoupen(res.data);
+      setupdatecoupen(false)
 
-}
+    }
+  };
 
   const getcoupeninitally = async () => {
     const result = await fetch("http://localhost:8000/getcoupeninitally", {
@@ -42,18 +45,19 @@ const coupenupdatepage=async()=>{
     const res = await result.json();
     if (res.data) {
       setcoupen(res.data);
+     
     } else {
       setcoupen([]);
     }
   };
 
-const cancel=()=>{
-  setdeletevisible(false)
-  setupdatecoupen(false)
-}
-const coupendelete=()=>{
-  deletecoupen()
-}
+  const cancel = () => {
+    setdeletevisible(false);
+    setupdatecoupen(false);
+  };
+  const coupendelete = () => {
+    deletecoupen();
+  };
 
   const deletecoupen = async () => {
     console.log("id", id);
@@ -68,7 +72,7 @@ const coupendelete=()=>{
     const res = await result.json();
     if (res.data) {
       setcoupen(res.data);
-      setdeletevisible(false)
+      setdeletevisible(false);
       console.log("oooooooooooooooooooo");
     }
   };
@@ -106,10 +110,7 @@ const coupendelete=()=>{
     }
   };
 
-
-  const update=()=>{
-
-  }
+  const update = () => {};
   useEffect(() => {
     getcoupeninitally();
   }, []);
@@ -142,8 +143,8 @@ const coupendelete=()=>{
                 className="add-coupen-btn mx-5 "
                 onClick={() => {
                   setvisible(true);
-                 setcoupendisc("")
-                  setcoupenvalue("")
+                  setcoupendisc("");
+                  setcoupenvalue("");
                 }}
               >
                 add coupen
@@ -177,42 +178,37 @@ const coupendelete=()=>{
                     >
                       {item.discount}%
                     </td>
-                    <td>{item.is_active?
-                     <button className="expired-btn">
-                     Not Expired
-                   </button>:
-                   <button className="non-expired-btn">
-                   Expired
-                 </button>
-
-                      }
-                     
+                    <td>
+                      {item.is_active ? (
+                        <button className="expired-btn">Not Expired</button>
+                      ) : (
+                        <button className="non-expired-btn">Expired</button>
+                      )}
                     </td>
                     <td
                       className="text-dark"
                       style={{ verticalAlign: "middle" }}
                     >
-                      <button className="update-btn-coupen"onClick={()=>{
-                       
-                        setupdatecoupen(true)
-                        setid(item.id);
-                        setupdatecoupens(item.CoupenName)
-                        setupdatedisc(item.discount)
-                      
-                      }}>
+                      <button
+                        className="update-btn-coupen"
+                        onClick={() => {
+                          setupdatecoupen(true);
+                          setid(item.id);
+                          setupdatecoupens(item.CoupenName);
+                          setupdatedisc(item.discount);
+                        }}
+                      >
                         update
                       </button>
                       <button
                         className="delete-coupen-btn ml-1"
                         onClick={() => {
-                         
-                          setupdatecoupen(true)
-                          setid(item.id)
+                          setupdatecoupen(true);
+                          setid(item.id);
                         }}
                       >
                         delete
                       </button>
-                      
                     </td>
                   </tr>
                 </tbody>
@@ -306,113 +302,106 @@ const coupendelete=()=>{
                 </div>
               </div>
             )}
-{/* delete coupen */}
+            {/* delete coupen */}
 
-{deletevisible && (
-            <div className="modal fade show d-block">
-              <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content">
-                  <div className="modal-header">
-                    <h5 className="modal-title text-dark">Confirm Deletion</h5>
-                    <button className="btn-close" onClick={cancel}></button>
-                  </div>
-                  <div className="modal-body">
-                    <p className="text-dark">
-                      Are you sure you want to delete the COUPEN?
-                    </p>
-                  </div>
-                  <div className="modal-footer">
-                    <button className="btn btn-secondary" onClick={cancel}>
-                      Cancel
-                    </button>
-                    <button className="btn btn-danger" onClick={coupendelete}>
-                      Delete
-                    </button>
+            {deletevisible && (
+              <div className="modal fade show d-block">
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title text-dark">
+                        Confirm Deletion
+                      </h5>
+                      <button className="btn-close" onClick={cancel}></button>
+                    </div>
+                    <div className="modal-body">
+                      <p className="text-dark">
+                        Are you sure you want to delete the COUPEN?
+                      </p>
+                    </div>
+                    <div className="modal-footer">
+                      <button className="btn btn-secondary" onClick={cancel}>
+                        Cancel
+                      </button>
+                      <button className="btn btn-danger" onClick={coupendelete}>
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-{/* 
+            )}
+            {/* 
 updatepage //////////////////////////////////////////////////////////////////////////////////////////////////*/}
 
-{updatecoupen && (
-          <div
-          className="modal fade show d-block"
-          tabIndex="-3"
-          role="dialog"
-        >
-          <div className="modal-dialog modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title add-coupen-title-modal">
-                 Update Coupon
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  onClick={() => setupdatecoupen(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form action="">
-                  <div className="w-100 text-start">
-                    <label htmlFor="" className="label-coupen">
-                      coupen
-                    </label>
-                    <br />
-                    <input
-                      type="text"
-                      className="w-100 p-2 coupen-input"
-                      value={updatecoupens}
-                      onChange={(event) => {
-                        setupdatecoupens(event.target.value);
-                      }}
-                    />
-                   
+            {updatecoupen && (
+              <div
+                className="modal fade show d-block"
+                tabIndex="-3"
+                role="dialog"
+              >
+                <div className="modal-dialog modal-lg" role="document">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title add-coupen-title-modal">
+                        Update Coupon
+                      </h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        onClick={() => setupdatecoupen(false)}
+                      ></button>
+                    </div>
+                    <div className="modal-body">
+                      <form action="">
+                        <div className="w-100 text-start">
+                          <label htmlFor="" className="label-coupen">
+                            coupen
+                          </label>
+                          <br />
+                          <input
+                            type="text"
+                            className="w-100 p-2 coupen-input"
+                            value={updatecoupens}
+                            onChange={(event) => {
+                              setupdatecoupens(event.target.value);
+                            }}
+                          />
+                        </div>
+                        <div className="w-100 text-start mt-1">
+                          <label htmlFor="" className="label-coupen">
+                            discount
+                          </label>
+                          <br />
+                          <input
+                            type="number"
+                            className="w-100 p-2 coupen-input"
+                            value={updatedisc}
+                            onChange={(event) => {
+                              setupdatedisc(event.target.value);
+                            }}
+                          />
+                        </div>
+                      </form>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        className="btn btn-secondary"
+                        onClick={() => setupdatecoupen(false)}
+                      >
+                        Close
+                      </button>
+                      <button
+                        className="btn btn-success"
+                        onClick={() => coupenupdatepage()}
+                      >
+                        update
+                      </button>
+                    </div>
                   </div>
-                  <div className="w-100 text-start mt-1">
-                    <label htmlFor="" className="label-coupen">
-                      discount
-                    </label>
-                    <br />
-                    <input
-                      type="number"
-                      className="w-100 p-2 coupen-input"
-                      value={updatedisc}
-                      onChange={(event) => {
-                        setupdatedisc(event.target.value);
-                      }}
-                    />
-                  
-                  </div>
-                </form>
+                </div>
               </div>
-              <div className="modal-footer">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => setupdatecoupen(false)}
-                >
-                  Close
-                </button>
-                <button
-                  className="btn btn-success"
-                  
-                  onClick={()=>coupenupdatepage()}
-                >
-                  update
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-          )}
-
-
-
-
-
-
+            )}
           </div>
         </div>
       </div>

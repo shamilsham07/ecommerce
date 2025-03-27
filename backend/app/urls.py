@@ -62,7 +62,7 @@ path("coupenadd",views.coupenadd),
 path("getcoupeninitally",views.getcoupeninitally),
 path("coupendelete",views.coupendelete),
 path("apllypromocode",views.apllypromocode),
-
+path("coupenupdatepage",views.coupenupdatepage),
 
 ]
   

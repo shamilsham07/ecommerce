@@ -1453,7 +1453,26 @@ def apllypromocode(request):
 
 @api_view(["POST"])
 def coupenupdatepage(request):
-    print hi
+    try:
+        print("hi")
+        data=request.data
+        id=data.get("id")
+        updatecoupens=data.get("updatecoupens")
+        updatedisc=data.get("updatedisc")
+        coupen=Coupen.objects.filter(id=id).first()
+        if coupen:
+            if updatecoupens:
+                coupen.CoupenName=updatecoupens
+            if updatedisc:
+                coupen.discount=updatedisc
+            coupen.save()
+            coupens=Coupen.objects.all()
+            serializer=Coupenserializer(coupens,many=True)
+            return JsonResponse({"data":serializer.data},safe=False)
+        else:
+            return JsonResponse({"error":"worng"})
+    except Exception as e:
+        print("error",e)
         
     
     

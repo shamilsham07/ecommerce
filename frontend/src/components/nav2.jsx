@@ -141,9 +141,6 @@ const ordersnavigate=()=>{
                   <h6 onClick={()=>navigate('/about')}>About</h6>
                 </li>
                 <li class="nav-item">
-                  <h6>Help</h6>
-                </li>
-                <li class="nav-item">
                   <h6 onClick={productnavigate}>Products</h6>
                 </li>
                 <li class="nav-item">
