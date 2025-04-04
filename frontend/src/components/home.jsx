@@ -5,6 +5,7 @@ import Nav2 from "./nav2";
 
 import { FcLike } from "react-icons/fc";
 import { MdArrowOutward } from "react-icons/md";
+import firstimage from "../assets/41jOEM5KONL._SX569_.jpg"
 
 import { useRef } from "react";
 import { Toast } from "primereact/toast";
@@ -26,6 +27,7 @@ import Footer from "./footer";
 import { useNavigate } from "react-router-dom";
 import Wishlist from "../whistlist/wishlist";
 import { IoMdLogIn } from "react-icons/io";
+import { use } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -36,7 +38,24 @@ export default function Home() {
   const userdetails = useSelector((state) => state.auth.userdata);
   const userid = userdetails.id;
   const userauth = useSelector((state) => state.auth.userauthentication);
+  const imagearray=[
+    firstimage,
+    iphone2,
+    image1
+  ]
+  const [index,setindex]=useState(0)
 
+
+
+  useEffect(()=>{
+    const cleartime=setInterval(()=>{
+      setindex((prevarray)=>(prevarray+1)%imagearray.length)
+
+    },3000)
+ return ()=>clearInterval(cleartime)
+  },[imagearray.length])
+const previndex=(index-1 +imagearray.length)%imagearray.length
+const nextindex=(index+1)%imagearray.length
   const getwishlistproductsfor = async () => {
     try {
       const result = await fetch(
@@ -73,8 +92,7 @@ export default function Home() {
     if (userid && id) {
       const res = await fetch("http://localhost:8000/addtowishList", {
         method: "POST",
-        headers
-        : {
+        headers: {
           "X-CSRFToken": csrftoken,
           "Content-Type": "application/json",
         },
@@ -84,37 +102,33 @@ export default function Home() {
       if (result.message) {
         console.log("good");
         setwishlist((prevWishlist) => [...prevWishlist, { product_id: id }]);
-
       } else {
         console.log("bad");
       }
+    } else {
+      alert("please login");
+      navigate("/userlogin");
     }
-    else{
-      alert("please login")
-      navigate("/userlogin")
-    }
-    
   };
-const deletefromwhistlist=async(id)=>{
-  const results=await fetch("http://localhost:8000/deleteWishList",{
-    method:"POST",
-    headers:{
-      "X-CSRFToken": csrftoken,
-      "Content-Type": "application/json",
-    },
-    body:JSON.stringify({userid:userid,id:id}),
-})
-const res=await results.json()
-if(res.message){
-  console.log("good")
-  setwishlist((prevWishlist)=>prevWishlist.filter((product)=>product.product_id!==id))
-  console.log("mmmmmmm")
-  console.log(wishlist)
-
-}
-}
-
-
+  const deletefromwhistlist = async (id) => {
+    const results = await fetch("http://localhost:8000/deleteWishList", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userid: userid, id: id }),
+    });
+    const res = await results.json();
+    if (res.message) {
+      console.log("good");
+      setwishlist((prevWishlist) =>
+        prevWishlist.filter((product) => product.product_id !== id)
+      );
+      console.log("mmmmmmm");
+      console.log(wishlist);
+    }
+  };
 
   const showSuccess = () => {
     toast.current.show({
@@ -268,7 +282,7 @@ if(res.message){
                                     width: "15px",
                                     height: "15px",
                                   }}
-                                  onClick={()=>
+                                  onClick={() =>
                                     deletefromwhistlist(product.id)
                                   }
                                 />
@@ -414,6 +428,21 @@ if(res.message){
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+        <section>
+          <div className="mt-3">
+            <h2 className="discount-products">best discount of products</h2>
+          </div>
+          <div className="discount-products-subheading mt-1">
+            <h5>Exclusive Deals on Discounted Products......</h5>
+          </div>
+          <div className="d-flex discount-page-image p-3">
+            <div className="col-4 p-3 the-card-discount" style={{boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px"}}>
+              <img src={image1} alt="" className="w-75" />
+              <h5 className="text-dark">samsung</h5>
+            </div>
+           
           </div>
         </section>
         <Footer />

@@ -5,7 +5,7 @@ import Adminhome from "./components/admin/adminhome";
 import Products from "./components/products";
 import PaymentComponent from "./components/razorpay/razorpay";
 import Wishlist from "./whistlist/wishlist";
-import Addproduct2 from "./components/admin/addProductpage/addproduct2";
+import Orderslistpage from "./components/admin/addProductpage/orderslistpage";
 import Footer from "./components/footer";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import SamsungProducts from "./components/appleProducts/samsungproducts";
@@ -190,7 +190,9 @@ function App() {
         <Route path="/Categorypage" element={<Categorypage/>}/>
         <Route path="/Userauthuenticationpage" element={<Userauthuenticationpage/>}/>
         <Route path="/Coupen" element={<Coupen/>}/>
-        <Route path="/Addproduct2" element={<Addproduct2/>}/>
+        <Route path="/Orderslistpage" element={<Orderslistpage/>}/>
+
+       
 
 
         

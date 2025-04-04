@@ -1,16 +1,17 @@
-import React from "react";
-import MainSidebar from "../sidebar";
+import React, { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
 import "./addproduct.css";
-import { useState } from "react";
-
-import { Dropdown } from 'primereact/dropdown';
+import { useNavigate } from "react-router-dom";
 import csrftoken from "../../../csrf";
 
-import { MdDelete } from "react-icons/md";
-export default function Addproducts() {
+export default function Addproduct() {
+  const navigation=useNavigate("")
+  const [selectedCategory, setSelectedCategory] = useState("Select a category");
+  const [category, setCategory] = useState([]);
+
   const [item, setitem] = useState("");
   const [image, setupdateimage] = useState(null);
-  const[description,setdescription]=useState('')
+  const [description, setdescription] = useState("");
 
   const [input, setinput] = useState([]);
 
@@ -19,7 +20,8 @@ export default function Addproducts() {
   const [discount, setDiscount] = useState();
   const [stock, setStock] = useState();
   const addTheproduct = async () => {
-   
+    console.log("kkjk",item)
+
     const formdata = new FormData();
 
     formdata.append("name", name);
@@ -28,29 +30,37 @@ export default function Addproducts() {
     formdata.append("stock", stock);
     formdata.append("image", image);
     formdata.append("category", item);
-    formdata.append("description",description);
+    formdata.append("description", description);
 
     input.forEach((item) => {
       if (item.file) {
         formdata.append("otherimage", item.file);
       }
     });
+    console.log("fiet",item)
+if(item !=="Select Category"&&item!==''){
+  const res = await fetch("http://localhost:8000/productAdds", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": csrftoken,
+    },
 
-    const res = await fetch("http://localhost:8000/productAdds", {
-      method: "POST",
-      headers: {
-        "X-CSRFToken": csrftoken,
-      },
+    body: formdata,
+  });
+  const result = await res.json();
+  if (result.message) {
+    console.log("good");
+   navigation("/ProductsSection")
+  } else {
+    console.log("soemthig went wrong");
+  }
+}
+else{
+  alert("select category")
+}
 
-      body: formdata,
-    });
-    const result = await res.json();
-    if (result.message) {
-      console.log("good");
-    } else {
-      console.log("soemthig went wrong");
-    }
-  };
+}
+    
 
   const generateId = () => Date.now() + Math.random().toString(36).substring(2);
   const handle = (e) => {
@@ -77,204 +87,210 @@ export default function Addproducts() {
     );
   };
 
+  const getCategory = async () => {
+    try {
+      const result = await fetch("http://localhost:8000/getcategory", {
+        method: "GET",
+      });
+      const res = await result.json();
+
+      if (res.data) {
+        console.log(res.data);
+        setCategory(res.data);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
   return (
-    <>
-      <section className="w-100" style={{ background: "#eeeeee" }}>
-        <div className="container">
-          <div className="c-padding">
-            <div style={{ borderRadius: "45px", background: "#eeeeee" }}>
-              <div className="product-details-heading w-100">
-                <h3>product details</h3>
+    <section>
+      <div className="add-product-heading-section">
+        <h1>add product</h1>
+      </div>
+      <form
+        onSubmit={handle}
+        action=""
+        className="mt-5 d-flex justify-content-center align-items-center"
+      >
+        <div className="w-50 text-start border-for-form p-5">
+          <div className="d-flex mt-1">
+            <div className="w-50">
+              <div className=" w-100">
+                <label htmlFor="" className="add-product-2-name-label fw-bold">
+                  Category
+                </label>
               </div>
-
-              <form
-                action=""
-                className="add-product-form-submit p-5"
-                onSubmit={handle}
-              >
-                <div
-                  className="w-100 d-flex justify-content-center"
-                  style={{ gap: "10px" }}
+              <div className="w-100">
+                <select
+                  class="form-select p-2 selector-category"
+                  aria-label="Default select example"
+                  onChange={(event)=>setitem(event.target.value)}
                 >
-                  <div class="form-floating mb-3 w-25">
-                    <input
-                      type="text"
-                      class="form-control form-control-lg"
-                      id="floatingInput"
-                      placeholder="name"
-                      name="name"
-                      onChange={(event) => {
-                        setname(event.target.value);
-                      }}
-                    />
-                    <label for="floatingInput">Product Name</label>
-                  </div>
-                  <div class="form-floating mb-3 w-25">
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="floatingInput"
-                      placeholder="price"
-                      name="price"
-                      onChange={(event) => {
-                        setprice(event.target.value);
-                      }}
-                    />
-                    <label for="floatingInput">Price</label>
-                  </div>
-              
-                  </div>
+                  <option selected >Select Category</option>
+                  {category.map((item, index) => (
+                    <option value={item.categoryName} >{item.categoryName}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
 
+            <div className="w-50 ml-1">
+              <div className="100">
+                <label htmlFor="" className="add-product-2-name-label fw-bold">
+                  Name
+                </label>
+              </div>
+              <div className="w-100">
+                <input
+                  type="text"
+                  className="add-product-2-name p-2 w-100"
+                  name="name"
+                  onChange={(event) => {
+                    setname(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="d-flex mt-1">
+            <div className="w-50 ml-1">
+              <div className="100">
+                <label htmlFor="" className="add-product-2-name-label fw-bold">
+                  Price
+                </label>
+              </div>
+              <div className="w-100">
+                <input
+                  type="number"
+                  className="add-product-2-name p-2 w-100"
+                  name="price"
+                  onChange={(event) => {
+                    setprice(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <div className="w-50 ml-1">
+              <div className="100">
+                <label htmlFor="" className="add-product-2-name-label fw-bold">
+                  Stock
+                </label>
+              </div>
+              <div className="w-100">
+                <input
+                  type=""
+                  className="add-product-2-name p-2 w-100"
+                  name="stock"
+                  onChange={(event) => {
+                    setStock(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="d-flex mt-1">
+            <div className="w-50 ml-1">
+              <div className="100">
+                <label htmlFor="" className="add-product-2-name-label fw-bold">
+                  Discount
+                </label>
+              </div>
+              <div className="w-100">
+                <input
+                  type="number"
+                  className="add-product-2-name p-2 w-100"
+                  name="discount"
+                  onChange={(event) => {
+                    setDiscount(event.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="w-100 mt-1">
+            <div className="w-100 ml-1">
+              <label htmlFor="" className="add-product-2-name-label fw-bold">
+                Description
+              </label>
+            </div>
+            <div class="form-floating ml-1">
+              <textarea
+                class="form-control description-text-area"
+                placeholder="Leave a comment here"
+                id="floatingTextarea"
+                onChange={(event)=>{
+                  setdescription(event.target.value)}}
+              ></textarea>
+            </div>
+          </div>
+          <div className="w-100 mt-1">
+            <div className="w-100 ml-1">
+              <label htmlFor="" className="add-product-2-name-label fw-bold">
+                Cover Image
+              </label>
+            </div>
+            <div className="d-flex justify-content-center">
+              <div className="image-cover-input input-group mb-3 ">
+                <input
+                  type="file"
+                  class=" form-control"
+                  id="inputGroupFile02"
+                  onChange={(event) => setupdateimage(event.target.files[0])}
+                />
+              </div>
+              <div className="ms-3">
+                <button
+                  className="add-product-add-more-btn"
+                  type="button"
+                  onClick={(e) => count(e)}
+                >
+                  add more
+                </button>
+              </div>
+            </div>
+            <div>
+              {input.length > 0 ? (
+                input.map((item, index) => (
                   <div
-                    className="w-100 d-flex mt-3 justify-content-center"
-                    style={{ gap: "10px" }}
+                    key={item.id}
+                    className="mt-3 w-100  d-flex justify-content-center"
                   >
-                    <div class="form-floating mb-3 w-25">
+                    <div className="remove-input-image">
                       <input
-                        type="text"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="name"
-                        name="discount"
-                        onChange={(event) => {
-                          setDiscount(event.target.value);
-                        }}
+                        type="file"
+                        class="form-control w-100"
+                        id={`file-${item.id}`}
+                        onChange={(event) => handleFileChange(event, item.id)}
                       />
-                      <label for="floatingInput">Discount</label>
                     </div>
-                    <div class="form-floating mb-3 w-25">
-                      <input
-                        type="number"
-                        class="form-control"
-                        id="floatingInput"
-                        placeholder="price"
-                        name="stock"
-                        onChange={(event) => {
-                          setStock(event.target.value);
-                        }}
-                      />
-                      <label for="floatingInput">stock</label>
-                    </div>
-                  </div>
-
-                  <div class="form-floating d-flex justify-content-center w-100">
-                    <div className="w-50">
-                      <label for="floatingTextarea2" className="">
-                        description
-                      </label>
-
-                      <textarea
-                        class="form-control "
-                        placeholder=""
-                        id="floatingTextarea2"
-                        onChange={(event)=>{
-                          setdescription(event.target.value)}}
-                      ></textarea>
-                    </div>
-                  </div>
-
-                  <div
-                    className="w-100 mt-5 d-flex justify-content-center"
-                    style={{ flexDirection: "column" }}
-                  >
-                    <div
-                      style={{
-                        textAlign: "center",
-                        marginLeft: "14px",
-                        marginBottom: "10px",
-                        textTransform: "capitalize",
-                      }}
-                    >
-                      <label htmlFor="" className="text-center">
-                        cover image
-                      </label>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                      <div className="image-cover-input input-group mb-3 ">
-                        <input
-                          type="file"
-                          class=" form-control"
-                          id="inputGroupFile02"
-                          onChange={(event) =>
-                            setupdateimage(event.target.files[0])
-                          }
-                        />
-                      </div>
-                      <div className="ms-3">
+                    <div className="ms-3">
                       <button
-                        className="add-product-add-more-btn"
-                        type="button"
-                        onClick={(e) => count(e)}
+                        className="add-product-add-more-btn1"
+                        onClick={() => deletes(item.id)}
                       >
-                        add more
+                        remove
                       </button>
                     </div>
-                    </div>
-
-                   
                   </div>
-              
-
-                {input.length > 0 ? (
-                  input.map((item, index) => (
-                    <div
-                      key={item.id}
-                      className="mt-3 w-100  d-flex justify-content-center"
-                    >
-                      <div className="remove-input-image">
-                        <input
-                          type="file"
-                          class="form-control w-100"
-                          id={`file-${item.id}`}
-                          onChange={(event) => handleFileChange(event, item.id)}
-                        />
-                      </div>
-                      <div className="ms-3">
-                        <button
-                          className="add-product-add-more-btn1"
-                          onClick={() => deletes(item.id)}
-                        >
-                          remove 
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div></div>
-                )}
-                <div className="d-flex justify-content-center w-100">
-                  <Dropdown>
-                    <Dropdown.Toggle id="dropdown-basic">
-                      {item == "" ? " category" : item}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item onClick={() => setitem("samsung")}>
-                        samsung
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => setitem("laptop")}>
-                        laptop
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={() => setitem("iphone")}>
-                        iphone
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </div>
-                <div className="add-products-btn-submit w-100">
-                  <div className="w-100 mt-5">
+                ))
+              ) : (
+                <div></div>
+              )}
+            </div>
+          </div>
+          <div className="add-products-btn-submit w-100">
+                  <div className="w-100 mt-5 text-center">
                     <button onClick={addTheproduct}>add product</button>
                   </div>
                 </div>
-
-
-
-              </form>
-            </div>
-          </div>
         </div>
-      </section>
-
-    </>
+      </form>
+    </section>
   );
 }

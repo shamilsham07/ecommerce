@@ -61,7 +61,7 @@
   border-radius: 4px;
 }
 #dropdown-basic {
-  background-color:#15154a;
+  background-color: #15154a;
   color: white;
 }
 .add-product-bottom-bar {
@@ -86,7 +86,6 @@
 }
 .image-cover-input {
   /* width: 42% !important; */
-  
 }
 .add-product-form-submit textarea {
   height: 100px;
@@ -166,76 +165,112 @@
   border: 1px solid #e6e6e6 !important;
   outline: none !important;
   box-shadow: none !important;
-
 }
 .input-modal-catgory::placeholder {
   color: #9d9d9d;
 }
-.footer-of-modal-category{
-    border:none;
+.footer-of-modal-category {
+  border: none;
 }
-.submit-category-btn{
-    color:white !important;
-    background-color:orange !important;
+.submit-category-btn {
+  color: white !important;
+  background-color: orange !important;
 }
-.delete-category-btn{
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    background-color: red;
-    color:white;
-    width:70px;
-    padding: 7px;
+.delete-category-btn {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+  width: 70px;
+  padding: 7px;
 }
-.update-category-btn{
-    padding: 7px;
-    border: none;
-    outline: none;
-    background: orange;
-    color: white;
-    border-radius: 5px;
-    width:70px;
+.update-category-btn {
+  padding: 7px;
+  border: none;
+  outline: none;
+  background: orange;
+  color: white;
+  border-radius: 5px;
+  width: 70px;
 }
-.update-input-cat{
+.update-input-cat {
   background-color: #fafafa !important;
   border: 1px solid #e6e6e6 !important;
   outline: none !important;
   box-shadow: none !important;
-  padding:7px;
+  padding: 7px;
 }
-.add-product-heading-section h1{
+.add-product-heading-section h1 {
   text-transform: capitalize;
   font-weight: 600;
   color: #15154a;
   font-family: "Poppins", sans-serif;
 }
-.add-product-2-name{
+.add-product-2-name {
   background-color: #fafafa;
   border: 1px solid #e6e6e6;
   outline: none;
   color: black;
   border-radius: 3px;
   margin-top: 1px;
-
 }
-.add-product-2-name-label{
-  color:#15154a;
+.add-product-2-name-label {
+  color: #15154a;
 }
-.border-for-form{
-  border:2px solid#e6e6e6;
+.border-for-form {
+  border: 2px solid#e6e6e6;
   border-radius: 10px;
 }
-.selector-category{
+.selector-category {
   background-color: #fafafa !important;
   border: 1px solid #e6e6e6 !important;
   outline: none;
   color: black;
   border-radius: 3px;
 }
-.description-text-area{
+.description-text-area {
   background-color: #fafafa !important;
   border: 1px solid #e6e6e6 !important;
   outline: none;
   color: black;
   border-radius: 3px;
+}
+.orders-heading {
+  color: #15154a;
+  text-transform: capitalize;
+
+  font-weight: 600;
+
+  font-family: "Poppins", sans-serif;
+}
+.orders-found{
+  color:#9d9d9d;
+
+}
+.date-div{
+  background-color:#f6f6f6;
+  width:120px;
+  height:35px;
+  flex-direction: row;
+  border-radius: 5px;
+}
+.date-text{
+  color: black;
+}
+.arrows-round{
+  height:62px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #15154a;
+  font-size: 40px;
+  cursor: pointer;
+}
+.red{
+  /* background-color: orange !important;
+  color:white !important; */
+}
+.yells{
+  background: #000;
 }

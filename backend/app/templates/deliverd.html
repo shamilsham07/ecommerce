@@ -41,7 +41,10 @@
             text-decoration: none;
             
         }
-     
+        .image{
+          width:200px;
+          height:200px;  
+        }
     </style>
 </head>
 <body>
@@ -50,15 +53,23 @@
             New Contact Message
         </div>
         <div class="email-body">
-            <p><strong>From:</strong> {{user_name}}</p>
-            <p class="email-body-email"><strong><span style="color: inherit; text-decoration: none;">email: {{user_email}} </span></strong></p>
-            <p><strong>phone: {{user_phone}}</strong></p>
+            <p><strong>From:</strong>phone cart</p>
+            <p class="email-body-email"><strong><span style="color: inherit; text-decoration: none;">email: {{email}} </span></strong></p>
+            {% comment %} <p><strong>phone: {{user_phone}}</strong></p> {% endcomment %}
 
                 
-            <p><strong>Message: {{ user_message }}</strong>
+            <p><strong>Message: your item delivered</strong>
+                
              
             </p>
-        
+            <p><strong>
+                {{name}}
+            </strong></p>
+            <img src="{{ image.url }}" alt="hi" class="image">
+            <img src="{{ image }}" alt="hi" class="image">
+
+
+          
         </div>
         <div class="email-footer">
             &copy; 2025 Your Company. All rights reserved.

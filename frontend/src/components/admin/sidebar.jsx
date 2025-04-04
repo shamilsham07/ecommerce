@@ -78,12 +78,7 @@ export default function MainSidebar() {
               </span>
               <h5>Reviews</h5>
             </div>
-            <div className="side-earnings side-link  ">
-              <span>
-                <i class="bi bi-bank"></i>
-              </span>
-              <h5>Earnings</h5>
-            </div>
+          
             <div className="side-product side-link" onClick={productClick}>
               <span>
                 <i class="bi bi-folder-plus"></i>
@@ -95,6 +90,12 @@ export default function MainSidebar() {
                 <i class="bi bi-folder-plus"></i>
               </span>
               <h5>category</h5>
+            </div>
+            <div className="side-product side-link" onClick={()=>navigate("/Orderslistpage")}>
+              <span>
+              <i class="bi bi-bag"></i>
+              </span>
+              <h5>orders</h5>
             </div>
             <div className="side-product side-link" onClick={()=>navigate("/Userauthuenticationpage")}>
               <span>

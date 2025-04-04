@@ -327,9 +327,10 @@ def productAdds(request):
         print(discount)
         print("kkkkk",otherimage)
         product =adminproduct.objects.create(name=name,category=category,price=price,discount=discount,stock_count=stock,image=image,description=description)
-        
+        print("hello",product.id)
+        product.save()
         for image in otherimage:
-            ProductImages.objects.create(product_id=product,image=image)
+            ProductImages.objects.create(product_id=product.id,image=image)
         
         print("succesfully")
         return JsonResponse({"message":"succesfully created"})
@@ -1475,4 +1476,75 @@ def coupenupdatepage(request):
         print("error",e)
         
     
+@api_view(["GET"])
+def orderupdate(request):
+    print("hi")
+    try:
+        product=BuyProduct.objects.all()
+        count=BuyProduct.objects.count()
+        
+        serializer=buyingserializer(product,many=True)
+        print(serializer.data)
+        return JsonResponse({"message":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
     
+@api_view(["POST"])
+def updatetheorder(request):
+    try:
+        data=request.data
+        id=data.get("id")
+       
+        value=data.get("value")
+        print(id,value)
+        product=BuyProduct.objects.get(id=id)
+        print(product.user_id)
+        user=(product.user_id)
+        product.status=value
+        product.save()
+        products=BuyProduct.objects.all()
+        serializer=buyingserializer(products,many=True)
+        if(user):
+            print("hh")
+            if value=="delivered":
+                print("hi")
+                getuser=Usersignup.objects.get(id=user)
+                email=getuser.email
+                name=product.name
+                image=product.image
+                quantity=product.quantity
+                orderid=product.order_id
+                totalprice=product.totalprice
+                sendthemail(email,name,image,quantity,orderid,totalprice)
+            
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+    
+    
+def sendthemail(email,name,image,quantity,orderid,totalprice):
+    try:
+        subject="the item delivered"
+        from_email=settings.EMAIL_HOST_USER
+        to_email=email
+        context={
+            "name":name,
+            "image":image,
+            "quantity":quantity,
+            "orderid":orderid,
+            "totalprice":totalprice,
+        }
+        html_content = render_to_string("deliverd.html", context)
+        text_content = strip_tags(html_content)  # Strip HTML tags for plain text
+
+        # Create email
+        email = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
+        email.attach_alternative(html_content, "text/html")
+
+        # Send email
+        email.send()       
+    except Exception as e:
+        print("hi")
+        print("error",e)

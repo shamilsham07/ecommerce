@@ -103,6 +103,7 @@ export default function Categorypage() {
     const result = await fetch("http://localhost:8000/getcategory", {
       method: "GET",
     });
+  
     const res = await result.json();
     if (res.data) {
       setcategory(res.data);

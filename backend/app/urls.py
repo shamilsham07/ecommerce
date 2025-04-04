@@ -63,6 +63,10 @@ path("getcoupeninitally",views.getcoupeninitally),
 path("coupendelete",views.coupendelete),
 path("apllypromocode",views.apllypromocode),
 path("coupenupdatepage",views.coupenupdatepage),
+path("orderupdate",views.orderupdate),
+path("updatetheorder",views.updatetheorder),
+
+
 
 ]
   

@@ -498,6 +498,7 @@ export default function ProductsSection() {
                     ]}
                     header={header}
                     emptyMessage="there is no product exist."
+                    filters={filters}
                     onFilter={(e) => setFilters(e.filters)}
                   >
                     <Column
@@ -517,12 +518,12 @@ export default function ProductsSection() {
                       dataType="numeric"
                       style={{ width: "180px" }}
                       body={priceBodyTemplate}
-                      filter
-                      filterElement={dateFilterTemplate}
+                      // filter
+                      // filterElement={dateFilterTemplate}
                     />
                     <Column
                       header="category"
-                      // filterField="balance"
+                      filterField="balance"
                       dataType="numeric"
                       style={{ width: "180px" }}
                       body={category}
@@ -530,7 +531,7 @@ export default function ProductsSection() {
                       // filterElement={balanceFilterTemplate}
                     />
                     <Column
-                      // field="stock"
+                      field="stock"
                       header="stock"
                       // filterMenuStyle={{ width: "14rem" }}
                       style={{ width: "180px" }}
