@@ -66,12 +66,6 @@ export default function MainSidebar() {
               </span>
               <h5 className="mb-0">Home</h5>
             </div>
-            <div className="side-dashbord side-link">
-              <span>
-                <i class="bi bi-graph-up-arrow"></i>
-              </span>
-              <h5>Dashbord</h5>
-            </div>
             <div className="side-reviews side-link">
               <span>
                 <i class="bi bi-stars"></i>

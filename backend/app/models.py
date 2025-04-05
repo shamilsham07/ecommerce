@@ -130,7 +130,7 @@ class BuyProduct(models.Model):
     order_id=models.TextField(blank=True,null=True)
     payment_id=models.TextField(blank=True,null=True)
     name=models.TextField(blank=True,null=True)
-    status=models.TextField(default="Ordered",blank=True)
+    status=models.TextField(default="ordered",blank=True)
     image=models.ImageField(upload_to=('images/'), max_length=None,blank=True,null=True)
     
     

@@ -16,6 +16,7 @@ import { Dialog } from "primereact/dialog";
 import image5 from "../assets/accept.png";
 
 export default function Whistlist() {
+  const [reviewvisble, setreviewvisible] = useState(true);
   const [visible, setVisible] = useState(false);
   const [stock_count, setstock_count] = useState("");
   const [display5, setdisplay5] = useState(true);
@@ -55,26 +56,21 @@ export default function Whistlist() {
   };
   const addtowhistlist = async () => {
     if (likeimage == redLike) {
-const results=await fetch("http://localhost:8000/deleteWishList",{
-  method:"POST",
-  headers:{
-    "X-CSRFToken": csrftoken,
-    "Content-Type": "application/json",
-  },
-  body:JSON.stringify({id:id,userid: userId}),
-})
-const ress=await results.json()
-if(ress.data){
-  console.log("daaaaaaaaaaaaaataaaaaa")
-  setlikeimage(like);
-}
-else{
-  console.log("hjijihobhjbhbhj")
-}
-
-
-
-     
+      const results = await fetch("http://localhost:8000/deleteWishList", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, userid: userId }),
+      });
+      const ress = await results.json();
+      if (ress.data) {
+        console.log("daaaaaaaaaaaaaataaaaaa");
+        setlikeimage(like);
+      } else {
+        console.log("hjijihobhjbhbhj");
+      }
     } else {
       const res = await fetch("http://localhost:8000/addtowishList", {
         method: "POST",
@@ -283,6 +279,15 @@ else{
                       <img src={likeimage} alt="" onClick={addtowhistlist} />
                     </div>
                   </div>
+                  <div className="flex align-items-center">
+                    <i class="bi bi-star text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                    <h6 className="m-0 p-o ml-1 fw-bold text-dark">127</h6>{" "}
+                    <h6 className="m-0 p-0 fw-bold text-warning">(Review)</h6>
+                  </div>
 
                   <div className="text-start mt-3">
                     <h5 className="text-danger">
@@ -346,6 +351,14 @@ else{
           </div>
         </div>
       </section>
+      {reviewvisble && (
+        <div className="modal-dialog modal-dialog-centered">
+          <div>
+            
+          </div>
+          <div className="w-50">hi</div>
+        </div>
+      )}
 
       <Footer />
     </>

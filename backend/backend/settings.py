@@ -1,8 +1,12 @@
 import os
 
-
 import sys
 import logging
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 logging.getLogger('django.request').addFilter(
     lambda record: False if 'Broken pipe' in record.getMessage() else True
@@ -30,7 +34,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tq9mgtg_obb)tq!h-9$429nehz3r61qzhwy^$8d@z(yo2_d$+4"
+SECRET_KEY =env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -158,9 +162,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'shamilsham248@gmail.com'
-EMAIL_HOST_PASSWORD = 'xttp wmmh smff ccke'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
