@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from app.models  import * 
 from django.core.management.utils import get_random_secret_key 
 import json
+import math
 from django.contrib.auth.models import User
 # Create your views here.
 from .cartserializer import CartSerializer
@@ -1548,3 +1549,81 @@ def sendthemail(email,name,image,quantity,orderid,totalprice):
     except Exception as e:
         print("hi")
         print("error",e)
+        
+        
+        
+@api_view(["POST"])
+def reviewpage(request):
+    try:
+        data=request.data
+        date=datetime.date.today()
+        print(date)
+        star=data.get("star")
+        print(star)
+        user=data.get("userid")
+        product=data.get("productid")
+        print(user)
+        print(product)
+        if Reviewpage.objects.filter(user_id=user,product_id=product).exists():
+            print("jiii")
+            getstarupdate=Reviewpage.objects.filter(user_id=user,product_id=product).first()
+            print("SSSSSSSSSS")
+            getstarupdate.stars=star
+            getstarupdate.save()
+            print("kkkkkkkkkkk")
+            return JsonResponse({"message":"good"})
+        else:    
+         Reviewpage.objects.create(stars=star,user_id=user,product_id=product,date=date)
+         return JsonResponse({"message":"good"})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"bad"})
+    
+    
+@api_view(["POST"])
+def getreviews(request):
+    try:
+        data=request.data
+        userid=data.get("id")
+        productid=data.get("productid")
+        star=Reviewpage.objects.filter(user_id=userid,product_id=productid).first() or 0
+        if star:
+          stars=star.stars
+          return JsonResponse({"data":stars})
+        else:
+            return JsonResponse({"data":star})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+    
+    
+@api_view(["POST"])
+def getreviewcount(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        userid=data.get("userid")
+        count=Reviewpage.objects.filter(product_id=id).count() or 0
+        print(count)
+        return JsonResponse({"data":count})
+    except Exception as e:
+        return JsonResponse({"error":"wrong"})
+    
+    
+    
+@api_view(["POST"])
+def totalreviewtstars(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        p_count=Reviewpage.objects.filter(product_id=id).count() or 0        
+        stars=Reviewpage.objects.filter(product_id=id)
+        item=stars.aggregate(Sum('stars'))
+        
+        totalusersreview=math.floor(item["stars__sum"]/p_count)
+        return JsonResponse({"data":totalusersreview})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+        
+    

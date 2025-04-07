@@ -117,3 +117,49 @@ transition: margin-right 2s ease-in-out;
   text-transform: capitalize;
 }
 
+.stas i{
+  font-size: 20px;
+  color:orange;
+}
+.reviews-heading h2{
+color:  #154373;
+font-family: "Poppins", serif;
+font-weight: 400;
+font-style: normal;
+text-transform: capitalize;
+}
+.review-card-1{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.review-card-1-heading{
+  color: black;
+  font-family: "Poppins", serif;
+font-weight: 600;
+font-style: normal;
+text-transform: capitalize;
+}
+.count-reviews{
+  color: black;
+  font-family: "Poppins", serif;
+font-weight: 600;
+font-style: normal;
+text-transform: capitalize;
+}
+.review-card-2{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+}
+.star-review{
+  color:yellow
+}
+.calender-back{
+  background-color: #f7f7f7;
+  border-radius: 10px;
+}
+.calender-back h6{
+  color: black;
+  text-transform: capitalize;
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+}

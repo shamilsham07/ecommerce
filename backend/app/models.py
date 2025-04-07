@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
 
+
 # Create your models here.
 
 
@@ -126,7 +127,7 @@ class BuyProduct(models.Model):
     is_orderConfirm=models.BooleanField(default=False)
     discount=models.DecimalField(default=0,blank=True,decimal_places=2,max_digits=5)
     discountedamount=models.FloatField(default=0,blank=True)
-    date=models.DateField()
+    date=models.DateField(null=True, blank=True)
     order_id=models.TextField(blank=True,null=True)
     payment_id=models.TextField(blank=True,null=True)
     name=models.TextField(blank=True,null=True)
@@ -144,6 +145,15 @@ class Coupen(models.Model):
     CoupenName=models.TextField(blank=True,null=True)
     discount=models.FloatField(blank=True,null=True)
     is_active=models.BooleanField(default=True)
+    
+
+ 
+class Reviewpage(models.Model):
+    user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
+    product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
+    stars=models.TextField(blank=True,null=True)
+    date=models.DateField(blank=True,null=True)
+    
             
         
          

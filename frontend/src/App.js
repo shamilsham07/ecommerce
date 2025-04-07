@@ -51,6 +51,7 @@ import Userdetails from "./components/userlogin/userdetailspage";
 import { setuserauthentication } from "./components/redux/reducer";
 import Appleproducts from "./components/appleProducts/appleproducts";
 import LaptopProducts from "./components/appleProducts/laptop.products";
+import Reviewpage from "./whistlist/reviewpage";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -191,6 +192,8 @@ function App() {
         <Route path="/Userauthuenticationpage" element={<Userauthuenticationpage/>}/>
         <Route path="/Coupen" element={<Coupen/>}/>
         <Route path="/Orderslistpage" element={<Orderslistpage/>}/>
+        <Route path="/Reviewpage" element={<Reviewpage/>}/>
+
 
        
 

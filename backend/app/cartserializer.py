@@ -9,6 +9,7 @@ from .models import Wishlist
 from .models import BuyProduct
 from .models import Category
 from.models import Coupen
+from.models import Reviewpage
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
@@ -63,4 +64,9 @@ class Categoryserializer(serializers.ModelSerializer):
 class Coupenserializer(serializers.ModelSerializer):
     class Meta:
         model=Coupen
+        fields="__all__"
+        
+class Reviewserializer(serializers.ModelSerializer):
+    class Meta:
+        model=Reviewpage
         fields="__all__"

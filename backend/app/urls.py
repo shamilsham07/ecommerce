@@ -65,6 +65,14 @@ path("apllypromocode",views.apllypromocode),
 path("coupenupdatepage",views.coupenupdatepage),
 path("orderupdate",views.orderupdate),
 path("updatetheorder",views.updatetheorder),
+path("reviewpage",views.reviewpage),
+path("getreviews",views.getreviews),
+path("getreviewcount",views.getreviewcount),
+path("totalreviewtstars",views.totalreviewtstars),
+
+
+
+
 
 
 

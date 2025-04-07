@@ -16,12 +16,15 @@ import { Dialog } from "primereact/dialog";
 import image5 from "../assets/accept.png";
 
 export default function Whistlist() {
+  const [count, setcount] = useState(0);
+  const [starcheck, setstarcheck] = useState(false);
   const [reviewvisble, setreviewvisible] = useState(true);
   const [visible, setVisible] = useState(false);
   const [stock_count, setstock_count] = useState("");
   const [display5, setdisplay5] = useState(true);
   const [value, setvalue] = useState(1);
   const { id } = useParams();
+  const[totalstar,settotalstar]=useState(0)
   const [likeimage, setlikeimage] = useState();
   console.log("jjjjjjjjjjjj", id);
   const [images, setimage] = useState(image);
@@ -32,6 +35,67 @@ export default function Whistlist() {
   const [productDetails, setproductdetails] = useState(null);
   const [productImage, setproductImage] = useState([]);
   const navigate = useNavigate();
+
+  const [star, setstar] = useState(0);
+
+  const getreviewcount = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/getreviewcount", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, userid: userId }),
+      });
+      const result = await res.json();
+      if (result.data) {
+        setcount(result.data);
+      } else {
+        setcount(0);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const posts = async () => {
+    const result = await fetch("http://localhost:8000/reviewpage", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userid: userId, productid: id, star: star }),
+    });
+    const res = await result.json();
+    if (res.message) {
+      console.log("firstzzzzzzzzzzzzzzzzzzzzz");
+
+      getreviewcount();
+    totalreviewtstars()
+
+    } else {
+      console.log("ssssssssssssssssss");
+    }
+  };
+
+  const getreviews = async () => {
+    const res = await fetch("http://localhost:8000/getreviews", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: userId, productid: id }),
+    });
+    const result = await res.json();
+    if (result.data) {
+      setstar(result.data);
+    } else {
+      setstar(result.star);
+    }
+  };
 
   const addtocart = async () => {
     console.log(value);
@@ -154,8 +218,34 @@ export default function Whistlist() {
       setlikeimage(like);
     }
   };
+
+  const totalreviewtstars = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/totalreviewtstars", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
+        },
+        body:JSON.stringify({id:id})
+});
+const result=await res.json()
+if(result.data){
+console.log("first")
+settotalstar(result.data)
+}
+else{
+  console.log("error")
+
+}
+    } catch (result) {}
+  };
+
   useEffect(() => {
+    getreviews();
     getwhistlist();
+    getreviewcount();
+    totalreviewtstars()
 
     if (stock_count > 5) {
       setdisplay5(false);
@@ -280,13 +370,26 @@ export default function Whistlist() {
                     </div>
                   </div>
                   <div className="flex align-items-center">
-                    <i class="bi bi-star text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star"></i>
-                    <i class="bi bi-star"></i>
-                    <i class="bi bi-star"></i>
-                    <h6 className="m-0 p-o ml-1 fw-bold text-dark">127</h6>{" "}
-                    <h6 className="m-0 p-0 fw-bold text-warning">(Review)</h6>
+                  {[...Array(5)].map((_, i) => (
+                <i
+                  key={i}
+                  className={`bi ${
+                    i < totalstar ? "bi-star-fill" : "bi-star"
+                  } text-warning`}
+               
+                ></i>
+              ))}
+                    <h6 className="m-0 p-o ml-1 fw-bold text-dark">
+                      {count}
+                    </h6>{" "}
+                    <h6
+                      className="m-0 p-0 fw-bold text-warning"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                      style={{ cursor: "pointer" }}
+                    >
+                      (Review)
+                    </h6>
                   </div>
 
                   <div className="text-start mt-3">
@@ -351,14 +454,65 @@ export default function Whistlist() {
           </div>
         </div>
       </section>
-      {reviewvisble && (
-        <div className="modal-dialog modal-dialog-centered">
-          <div>
-            
+
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1
+                class="modal-title fs-5 fw-bold text-dark"
+                id="exampleModalLabel"
+              >
+                Review
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div className="modal-body stas">
+              {[...Array(5)].map((_, i) => (
+                <i
+                  key={i}
+                  className={`bi ${
+                    i < star ? "bi-star-fill" : "bi-star"
+                  } text-warning`}
+                  onClick={() => setstar(i + 1)}
+                  style={{ cursor: "pointer" }}
+                ></i>
+              ))}
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary posts-btn"
+                data-bs-dismiss="modal"
+                onClick={() => {
+                  posts();
+                }}
+              >
+                POST
+              </button>
+            </div>
           </div>
-          <div className="w-50">hi</div>
         </div>
-      )}
+      </div>
 
       <Footer />
     </>
