@@ -69,6 +69,12 @@ path("reviewpage",views.reviewpage),
 path("getreviews",views.getreviews),
 path("getreviewcount",views.getreviewcount),
 path("totalreviewtstars",views.totalreviewtstars),
+path("gettotalreview",views.gettotalreview),
+path("getallusers",views.getallusers),
+path("deleteReview",views.deleteReview),
+
+
+
 
 
 

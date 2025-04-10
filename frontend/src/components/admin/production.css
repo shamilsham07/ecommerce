@@ -168,13 +168,18 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-left: 20px;
   font-size: 20px;
   text-transform: capitalize;
-  font-family: auto;
+  font-family:'Poppins';
+  font-weight: 500;
+  color:#15154a
+
 }
 
 .GiExitDoor span {
-  font-size: 20px;
+  font-size: 14px;
   text-transform: capitalize;
-  font-family: auto;
+  font-family: 'Poppins';
+  font-weight: 500;
+  color:#15154a;
 }
 .GiExit {
   margin-top: -5px;
@@ -382,4 +387,19 @@ input[type="number"]::-webkit-outer-spin-button {
   color: white;
   filter: invert(1);
   object-fit: contain;
+}
+.update-form-section{
+  background-color: #fafafa;
+  width:50%;
+  box-shadow: none !important;
+}
+.name-updates-form{
+  color:#15154a;
+  font-family: "poppins";
+  font-weight: 400;
+}
+.name-input-form{
+  background-color: white !important;
+  border:1px solid #e6e6e6 !important;
+  border-radius: 10px !important;
 }

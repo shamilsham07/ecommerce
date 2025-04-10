@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import csrftoken from "../../../csrf";
 
 export default function Addproduct() {
-  const navigation=useNavigate("")
+  const navigation = useNavigate("");
   const [selectedCategory, setSelectedCategory] = useState("Select a category");
   const [category, setCategory] = useState([]);
 
@@ -19,14 +19,18 @@ export default function Addproduct() {
   const [price, setprice] = useState();
   const [discount, setDiscount] = useState();
   const [stock, setStock] = useState();
+ 
+
+ 
+
   const addTheproduct = async () => {
-    console.log("kkjk",item)
+    console.log("kkjk", item);
 
     const formdata = new FormData();
 
     formdata.append("name", name);
     formdata.append("price", price);
-    formdata.append("discount", discount);
+    formdata.append("discount", discount || 0);
     formdata.append("stock", stock);
     formdata.append("image", image);
     formdata.append("category", item);
@@ -37,30 +41,27 @@ export default function Addproduct() {
         formdata.append("otherimage", item.file);
       }
     });
-    console.log("fiet",item)
-if(item !=="Select Category"&&item!==''){
-  const res = await fetch("http://localhost:8000/productAdds", {
-    method: "POST",
-    headers: {
-      "X-CSRFToken": csrftoken,
-    },
+    console.log("fiet", item);
+    if (item !== "Select Category" && item !== "") {
+      const res = await fetch("http://localhost:8000/productAdds", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": csrftoken,
+        },
 
-    body: formdata,
-  });
-  const result = await res.json();
-  if (result.message) {
-    console.log("good");
-   navigation("/ProductsSection")
-  } else {
-    console.log("soemthig went wrong");
-  }
-}
-else{
-  alert("select category")
-}
-
-}
-    
+        body: formdata,
+      });
+      const result = await res.json();
+      if (result.message) {
+        console.log("good");
+        navigation("/ProductsSection");
+      } else {
+        console.log("soemthig went wrong");
+      }
+    } else {
+      alert("select category");
+    }
+  };
 
   const generateId = () => Date.now() + Math.random().toString(36).substring(2);
   const handle = (e) => {
@@ -129,11 +130,13 @@ else{
                 <select
                   class="form-select p-2 selector-category"
                   aria-label="Default select example"
-                  onChange={(event)=>setitem(event.target.value)}
+                  onChange={(event) => setitem(event.target.value)}
                 >
-                  <option selected >Select Category</option>
+                  <option selected>Select Category</option>
                   {category.map((item, index) => (
-                    <option value={item.categoryName} >{item.categoryName}</option>
+                    <option value={item.categoryName}>
+                      {item.categoryName}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -224,8 +227,9 @@ else{
                 class="form-control description-text-area"
                 placeholder="Leave a comment here"
                 id="floatingTextarea"
-                onChange={(event)=>{
-                  setdescription(event.target.value)}}
+                onChange={(event) => {
+                  setdescription(event.target.value);
+                }}
               ></textarea>
             </div>
           </div>
@@ -285,10 +289,10 @@ else{
             </div>
           </div>
           <div className="add-products-btn-submit w-100">
-                  <div className="w-100 mt-5 text-center">
-                    <button onClick={addTheproduct}>add product</button>
-                  </div>
-                </div>
+            <div className="w-100 mt-5 text-center">
+              <button onClick={addTheproduct}>add product</button>
+            </div>
+          </div>
         </div>
       </form>
     </section>

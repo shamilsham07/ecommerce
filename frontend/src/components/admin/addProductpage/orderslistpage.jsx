@@ -8,6 +8,30 @@ import Loading from "../../loading/loading";
 export default function Orderslistpage() {
   const [user_id, setuserid] = useState();
   const [loader, setloader] = useState(false);
+  const [productSearch, setproductsearch] = useState("");
+  const [products, setproducts] = useState([]);
+  const [backup, setbackup] = useState([]);
+
+  const search = (event) => {
+    setproductsearch(event.target.value);
+
+    if (products.includes("name")) {
+      console.log("set ann");
+    }
+
+    if (event.target.value.length > 0) {
+      const filtereddata = backup.filter((product) => {
+        const value = product.name.includes(event.target.value);
+        const orgprice =
+         parseInt(product.price) >= parseInt(event.target.value);
+       
+        return value || orgprice 
+      });
+      setproducts(filtereddata);
+    } else {
+      setproducts(backup);
+    }
+  };
 
   const settingvalue = async (e, id) => {
     console.log(user_id);
@@ -24,6 +48,7 @@ export default function Orderslistpage() {
     const res = await result.json();
     if (res.data) {
       setproducts(res.data);
+      setbackup(res.data);
       setloader(false);
     }
   };
@@ -31,11 +56,11 @@ export default function Orderslistpage() {
   const [value, setvalue] = useState("");
   let newDate = new Date();
   const navigation = useNavigate("");
-  console.log(newDate);
+
   let date = newDate.getDate();
   let month = newDate.getMonth() + 1;
   let year = newDate.getFullYear();
-  const [products, setproducts] = useState([]);
+
   const orderupdate = async () => {
     const result = await fetch("http://localhost:8000/orderupdate", {
       method: "GET",
@@ -44,6 +69,7 @@ export default function Orderslistpage() {
     if (res.message) {
       console.log("first");
       setproducts(res.message);
+      setbackup(res.message);
     } else {
       console.log("bad");
     }
@@ -103,6 +129,16 @@ export default function Orderslistpage() {
                     </div>
                   </div>
                 </div>
+                <div className="text-end mx-3">
+                  <input
+                    type="text"
+                    placeholder="Search by product name"
+                    className="p-2 search-field-product"
+                    onChange={(event) => {
+                      search(event);
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
@@ -111,12 +147,12 @@ export default function Orderslistpage() {
                 <tr>
                   <th scope="col">No</th>
                   <th scope="col">Date</th>
-                  <th scope="col">Product name</th>
-                  <th scope="col">Product price</th>
-                  <th scope="col">Quantity</th>
-                  <th scope="col">Order method</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Total price</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Product Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total Price</th>
+                  <th scope="col">Payment Method</th>
                 </tr>
               </thead>
               {products.map((item, index) => (
@@ -124,10 +160,6 @@ export default function Orderslistpage() {
                   <tr>
                     <td className="text-dark fw-bold text-dark">{index + 1}</td>
                     <td className="fw-bold text-dark">{item.date}</td>
-                    <td className="fw-bold text-dark">{item.name}</td>
-                    <td className="fw-bold text-dark">{item.price}</td>
-                    <td className="fw-bold text-dark">{item.quantity}</td>
-                    <td className="fw-bold text-dark">{item.paymentmethod}</td>
                     <td className="fw-bold text-success">
                       <select
                         class={
@@ -142,7 +174,7 @@ export default function Orderslistpage() {
                         value={value == "" ? item.status : setvalue[item.id]}
                         onChange={(e) => {
                           settingvalue(e.target.value, item.id);
-                        //   setloader(true);
+                          //   setloader(true);
                         }}
                       >
                         <option value="ordered" className="bg-white text-dark">
@@ -159,7 +191,12 @@ export default function Orderslistpage() {
                         </option>
                       </select>
                     </td>
+                    <td className="fw-bold text-dark">{item.name}</td>
+                    <td className="fw-bold text-dark">{item.price}</td>
+                    <td className="fw-bold text-dark">{item.quantity}</td>
                     <td className="fw-bold text-dark">{item.totalprice}</td>
+                    
+                    <td className="fw-bold text-dark">{item.paymentmethod}</td>
                   </tr>
                 </tbody>
               ))}

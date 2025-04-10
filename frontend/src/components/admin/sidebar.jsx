@@ -85,13 +85,13 @@ export default function MainSidebar() {
               <span>
                 <i class="bi bi-folder-plus"></i>
               </span>
-              <h5>category</h5>
+              <h5>Category</h5>
             </div>
             <div className="side-product side-link" onClick={()=>navigate("/Orderslistpage")}>
               <span>
               <i class="bi bi-bag"></i>
               </span>
-              <h5>orders</h5>
+              <h5>Orders</h5>
             </div>
             <div className="side-product side-link" onClick={()=>navigate("/Userauthuenticationpage")}>
               <span>

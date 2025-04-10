@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from django.db.models import Sum
 from .models import Cart
 from .models import adminproduct
 from .models import Usersignup
@@ -67,6 +67,25 @@ class Coupenserializer(serializers.ModelSerializer):
         fields="__all__"
         
 class Reviewserializer(serializers.ModelSerializer):
+    totalprice = serializers.SerializerMethodField()
+    image=serializers.SerializerMethodField()
+    totalcount=serializers.SerializerMethodField()
+    
+    
     class Meta:
         model=Reviewpage
-        fields="__all__"
+        fields=["stars","date","product_id","user_id","name","totalprice","image","totalcount"]
+        
+    def get_totalprice(self, obj):
+        total = BuyProduct.objects.filter(user=obj.user).aggregate(Sum('totalprice'))
+        totalprice = total.get('totalprice__sum', 0)
+       
+        return totalprice or 0
+    def get_image(self,obj):
+         images=adminproduct.objects.filter(id=obj.product_id).first()
+         image=images.image
+         return image.url
+    
+    def get_totalcount(self,obj):
+        totalcount=Reviewpage.objects.filter(user=obj.user).count()
+        return totalcount

@@ -274,3 +274,9 @@
 .yells{
   background: #000;
 }
+.search-field-product{
+  border:1px solid #e6e6e6;
+  outline:none;
+  background-color: #fafafa;
+  border-radius: 5px;
+}

@@ -11,6 +11,7 @@ import math
 from django.contrib.auth.models import User
 # Create your views here.
 from .cartserializer import CartSerializer
+from.cartserializer import Reviewserializer
 from .cartserializer import Categoryserializer
 from .cartserializer import Userserializer
 from .cartserializer import Serializer
@@ -318,6 +319,7 @@ def productAdds(request):
         print("datas:",data)
         name=data.get("name")
         category=data.get("category")
+            
         discount=data.get("discount")
         price=data.get("price")
         stock=data.get("stock")
@@ -327,7 +329,8 @@ def productAdds(request):
         print(description)
         print(discount)
         print("kkkkk",otherimage)
-        product =adminproduct.objects.create(name=name,category=category,price=price,discount=discount,stock_count=stock,image=image,description=description)
+        product =adminproduct.objects.create(name=name,category=category,price=price,stock_count=stock,image=image,description=description,discount=discount)
+      
         print("hello",product.id)
         product.save()
         for image in otherimage:
@@ -1573,7 +1576,11 @@ def reviewpage(request):
             print("kkkkkkkkkkk")
             return JsonResponse({"message":"good"})
         else:    
-         Reviewpage.objects.create(stars=star,user_id=user,product_id=product,date=date)
+         namee=Usersignup.objects.filter(id=user).first()
+         print(namee)
+        #  names=namee.name
+        #  print("hi")
+         Reviewpage.objects.create(stars=star,user_id=user,product_id=product,date=date,name=namee)
          return JsonResponse({"message":"good"})
     except Exception as e:
         print(e)
@@ -1626,4 +1633,55 @@ def totalreviewtstars(request):
         print("error",e)
         return JsonResponse({"error":"wrong"})
         
+        
+@api_view(["GET"])
+def gettotalreview(request):
+    try:
+        count=Reviewpage.objects.count()
+        print("thecount",count)
+        stars=Reviewpage.objects.all()
+        item=stars.aggregate(Sum('stars'))
+        totalstars=item['stars__sum']
+        total=math.floor(totalstars/count)
+        print("thestras",totalstars)
+        datas={
+            "count":count,
+            "total":total,
+        }
+        return JsonResponse({"data":datas})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
     
+    
+@api_view(["GET"])
+def getallusers(request):
+    try:
+        allusers=Reviewpage.objects.all()
+        print(allusers)
+        serializer=Reviewserializer(allusers,many=True)
+        print(serializer.data)
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})
+    
+@api_view(["POST"])
+def deleteReview(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        productid=data.get("product_id")
+        print("hlo",productid)
+        print(id)
+        print("hiiiiiiiiii")
+        Reviewpage.objects.filter(user_id=id,product_id=productid).delete()
+        products=Reviewpage.objects.all()
+        serializer=Reviewserializer(products,many=True)
+        return JsonResponse({"data":serializer.data},safe=False)
+    
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"eeeeeeeeeeeeeee"})
+       
+            

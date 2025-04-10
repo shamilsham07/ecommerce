@@ -73,6 +73,7 @@ class Cart(models.Model):
     user=models.ForeignKey(Usersignup,on_delete=models.CASCADE)
     
     # def save(self,*args, **kwargs):
+    
     #     if self.product:
     #         self.stock_count=self.product.stock_count
     #     super(Cart, self).save(*args, **kwargs)
@@ -153,6 +154,12 @@ class Reviewpage(models.Model):
     product=models.ForeignKey(adminproduct,on_delete=models.CASCADE)
     stars=models.TextField(blank=True,null=True)
     date=models.DateField(blank=True,null=True)
+    name=models.TextField(blank=True,null=True)
+    
+    def save(self,*args, **kwargs):
+         if self.user:
+             self.name=self.user.name
+         super(Reviewpage, self).save(*args, **kwargs)
     
             
         

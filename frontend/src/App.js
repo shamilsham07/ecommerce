@@ -188,11 +188,11 @@ function App() {
         <Route path="/PdfComponent" element={<PdfComponent/>}/>
         <Route path="/Vieworders" element={<Vieworders/>}/>
         <Route path="/About" element={<About/>}/>
-        <Route path="/Categorypage" element={<Categorypage/>}/>
-        <Route path="/Userauthuenticationpage" element={<Userauthuenticationpage/>}/>
-        <Route path="/Coupen" element={<Coupen/>}/>
-        <Route path="/Orderslistpage" element={<Orderslistpage/>}/>
-        <Route path="/Reviewpage" element={<Reviewpage/>}/>
+        <Route path="/Categorypage" element={isAuthenticated?<Categorypage/>:<Admin/>}/>
+        <Route path="/Userauthuenticationpage" element={isAuthenticated?<Userauthuenticationpage/>:<Admin/>}/>
+        <Route path="/Coupen" element={isAuthenticated?<Coupen/>:<Admin/>}/>
+        <Route path="/Orderslistpage" element={isAuthenticated?<Orderslistpage/>:<Admin/>}/>
+        <Route path="/Reviewpage" element={isAuthenticated?<Reviewpage/>:<Admin/>}/>
 
 
        

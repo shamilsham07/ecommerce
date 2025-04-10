@@ -45,6 +45,8 @@ export default function ProductsSection() {
   const [visibleRight, setVisibleRight] = useState(false);
   const [customers, setCustomers] = useState(null);
   const [filters, setFilters] = useState(null);
+  const[theid,settheid]=useState()
+  const[deletevisible,setdeletevisible]=useState(false)
 
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const dispatch = useDispatch();
@@ -312,7 +314,14 @@ export default function ProductsSection() {
           {" "}
           <MdModeEditOutline />
         </span>
-        <span className="MdDelete" onClick={() => deletes(rowData.id)}>
+        <span className="MdDelete"    
+      
+        
+          onClick={()=>{setdeletevisible(true)
+            settheid(rowData.id)
+
+          }}
+          >
           <MdDelete />
         </span>
       </i>
@@ -374,11 +383,12 @@ export default function ProductsSection() {
         "X-CSRFToken": csrftoken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ id: theid }),
     });
     const result = await res.json();
     if (result.data) {
       setCustomers(result.data);
+      setdeletevisible(false)
     }
     if (result.error) {
       console.log("sssssssssssssss");
@@ -505,21 +515,24 @@ export default function ProductsSection() {
                       field="name"
                       header="Name"
                       style={{ width: "180px" }}
+                       className="p-1 mt-1"
                     />
 
                     <Column
                       header="image"
                       style={{ width: "180px" }}
                       body={representativeBodyTemplate}
+                       className="p-1 mt-1"
+
                     />
                     <Column
                       header="price"
                       filterField="price"
                       dataType="numeric"
-                      style={{ width: "180px" }}
+                      // style={{ width: "180px" }}
                       body={priceBodyTemplate}
-                      // filter
-                      // filterElement={dateFilterTemplate}
+                       className="p-1 mt-1"
+
                     />
                     <Column
                       header="category"
@@ -527,6 +540,8 @@ export default function ProductsSection() {
                       dataType="numeric"
                       style={{ width: "180px" }}
                       body={category}
+                       className="p-1 mt-1"
+
                       // filter
                       // filterElement={balanceFilterTemplate}
                     />
@@ -536,6 +551,8 @@ export default function ProductsSection() {
                       // filterMenuStyle={{ width: "14rem" }}
                       style={{ width: "180px" }}
                       body={stockbodytemplate}
+                       className="p-1 mt-1"
+
                       // filter
                       // filterElement={stockfiltertemplate}
                     />
@@ -544,12 +561,54 @@ export default function ProductsSection() {
                       header="update"
                       bodyClassName="text-update"
                       style={{ width: "180px" }}
+                      className="p-1 mt-1"
+
                    
                       body={updatebodytamplate}
                     />
+                 
                   </DataTable>
                 </div>
+                {deletevisible&&
+      <div className="modal fade show d-block">
+      <div className="modal-dialog modal-dialog-centered">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title text-dark">
+              Confirm Deletion
+            </h5>
+            <button
+              className="btn-close"
+              onClick={() => setdeletevisible(false)}
+            ></button>
+          </div>
+          <div className="modal-body">
+            <p className="text-dark">
+              Are you sure you want to delete this item?
+            </p>
+          </div>
+          <div className="modal-footer">
+            <button
+              className="btn btn-secondary"
+              onClick={() => setdeletevisible(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="btn btn-danger"
+            onClick={deletes}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+                }
+          
+               
               </div>
+           
             )}
           </div>
         </div>

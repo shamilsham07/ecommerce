@@ -26,6 +26,19 @@ export default function Updatepage() {
   const [updatestock, setupdatestock] = useState("");
   const [updatediscount, setdiscount] = useState("");
   const [description, setdescription] = useState("");
+  const [getcategory, setgetcategory] = useState([]);
+
+  const getcategorys = async () => {
+    const result = await fetch("http://localhost:8000/getcategory", {
+      method: "GET",
+    });
+    const res=await result.json()
+    if(res.data){
+      console.log("first")
+      setgetcategory(res.data)
+      console.log(res.data)
+    }
+  };
 
   const [selectedItem, setSelectedItem] = useState("");
   const items = [
@@ -122,13 +135,13 @@ export default function Updatepage() {
         setdescription(result.data.description || "");
       }
     };
-
+getcategorys()
     getproductfirst();
   }, [id]);
 
   return (
     <>
-      <div className="row">
+      <div className="row m-0 p-0">
         <div className="col-2">
           <Mainsidebar />
         </div>
@@ -144,7 +157,7 @@ export default function Updatepage() {
               </div>
             </div>
             <hr />
-            <div className="update-form-section">
+            {/* <div className="update-form-section">
               <div
                 className="top w-100"
                 style={{ backgroundColor: "rgb(68, 10, 10)" }}
@@ -335,6 +348,98 @@ export default function Updatepage() {
                   <div></div>
                 </form>
               </div>
+            </div> */}
+
+            <div>
+              <form action="">
+                <div className="p-5 update-form-section">
+                  <div className="w-100 d-flex">
+                    <div className="w-50">
+                      <div className="text-start">
+                        <label htmlFor="" className="name-updates-form">
+                          Name
+                        </label>
+                      </div>
+                      <div className="text-start w-100">
+                        <input
+                          type="text"
+                          className="w-100 p-2 name-input-form"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-50">
+                      <div className="w-100">
+                        <div className="w-100 text-start ml-2">
+                          <label
+                            htmlFor=""
+                            className="text-start name-updates-form"
+                          >
+                            Price
+                          </label>
+                        </div>
+                        <div className="w-100 ml-2">
+                          <input
+                            type="text"
+                            className="w-100 p-2 name-input-form"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="w-100 d-flex mt-1">
+                    <div className="w-50">
+                      <div className="text-start">
+                        <label htmlFor="" className="name-updates-form">
+                          Discount
+                        </label>
+                      </div>
+                      <div className="text-start w-100">
+                        <input
+                          type="text"
+                          className="w-100 p-2 name-input-form"
+                        />
+                      </div>
+                    </div>
+                    <div className="w-50">
+                      <div className="w-100">
+                        <div className="w-100 text-start ml-2">
+                          <label
+                            htmlFor=""
+                            className="text-start name-updates-form"
+                          >
+                            Stock
+                          </label>
+                        </div>
+                        <div className="w-100 ml-2">
+                          <input
+                            type="text"
+                            className="w-100 p-2 name-input-form"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-50">
+                    <div className="w-50 text-start">
+                      <label htmlFor="" className="name-updates-form">Category</label>
+
+                    </div>
+                    <select
+                      class="form-select p-2 name-input-form"
+                      aria-label="Default select example"
+                    >
+                      {
+                        getcategory.map((item,index)=>(
+                          <option value="" key={index}>{item.categoryName}</option>
+
+                        ))
+                      }
+                    </select>
+                   
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
