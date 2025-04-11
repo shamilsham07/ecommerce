@@ -305,6 +305,10 @@
   font-weight: 600;
   font-size: 20px;
 }
+.revenue-image{
+  width:45px;
+  object-fit: contain;
+}
 .blank {
   background: rgb(143, 143, 145);
   background: linear-gradient(

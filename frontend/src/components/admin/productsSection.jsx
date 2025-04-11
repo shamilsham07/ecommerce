@@ -484,7 +484,7 @@ export default function ProductsSection() {
                         <span className="MdAdd">
                           <MdAdd />
                         </span>
-                        add product
+                        Add Product
                       </button>
                     </div>
                   </div>

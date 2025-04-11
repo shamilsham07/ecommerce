@@ -1685,3 +1685,16 @@ def deleteReview(request):
         return JsonResponse({"error":"eeeeeeeeeeeeeee"})
        
             
+@api_view(["GET"])
+def getrevenue(request):
+    try:
+        
+        revenue=BuyProduct.objects.all()
+        sum=revenue.aggregate(Sum('totalprice'))
+        print(sum)
+        totalrevenue=sum["totalprice__sum"]
+        print(totalrevenue)
+        return JsonResponse({"data":totalrevenue})
+    except Exception as e:
+        print("error",e)
+        return JsonResponse({"error":"wrong"})

@@ -1,4 +1,3 @@
-
 import "./App.css";
 import UserSignup from "./components/userlogin/usersignup";
 import Adminhome from "./components/admin/adminhome";
@@ -14,6 +13,7 @@ import Whistlist from "./whistlist/whistlist";
 import Addproducts from "./components/admin/addProductpage/addproduct";
 import Loading from "./components/loading/loading";
 import Admin from "./components/admin/admin";
+import Logout from "./components/admin/logout";
 import Home from "./components/home";
 import About from "./components/aboutsection/about";
 import Vieworders from "./components/vieworders/vieworders";
@@ -45,7 +45,7 @@ import { authenticate } from "./components/redux/reducer";
 import Updatepage from "./components/admin/updatepage";
 import ProductsSection from "./components/admin/productsSection";
 import { setUserData } from "./components/redux/reducer";
-import  PdfComponent from "./components/invoice/invoice"
+import PdfComponent from "./components/invoice/invoice";
 import Coupen from "./components/admin/userauthentication/coupen";
 import Userdetails from "./components/userlogin/userdetailspage";
 import { setuserauthentication } from "./components/redux/reducer";
@@ -136,12 +136,39 @@ function App() {
     checkauth();
   }, [key]);
 
+
+
+
+  const logout = async () => {
+    const cookie = new Cookies();
+    const username = cookie.get("username");
+    const key = cookie.get("userKey");
+    const res = await fetch("http://localhost:8000/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify({ username, key }),
+    });
+    const result = await res.json();
+    if (result.message) {
+      cookie.remove("username");
+      cookie.remove("userKey");
+      dispatch(authenticate(false));
+      
+      navigate("/admin");
+    }
+    if (result.error) {
+      console.log("hello");
+    }
+  };
+
   return (
     <div className="App">
       {/* <Router> */}
-     
+
       <Routes>
-       
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/productpage" element={<Productpage />} />
@@ -161,8 +188,14 @@ function App() {
         <Route path="/loading" element={<Loading />} />
         <Route path="/Cartpage" element={<Cartpage />} />
         <Route path="/Productsupdate" element={<Productsupdate />} />
-        <Route path="/ProductsSection" element={isAuthenticated?<ProductsSection />:<Admin/>} />
-        <Route path="/Updatepage" element={isAuthenticated?<Updatepage />:<Admin/>} />
+        <Route
+          path="/ProductsSection"
+          element={isAuthenticated ? <ProductsSection /> : <Admin />}
+        />
+        <Route
+          path="/Updatepage"
+          element={isAuthenticated ? <Updatepage /> : <Admin />}
+        />
         <Route
           path="/UserLogin"
           element={userauth ? <Home /> : <UserLogin />}
@@ -176,37 +209,67 @@ function App() {
         <Route path="/Adreass/:id" element={<Adreass />} />
         <Route path="/nav2" element={<Nav2 />} />
         <Route path="/Footer" element={<Footer />} />
-        <Route path="/ResponsiveDemo"  element={<ResponsiveDemo/>}/>
+        <Route path="/ResponsiveDemo" element={<ResponsiveDemo />} />
         <Route path="/Appleproducts" element={<Appleproducts />} />
         <Route path="/SamsungProducts" element={<SamsungProducts />} />
         <Route path="/LaptopProducts" element={<LaptopProducts />} />
-        <Route path="/ContactPage"  element={<ContactPage/>}/>
-        <Route path="/Whistlist/:id" element={<Whistlist/>}/>
-        <Route path="/Addproduct" element={isAuthenticated?<Addproducts/>:<Admin/>}/>
-        <Route path="/Wishlist" element={<Wishlist/>}/>
-        <Route path="/PaymentComponent" element={<PaymentComponent/>}/>
-        <Route path="/PdfComponent" element={<PdfComponent/>}/>
-        <Route path="/Vieworders" element={<Vieworders/>}/>
-        <Route path="/About" element={<About/>}/>
-        <Route path="/Categorypage" element={isAuthenticated?<Categorypage/>:<Admin/>}/>
-        <Route path="/Userauthuenticationpage" element={isAuthenticated?<Userauthuenticationpage/>:<Admin/>}/>
-        <Route path="/Coupen" element={isAuthenticated?<Coupen/>:<Admin/>}/>
-        <Route path="/Orderslistpage" element={isAuthenticated?<Orderslistpage/>:<Admin/>}/>
-        <Route path="/Reviewpage" element={isAuthenticated?<Reviewpage/>:<Admin/>}/>
-
-
-       
-
-
-        
-
-
-
-
-       
-
-
+        <Route path="/ContactPage" element={<ContactPage />} />
+        <Route path="/Whistlist/:id" element={<Whistlist />} />
+        <Route
+          path="/Addproduct"
+          element={isAuthenticated ? <Addproducts /> : <Admin />}
+        />
+        <Route path="/Wishlist" element={<Wishlist />} />
+        <Route path="/PaymentComponent" element={<PaymentComponent />} />
+        <Route path="/PdfComponent" element={<PdfComponent />} />
+        <Route path="/Vieworders" element={<Vieworders />} />
+        <Route path="/About" element={<About />} />
+        <Route
+          path="/Categorypage"
+          element={isAuthenticated ? <Categorypage /> : <Admin />}
+        />
+        <Route
+          path="/Userauthuenticationpage"
+          element={isAuthenticated ? <Userauthuenticationpage /> : <Admin />}
+        />
+        <Route
+          path="/Coupen"
+          element={isAuthenticated ? <Coupen /> : <Admin />}
+        />
+        <Route
+          path="/Orderslistpage"
+          element={isAuthenticated ? <Orderslistpage /> : <Admin />}
+        />
+        <Route
+          path="/Reviewpage"
+          element={isAuthenticated ? <Reviewpage /> : <Admin />}
+        />
+        <Route
+          path="/Logout"
+          element={isAuthenticated ? <Logout /> : <Admin />}
+        />
       </Routes>
+      <div className="modal fades" id="exampleModal"style={{
+        transition:"2s all ease-in-out"
+      }} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title head-of-log" id="exampleModalLabel">logout</h5>
+        <button type="button" class="close modala-closee" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body body-of-modal">
+        are you sure to logout ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"data-bs-dismiss="modal" onClick={()=>logout()}>Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
   );
 }

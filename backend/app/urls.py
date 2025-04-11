@@ -72,7 +72,7 @@ path("totalreviewtstars",views.totalreviewtstars),
 path("gettotalreview",views.gettotalreview),
 path("getallusers",views.getallusers),
 path("deleteReview",views.deleteReview),
-
+path("getrevenue",views.getrevenue),
 
 
 

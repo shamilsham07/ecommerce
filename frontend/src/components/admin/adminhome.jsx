@@ -4,6 +4,7 @@ import "./admin.css";
 import "animate.css";
 import csrftoken from "../../csrf";
 import image from "../../assets/in-stock.png";
+import revenues from "../../assets/revenue.png";
 
 export default function Adminhome() {
   const [chartData, setChartData] = useState({});
@@ -15,6 +16,23 @@ export default function Adminhome() {
   const [samsungproduct, setsamsungproduct] = useState(0);
   const [iphoneproduct, setiphoneproduct] = useState(0);
   const [laptopproduct, setlaptopproduct] = useState(0);
+  const[revenue,setrevenue]=useState(0)
+
+  const getrevenue = async () => {
+    try {
+      const result = await fetch("http://localhost:8000/getrevenue", {
+        method: "GET",
+      });
+      const res=await result.json()
+      if(res.data){
+        console.log("first")
+        console.log(res.data)
+        setrevenue(res.data)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getadminproductcount = async () => {
     try {
@@ -43,6 +61,7 @@ export default function Adminhome() {
 
   useEffect(() => {
     getadminproductcount();
+    getrevenue()
   }, []);
 
   useEffect(() => {
@@ -90,7 +109,7 @@ export default function Adminhome() {
       <hr />
 
       <div className="row">
-        <div className="col-4">
+        <div className="col-3">
           <div className="dashboard-card p-3 d-flex">
             <div className="text-start">
               <div
@@ -119,7 +138,7 @@ export default function Adminhome() {
             </div>
           </div>
         </div>
-        <div className="col-4">
+        <div className="col-3">
           <div className="dashboard-card p-3 d-flex">
             <div className="text-start">
               <div
@@ -149,7 +168,7 @@ export default function Adminhome() {
             </div>
           </div>
         </div>
-        <div className="col-4">
+        <div className="col-3">
           <div className="dashboard-card p-3 d-flex">
             <div className="text-start">
               <div
@@ -177,7 +196,36 @@ export default function Adminhome() {
             </div>
           </div>
         </div>
-        <div className="col-3"></div>
+        <div className="col-3">
+          <div className="dashboard-card p-3 d-flex">
+            <div className="text-start">
+              <div
+                className=""
+                style={{
+                  background: "rgb(10, 50, 109)",
+                  height: "70px",
+                  width: "60px",
+                  borderRadius: "10px",
+                }}
+              >
+                <div
+                  className="product-dashboards"
+                  style={{
+                    color: "white",
+                  }}
+                >
+                  <span>
+                    <img src={revenues} alt="" className="revenue-image" />
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="text-start mt-1 ml-3">
+              <h4 className="total-products-card">Total Revenue</h4>
+              <h2 className="total-products-card">{revenue}</h2>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="d-flex justify-content-around align-items-center">

@@ -27,30 +27,13 @@ export default function MainSidebar() {
     dispatch(change(true));
     navigate("/adminproductpage");
   };
+// const log=()=>{
+//   const model=document.getElementById("exampleModal").
 
-  const logout = async () => {
-    const cookie = new Cookies();
-    const username = cookie.get("username");
-    const key = cookie.get("userKey");
-    const res = await fetch("http://localhost:8000/logout", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-CSRFToken": csrftoken,
-      },
-      body: JSON.stringify({ username, key }),
-    });
-    const result = await res.json();
-    if (result.message) {
-      cookie.remove("username");
-      cookie.remove("userKey");
-      dispatch(authenticate(false));
-      navigate("/admin");
-    }
-    if (result.error) {
-      console.log("hello");
-    }
-  };
+ 
+// }
+
+
 
   return (
     
@@ -105,15 +88,23 @@ export default function MainSidebar() {
               </span>
               <h5>Coupen Code</h5>
             </div>
-            <div className="side-Logout side-link" onClick={logout}>
+            <a className="side-Logout side-link" data-bs-target="#exampleModal" data-bs-toggle="modal">
               <span>
-                <i class="bi bi-box-arrow-left"></i>
+                <i class="bi bi-box-arrow-left text-white"></i>
               </span>
-              <h5>Logout</h5>
-            </div>
-            <hr />
-        
-      </div>
+              <h5 className="text-white">Logout</h5>
+            </a>
+           
+            <hr /> 
+
+         
+
+
+
+
+
+          </div>
+
    
   );
 }

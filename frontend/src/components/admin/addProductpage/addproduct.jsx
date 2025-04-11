@@ -239,24 +239,24 @@ export default function Addproduct() {
                 Cover Image
               </label>
             </div>
-            <div className="d-flex justify-content-center">
-              <div className="image-cover-input input-group mb-3 ">
+            <div className="d-flex justify-content-center w-100">
+             
                 <input
                   type="file"
-                  class=" form-control"
+                  className=" form-control w-75 input-upd"
                   id="inputGroupFile02"
                   onChange={(event) => setupdateimage(event.target.files[0])}
                 />
-              </div>
-              <div className="ms-3">
+             
+              
                 <button
-                  className="add-product-add-more-btn"
+                  className="add-product-add-more-btn ml-3"
                   type="button"
                   onClick={(e) => count(e)}
                 >
                   add more
                 </button>
-              </div>
+           
             </div>
             <div>
               {input.length > 0 ? (
@@ -265,22 +265,21 @@ export default function Addproduct() {
                     key={item.id}
                     className="mt-3 w-100  d-flex justify-content-center"
                   >
-                    <div className="remove-input-image">
+                    
                       <input
                         type="file"
-                        class="form-control w-100"
+                        className="form-control w-75 input-upd"
                         id={`file-${item.id}`}
                         onChange={(event) => handleFileChange(event, item.id)}
                       />
-                    </div>
-                    <div className="ms-3">
+                  
                       <button
-                        className="add-product-add-more-btn1"
+                        className="add-product-add-more-btn1 ml-3"
                         onClick={() => deletes(item.id)}
                       >
                         remove
                       </button>
-                    </div>
+                   
                   </div>
                 ))
               ) : (

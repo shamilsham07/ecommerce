@@ -430,21 +430,6 @@ const nextindex=(index+1)%imagearray.length
             </div>
           </div>
         </section>
-        <section>
-          <div className="mt-3">
-            <h2 className="discount-products">best discount of products</h2>
-          </div>
-          <div className="discount-products-subheading mt-1">
-            <h5>Exclusive Deals on Discounted Products......</h5>
-          </div>
-          <div className="d-flex discount-page-image p-3">
-            <div className="col-4 p-3 the-card-discount" style={{boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px"}}>
-              <img src={image1} alt="" className="w-75" />
-              <h5 className="text-dark">samsung</h5>
-            </div>
-           
-          </div>
-        </section>
         <Footer />
       </div>
     </>

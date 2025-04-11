@@ -6,6 +6,7 @@ import { GiExitDoor } from "react-icons/gi";
 import "./production.css";
 import { useLocation } from "react-router-dom";
 import csrftoken from "../../csrf";
+import image from "../../assets/41jOEM5KONL._SX569_.jpg";
 import { useNavigate } from "react-router-dom";
 
 export default function Updatepage() {
@@ -32,11 +33,11 @@ export default function Updatepage() {
     const result = await fetch("http://localhost:8000/getcategory", {
       method: "GET",
     });
-    const res=await result.json()
-    if(res.data){
-      console.log("first")
-      setgetcategory(res.data)
-      console.log(res.data)
+    const res = await result.json();
+    if (res.data) {
+      console.log("first");
+      setgetcategory(res.data);
+      console.log(res.data);
     }
   };
 
@@ -135,7 +136,7 @@ export default function Updatepage() {
         setdescription(result.data.description || "");
       }
     };
-getcategorys()
+    getcategorys();
     getproductfirst();
   }, [id]);
 
@@ -353,20 +354,28 @@ getcategorys()
             <div>
               <form action="">
                 <div className="p-5 update-form-section">
-                  <div className="w-100 d-flex">
+                  <div className="w-100 d-flex mt-2">
                     <div className="w-50">
-                      <div className="text-start">
+                      <div className="w-50 text-start">
                         <label htmlFor="" className="name-updates-form">
-                          Name
+                          Category
                         </label>
                       </div>
-                      <div className="text-start w-100">
-                        <input
-                          type="text"
-                          className="w-100 p-2 name-input-form"
-                        />
-                      </div>
+                      <select
+                        class="form-select p-2 name-input-form"
+                        onChange={(e)=>setSelectedItem(e.target.value)}
+                    
+                      >
+                        {getcategory.map((item, index) => ( 
+                          
+                          <option value={item.categoryName}
+                          selected={item.categoryName === selectedItem} key={index}>
+                            {item.categoryName}
+                          </option>
+                        ))}
+                      </select>
                     </div>
+
                     <div className="w-50">
                       <div className="w-100">
                         <div className="w-100 text-start ml-2">
@@ -374,13 +383,20 @@ getcategorys()
                             htmlFor=""
                             className="text-start name-updates-form"
                           >
-                            Price
+                            Name
                           </label>
                         </div>
                         <div className="w-100 ml-2">
                           <input
-                            type="text"
                             className="w-100 p-2 name-input-form"
+                            type="text"
+                            name="name"
+                            onKeyDown={(e) => handleChange(e, input2Ref)}
+                            onChange={(event) =>
+                              setproductname(event.target.value)
+                            }
+                            ref={input1Ref}
+                            value={productname}
                           />
                         </div>
                       </div>
@@ -391,13 +407,21 @@ getcategorys()
                     <div className="w-50">
                       <div className="text-start">
                         <label htmlFor="" className="name-updates-form">
-                          Discount
+                          Price
                         </label>
                       </div>
                       <div className="text-start w-100">
                         <input
-                          type="text"
+                          
                           className="w-100 p-2 name-input-form"
+                          type="number"
+                          name="price"
+                          ref={input2Ref}
+                          value={updateprice}
+                          onKeyDown={(e) => handleChange(e, input3Ref)}
+                          onChange={(e) =>
+                            setupdateprice(parseInt(e.target.value))
+                          }
                         />
                       </div>
                     </div>
@@ -408,35 +432,124 @@ getcategorys()
                             htmlFor=""
                             className="text-start name-updates-form"
                           >
-                            Stock
+                            Discount
                           </label>
                         </div>
                         <div className="w-100 ml-2">
                           <input
-                            type="text"
+                           
                             className="w-100 p-2 name-input-form"
+                            type="number"
+                            
+                            value={updatediscount}
+                            ref={input4Ref}
+                            onKeyDown={(e) => handleChange(e, input5Ref)}
+                            onChange={(e) =>
+                              setdiscount(parseFloat(e.target.value))
+                            }
                           />
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="w-50">
-                    <div className="w-50 text-start">
-                      <label htmlFor="" className="name-updates-form">Category</label>
-
+                    <div className="text-start">
+                      <label htmlFor="" className="name-updates-form">
+                        Stock
+                      </label>
                     </div>
-                    <select
-                      class="form-select p-2 name-input-form"
-                      aria-label="Default select example"
-                    >
-                      {
-                        getcategory.map((item,index)=>(
-                          <option value="" key={index}>{item.categoryName}</option>
+                    <div className="w-100">
+                      <input
+                        type="number"
+                        className="w-100 p-2 name-input-form"
+                        name="stock"
+                        value={updatestock}
+                        ref={input3Ref}
+                        onKeyDown={(e) => handleChange(e, input4Ref)}
+                        onChange={(e) =>
+                          setupdatestock(parseInt(e.target.value))
+                        }
+                      />
+                    </div>
+                  </div>
 
-                        ))
-                      }
-                    </select>
-                   
+                  <div className="w-100 mt-2">
+                    <div className="w-100 text-start">
+                      <label htmlFor="" className="name-updates-form">
+                        Description
+                      </label>
+                    </div>
+                    <div class="form-floating">
+                      <textarea className="w-100 p-2 name-input-form"
+                       ref={input5Ref}
+                       value={description}
+                       onKeyDown={(e) => handleChange(e, input6Ref)}
+                       onChange={(e) => setdescription(e.target.value)}
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div className="w-100 more-files mt-2">
+                    <h5>More Files</h5>
+                  </div>
+                  <div class="mb-3 mt-2">
+                    <label
+                      for="formFileMultiple"
+                      className="form-label text-start w-100 ml-1 file-for-input"
+                    >
+                      File:*
+                    </label>
+                    <div className="w-100 d-flex">
+                      <input
+                        class="form-control w-75"
+                        type="file"
+                        id="formFileMultiple"
+                        multiple
+                        onChange={(e) => setupdateimage(e.target.files[0])}
+                      />
+                      <button className="ml-5 Add-files"
+                      
+                      onClick={(e) => count(e)}>Add Files</button>
+                    </div>
+                  </div>
+
+                  {input.length > 0 ? (
+                    input.map((item, index) => (
+                      <div
+                        key={item.id}
+                        className="mt-2 w-100 d-flex"
+                      >
+                       
+                          <input
+                            type="file"
+                            class="form-control w-75 add-input-img "
+                            id={`file-${item.id}`}
+                            onChange={(event) =>
+                              handleFileChange(event, item.id)
+                            }
+                          />
+                      
+                  
+                          <button
+                            className="delete-btn-img ml-5"
+                            onClick={() => deletes(item.id)}
+                          >
+                            remove
+                          </button>
+                    
+                      </div>
+                    ))
+                  ) : (
+                    <div></div>
+                  )}
+
+
+
+
+
+                  <div className="w-100 text-center mt-2">
+                    <button type="button" className="upd-btn-product"  onClick={update}>
+                      Update
+                    </button>
                   </div>
                 </div>
               </form>

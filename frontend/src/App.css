@@ -67,3 +67,19 @@ section{
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
 }
+.modala-closee{
+  background: none;
+  border: none;
+  font-size: 30px;
+}
+.body-of-modal{
+  color:black;
+  font-weight: 600;
+}
+.head-of-log{
+  color:black;
+  font-weight:300;
+}
+.fades{
+  transition: 2s all ease-in-out !important;
+}
