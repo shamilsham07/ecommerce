@@ -168,7 +168,7 @@ export default function Reviewpage() {
                 </div>
               ))}
             </div>
-            <hr />
+        
           </div>
         </div>
         {

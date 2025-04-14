@@ -461,3 +461,68 @@ object-fit: contain;
 .the-card-discoun{
   border-radius: 20px;
 }
+.select-category h3{
+  color:#15154a;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-family: "Poppins", serif;
+  font-size: 30px;
+
+}
+.select-category-sec{
+width: 229px;
+height: 197px;
+  background-color: #fafafa;
+  /* border-radius: 5px; */
+  border-radius: 10px;
+
+}
+.select-category-sec img{
+  width:100%;
+  height:75%;
+  object-fit: contain;
+}
+.laptop-home3-heading{
+  text-transform: capitalize;
+  font-weight: 600;
+  font-family: "Poppins", serif;
+  font-size: 25px;
+  color:#15154a ;
+}
+
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.select-category-sec::after,.select-category-sec::before{
+  content: "";
+
+  top: 99px;
+  left: 115px;
+  translate: -50% -50%;
+  position: absolute;
+
+  height: 101%;
+  width: 101%;
+  z-index: -1;
+  padding: 3px;
+  border-radius: 10px;
+  background-image: conic-gradient(from var(--angle),transparent,#15154a);
+  animation:  3s spin linear infinite;
+
+}
+.select-category-sec::before{
+  filter:blur(1.5rem);
+  opacity:0.5;
+}
+@keyframes spin{
+  from{
+    --angle:0deg;
+  }
+  to{
+    --angle:360deg;
+  }
+}

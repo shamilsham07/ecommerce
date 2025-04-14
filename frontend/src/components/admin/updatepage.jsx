@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 export default function Updatepage() {
   const [productdetails, setproductdetails] = useState({});
   const [input, setinput] = useState([]);
+  const [coverimage, setcoverimage] = useState([]);
   const generateId = () => Date.now() + Math.random().toString(36).substring(2);
   const input1Ref = useRef(null);
   const input2Ref = useRef(null);
@@ -21,6 +22,7 @@ export default function Updatepage() {
   const input6Ref = useRef(null);
   const loaction = useLocation();
   const navigate = useNavigate();
+  const [preview, setpreview] = useState(null);
   const [productname, setproductname] = useState("");
   const [updateimage, setupdateimage] = useState(null);
   const [updateprice, setupdateprice] = useState("");
@@ -28,6 +30,19 @@ export default function Updatepage() {
   const [updatediscount, setdiscount] = useState("");
   const [description, setdescription] = useState("");
   const [getcategory, setgetcategory] = useState([]);
+  const[imageid,setimageid]=useState()
+  const changes = (e, id) => {
+    setimageid(id)
+    const file = e.target.files[0];
+    if (id && file) {
+      const updatedImages = coverimage.map((item) =>
+        item.id === id
+          ? { ...item, url: file }
+          : item
+      );
+      setcoverimage(updatedImages);
+    }
+  };
 
   const getcategorys = async () => {
     const result = await fetch("http://localhost:8000/getcategory", {
@@ -55,6 +70,7 @@ export default function Updatepage() {
     }
   };
   const update = async (e) => {
+    console.log("......", coverimage);
     e.preventDefault();
 
     try {
@@ -68,10 +84,17 @@ export default function Updatepage() {
       formdata.append("updateprice", updateprice);
       formdata.append("selectedItem", selectedItem);
       formdata.append("description", description);
+      formdata.append("imageid",imageid)
+      coverimage.forEach((item) => {
+   
+       if(item.url){
+        formdata.append("images",item.url)
+       }
+      });
 
       input.forEach((item) => {
-        if (item.file) {
-          formdata.append("otherimage", item.file);
+        if (item.url) {
+          formdata.append("otherimage", item.url);
         }
       });
 
@@ -134,11 +157,23 @@ export default function Updatepage() {
         setupdatestock(result.data.stock_count || "");
         setSelectedItem(result.data.category || "");
         setdescription(result.data.description || "");
+
+        console.log(result.data.image);
+        setpreview(result.data.image);
+      }
+      if (result.datas) {
+        console.log(result.datas);
+        setcoverimage(result.datas);
       }
     };
     getcategorys();
     getproductfirst();
   }, [id]);
+
+  const handle = (e) => {
+    console.log("ssssssssssssssss");
+    setupdateimage(e.target.files[0].name);
+  };
 
   return (
     <>
@@ -158,199 +193,6 @@ export default function Updatepage() {
               </div>
             </div>
             <hr />
-            {/* <div className="update-form-section">
-              <div
-                className="top w-100"
-                style={{ backgroundColor: "rgb(68, 10, 10)" }}
-              ></div>
-              <div className="update-form-top">
-                <form action="">
-                  <div className="update-form row">
-                    <div className="col-6">
-                      <div className="right-side-form mb-3">
-                        <label className="form-label update-name">
-                          {" "}
-                          Product name <span>*</span>
-                        </label>
-                        <input
-                          type="name"
-                          class="form-control"
-                          ref={input1Ref}
-                          value={productname}
-                          onKeyDown={(e) => handleChange(e, input2Ref)}
-                          onChange={(event) =>
-                            setproductname(event.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div class="right-side-form mb-3">
-                        <label class="form-label update-price">
-                          Price <span>*</span>
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          ref={input2Ref}
-                          value={updateprice}
-                          onKeyDown={(e) => handleChange(e, input3Ref)}
-                          onChange={(e) =>
-                            setupdateprice(parseInt(e.target.value))
-                          }
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="update-form row">
-                    <div className="col-6">
-                      <div className="right-side-form mb-3">
-                        <label className="form-label stock-update">
-                          {" "}
-                          Stock <span>*</span>
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          value={updatestock}
-                          ref={input3Ref}
-                          onKeyDown={(e) => handleChange(e, input4Ref)}
-                          onChange={(e) =>
-                            setupdatestock(parseInt(e.target.value))
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6">
-                      <div class="mb-3">
-                        <label class="form-label update-discount">
-                          Discount <span>*</span>
-                        </label>
-                        <input
-                          type="number"
-                          class="form-control"
-                          value={updatediscount}
-                          ref={input4Ref}
-                          onKeyDown={(e) => handleChange(e, input5Ref)}
-                          onChange={(e) =>
-                            setdiscount(parseFloat(e.target.value))
-                          }
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="w-100" style={{ paddingInline: "10px" }}>
-                    <div class="form-floating">
-                      <textarea
-                        className="update-description form-control"
-                        placeholder="Leave a comment here"
-                        id="floatingTextarea"
-                        ref={input5Ref}
-                        value={description}
-                        onKeyDown={(e) => handleChange(e, input6Ref)}
-                        onChange={(e) => setdescription(e.target.value)}
-                      ></textarea>
-                      <label for="floatingTextarea">Description</label>
-                    </div>
-                  </div>
-
-                  <div
-                    className="row justify-content-center mt-3"
-                    style={{
-                      width: "80%",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                  >
-                    <div className="col-4">
-                      <div className="card flex justify-content-center">
-                        <Dropdown
-                          value={selectedItem}
-                          onChange={(e) => setSelectedItem(e.value)}
-                          options={items}
-                          ref={input6Ref}
-                          placeholder=" Select category"
-                          className="w-100"
-                          optionLabel="name"
-                          style={{ height: "51px", color: "rgb(68, 10, 10);" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="w-100"
-                    style={{ marginLeft: "auto", marginRight: "auto" }}
-                  >
-                    <div className="w-100 d-flex justify-content-center">
-                      <div class="input-group w-50">
-                        <input
-                          type="file"
-                          class="form-control"
-                          id="inputGroupFile04"
-                          aria-describedby="inputGroupFileAddon04"
-                          aria-label="Upload"
-                          style={{ border: "none" }}
-                          onChange={(e) => setupdateimage(e.target.files[0])}
-                        />
-                      </div>
-                      <div className=" ms-3 addmore-update-page-btn">
-                        <button type="button" onClick={(e) => count(e)}>
-                          add more
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {input.length > 0 ? (
-                    input.map((item, index) => (
-                      <div
-                        key={item.id}
-                        className="mt-3 w-100  d-flex justify-content-center"
-                      >
-                        <div className="remove-input-image">
-                          <input
-                            type="file"
-                            class="form-control w-100"
-                            id={`file-${item.id}`}
-                            onChange={(event) =>
-                              handleFileChange(event, item.id)
-                            }
-                          />
-                        </div>
-                        <div className="ms-3">
-                          <button
-                            className="add-product-add-more-btn1"
-                            onClick={() => deletes(item.id)}
-                          >
-                            remove
-                          </button>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div>no daaaaa</div>
-                  )}
-
-                  <div
-                    className="row justify-content-center align-items-center"
-                    style={{ marginLeft: "auto", marginRight: "auto" }}
-                  >
-                    <div className="col-12">
-                      <button
-                        type="button"
-                        className="update-btn"
-                        onClick={update}
-                      >
-                        update
-                      </button>
-                    </div>
-                  </div>
-                  <div></div>
-                </form>
-              </div>
-            </div> */}
-
             <div>
               <form action="">
                 <div className="p-5 update-form-section">
@@ -363,13 +205,14 @@ export default function Updatepage() {
                       </div>
                       <select
                         class="form-select p-2 name-input-form"
-                        onChange={(e)=>setSelectedItem(e.target.value)}
-                    
+                        onChange={(e) => setSelectedItem(e.target.value)}
                       >
-                        {getcategory.map((item, index) => ( 
-                          
-                          <option value={item.categoryName}
-                          selected={item.categoryName === selectedItem} key={index}>
+                        {getcategory.map((item, index) => (
+                          <option
+                            value={item.categoryName}
+                            selected={item.categoryName === selectedItem}
+                            key={index}
+                          >
                             {item.categoryName}
                           </option>
                         ))}
@@ -412,7 +255,6 @@ export default function Updatepage() {
                       </div>
                       <div className="text-start w-100">
                         <input
-                          
                           className="w-100 p-2 name-input-form"
                           type="number"
                           name="price"
@@ -437,10 +279,8 @@ export default function Updatepage() {
                         </div>
                         <div className="w-100 ml-2">
                           <input
-                           
                             className="w-100 p-2 name-input-form"
                             type="number"
-                            
                             value={updatediscount}
                             ref={input4Ref}
                             onKeyDown={(e) => handleChange(e, input5Ref)}
@@ -480,11 +320,12 @@ export default function Updatepage() {
                       </label>
                     </div>
                     <div class="form-floating">
-                      <textarea className="w-100 p-2 name-input-form"
-                       ref={input5Ref}
-                       value={description}
-                       onKeyDown={(e) => handleChange(e, input6Ref)}
-                       onChange={(e) => setdescription(e.target.value)}
+                      <textarea
+                        className="w-100 p-2 name-input-form"
+                        ref={input5Ref}
+                        value={description}
+                        onKeyDown={(e) => handleChange(e, input6Ref)}
+                        onChange={(e) => setdescription(e.target.value)}
                       ></textarea>
                     </div>
                   </div>
@@ -498,56 +339,130 @@ export default function Updatepage() {
                     >
                       File:*
                     </label>
-                    <div className="w-100 d-flex">
+                    <div className="w-100 d-flex justify-content-center align-items-center">
+                      {updateimage ? (
+                        <div className="">
+                          <img
+                            src={updateimage}
+                            alt="good"
+                            className="update-image-first-get"
+                          />
+                        </div>
+                      ) : (
+                        <div className="">
+                          <img
+                            src={`http://localhost:8000/${preview}`}
+                            alt="good"
+                            className="update-image-first-get"
+                          />
+                        </div>
+                      )}
+
                       <input
                         class="form-control w-75"
                         type="file"
                         id="formFileMultiple"
                         multiple
-                        onChange={(e) => setupdateimage(e.target.files[0])}
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          setupdateimage(file);
+
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function (event) {
+                              const imgElement =
+                                document.getElementsByClassName(
+                                  "update-image-first-get"
+                                )[0];
+                              if (imgElement) {
+                                imgElement.setAttribute(
+                                  "src",
+                                  event.target.result
+                                );
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }}
                       />
-                      <button className="ml-5 Add-files"
-                      
-                      onClick={(e) => count(e)}>Add Files</button>
+                      <button
+                        className="ml-5 Add-files"
+                        onClick={(e) => count(e)}
+                      >
+                        Add Files
+                      </button>
                     </div>
                   </div>
 
+                  {coverimage.map((item, index) => (
+                    <div
+                      key={index}
+                      className="mt-2 d-flex justify-content-center allign-items-center"
+                    >
+                      <img
+                        src={`http://localhost:8000/${item.url}`}
+                        alt=""
+                        className="update-image-first-get"
+                        id={`all-image-${index}`}
+                      />
+                      <input
+                        class="form-control w-75 ml-2 mb-2"
+                        type="file"
+                        style={{
+                          height: "40px",
+                        }}
+                        id="formFileMultiple"
+                        multiple
+                        onChange={(e, id) => {
+                          changes(e, item.id);
+                          const reader = new FileReader();
+                          const file = e.target.files[0];
+                          reader.onload = function (event) {
+                            const imgElement = document.getElementById(
+                              "all-image-" + index
+                            );
+                            if (imgElement) {
+                              imgElement.setAttribute(
+                                "src",
+                                event.target.result
+                              );
+                            }
+                          };
+                          reader.readAsDataURL(file);
+                        }}
+                      />
+                      <button className="update-file ml-2 mb-2">update</button>
+                    </div>
+                  ))}
+
                   {input.length > 0 ? (
                     input.map((item, index) => (
-                      <div
-                        key={item.id}
-                        className="mt-2 w-100 d-flex"
-                      >
-                       
-                          <input
-                            type="file"
-                            class="form-control w-75 add-input-img "
-                            id={`file-${item.id}`}
-                            onChange={(event) =>
-                              handleFileChange(event, item.id)
-                            }
-                          />
-                      
-                  
-                          <button
-                            className="delete-btn-img ml-5"
-                            onClick={() => deletes(item.id)}
-                          >
-                            remove
-                          </button>
-                    
+                      <div key={item.id} className="mt-2 w-100 d-flex">
+                        <input
+                          type="file"
+                          class="form-control w-75 add-input-img "
+                          id={`file-${item.id}`}
+                          onChange={(event) => handleFileChange(event, item.id)}
+                        />
+
+                        <button
+                          className="delete-btn-img ml-5"
+                          onClick={() => deletes(item.id)}
+                        >
+                          remove
+                        </button>
                       </div>
                     ))
                   ) : (
                     <div></div>
                   )}
 
-
-
-
-
                   <div className="w-100 text-center mt-2">
-                    <button type="button" className="upd-btn-product"  onClick={update}>
+                    <button
+                      type="button"
+                      className="upd-btn-product"
+                      onClick={update}
+                    >
                       Update
                     </button>
                   </div>

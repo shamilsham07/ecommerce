@@ -73,6 +73,11 @@ path("gettotalreview",views.gettotalreview),
 path("getallusers",views.getallusers),
 path("deleteReview",views.deleteReview),
 path("getrevenue",views.getrevenue),
+path("getbasedondate",views.getbasedondate),
+path("gettheallcategory",views.gettheallcategory),
+
+
+
 
 
 

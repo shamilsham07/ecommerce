@@ -5,7 +5,7 @@ import Nav2 from "./nav2";
 
 import { FcLike } from "react-icons/fc";
 import { MdArrowOutward } from "react-icons/md";
-import firstimage from "../assets/41jOEM5KONL._SX569_.jpg"
+import firstimage from "../assets/41jOEM5KONL._SX569_.jpg";
 
 import { useRef } from "react";
 import { Toast } from "primereact/toast";
@@ -15,6 +15,7 @@ import laptop from "../assets/main.png";
 import csrftoken from "../csrf";
 import likes from "../assets/heart.png";
 import redLike from "../assets/heart (1).png";
+import imageof from "../assets/MYJG3-removebg-preview.png";
 
 import { useSelector } from "react-redux";
 
@@ -33,29 +34,50 @@ export default function Home() {
   const navigate = useNavigate();
   const [product, setproduct] = useState([]);
   const [image, setimage] = useState(likes);
-
+  const [thevalue, setvalue] = useState("");
   const [wishlist, setwishlist] = useState([]);
   const userdetails = useSelector((state) => state.auth.userdata);
   const userid = userdetails.id;
   const userauth = useSelector((state) => state.auth.userauthentication);
-  const imagearray=[
-    firstimage,
-    iphone2,
-    image1
-  ]
-  const [index,setindex]=useState(0)
+  const [categorys, setcategorys] = useState([]);
+  const imagearray = [firstimage, iphone2, image1];
+  const [index, setindex] = useState(0);
+  const [selectvalue, setselectvalue] = useState("");
 
+  const Transfer = (item) => {
+   
 
+    if (item === "samsung") {
+      console.log("good");
+      navigate("/SamsungProducts");
+    }
+    if(item==="iphone"){
+      navigate("/Appleproducts")
+    }
+    if(item==="laptop"){
+      navigate("/LaptopProducts")
+    }
+  };
 
-  useEffect(()=>{
-    const cleartime=setInterval(()=>{
-      setindex((prevarray)=>(prevarray+1)%imagearray.length)
+  const gettheallcategory = async () => {
+    const result = await fetch("http://localhost:8000/gettheallcategory", {
+      method: "GET",
+    });
+    const res = await result.json();
+    if (res.data) {
+      console.log(res.data);
+      setcategorys(res.data);
+    }
+  };
 
-    },3000)
- return ()=>clearInterval(cleartime)
-  },[imagearray.length])
-const previndex=(index-1 +imagearray.length)%imagearray.length
-const nextindex=(index+1)%imagearray.length
+  useEffect(() => {
+    const cleartime = setInterval(() => {
+      setindex((prevarray) => (prevarray + 1) % imagearray.length);
+    }, 3000);
+    return () => clearInterval(cleartime);
+  }, [imagearray.length]);
+  const previndex = (index - 1 + imagearray.length) % imagearray.length;
+  const nextindex = (index + 1) % imagearray.length;
   const getwishlistproductsfor = async () => {
     try {
       const result = await fetch(
@@ -197,6 +219,7 @@ const nextindex=(index+1)%imagearray.length
   useEffect(() => {
     get4products();
     getwishlistproductsfor();
+    gettheallcategory();
   }, [userid]);
 
   // $(document).on('scroll',)
@@ -426,6 +449,37 @@ const nextindex=(index+1)%imagearray.length
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <div className="d-padding">
+              <div className="select-category text-start">
+                <h3>select category</h3>
+              </div>
+              <div className="row m-0 p-0 justify-content-center align-items-center">
+                {categorys.map((item, index) => (
+                  <div className="col-3 mt-5 ml-5 " key={index}>
+                    <div
+                      className="select-category-sec  position-relative"
+                      onClick={ ()=> {
+                       Transfer(item.categoryName);
+                      }}
+                    >
+                      <img
+                        src={`http://localhost:8000//media/${item.image}`}
+                        alt="kk"
+                      />
+                      <div className="text-center mt-3">
+                        <h2 className="laptop-home3-heading">
+                          {item.categoryName}
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

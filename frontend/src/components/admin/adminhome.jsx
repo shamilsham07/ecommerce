@@ -5,7 +5,7 @@ import "animate.css";
 import csrftoken from "../../csrf";
 import image from "../../assets/in-stock.png";
 import revenues from "../../assets/revenue.png";
-
+import { Calendar } from "primereact/calendar";
 export default function Adminhome() {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
@@ -16,18 +16,46 @@ export default function Adminhome() {
   const [samsungproduct, setsamsungproduct] = useState(0);
   const [iphoneproduct, setiphoneproduct] = useState(0);
   const [laptopproduct, setlaptopproduct] = useState(0);
-  const[revenue,setrevenue]=useState(0)
+  const [revenue, setrevenue] = useState(0);
+  const [date, setDate] = useState(null);
+  const [dates, setdates] = useState(null);
+
+
+  const getFormattedDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const getbasedondate = async (e) => {
+    const selectedDate = getFormattedDate(e.target.value);
+    setdates(selectedDate);
+  
+    const result = await fetch("http://localhost:8000/getbasedondate", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ date: selectedDate }),
+    });
+  
+    const data = await result.json();
+    console.log(data);
+    setrevenue(data.data)
+  };
 
   const getrevenue = async () => {
     try {
       const result = await fetch("http://localhost:8000/getrevenue", {
         method: "GET",
       });
-      const res=await result.json()
-      if(res.data){
-        console.log("first")
-        console.log(res.data)
-        setrevenue(res.data)
+      const res = await result.json();
+      if (res.data) {
+        console.log("first");
+        console.log(res.data);
+        setrevenue(res.data);
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +89,7 @@ export default function Adminhome() {
 
   useEffect(() => {
     getadminproductcount();
-    getrevenue()
+    getrevenue();
   }, []);
 
   useEffect(() => {
@@ -102,10 +130,26 @@ export default function Adminhome() {
   }, [productcount, review, ordercount, usercount]);
 
   return (
-    <div className="card flex justify-content-center p-3">
-      <div className="text-start dashboard-heading">
-        <h2>dashbord</h2>
+    <div className="card admin-home-class flex justify-content-center p-3">
+      <div className="d-flex justify-content-between align-items-center">
+        <div className="dashboard-heading">
+          <h2>dashbord</h2>
+        </div>
+
+        <div className="">
+          <Calendar
+            id="buttondisplay"
+            value={date}
+            className="button-for-calender"
+            onChange={(e) => {
+              setDate(e.value);
+              getbasedondate(e);
+            }}
+            showIcon
+          />
+        </div>
       </div>
+
       <hr />
 
       <div className="row">
@@ -239,22 +283,22 @@ export default function Adminhome() {
         </div>
         <div className="total-users p-3">
           <div className="text-center">
-            <h4 className="text-danger">overview</h4>
+            <h4 className="overview-admin-home">overview</h4>
           </div>
           <div className="text-center d-flex justify-content-center">
             <div className="blank"></div>
           </div>
           <div className="text-start mt-3">
-            <h5 className="text-success">No of users : {usercount}</h5>
+            <h5 className="no-of-admin">No of users : {usercount}</h5>
           </div>
           <div className="text-start mt-3">
-            <h5 className="text-success">samsung : {samsungproduct}</h5>
+            <h5 className="no-of-admin">samsung : {samsungproduct}</h5>
           </div>
           <div className="text-start mt-3">
-            <h5 className="text-success">iphone : {iphoneproduct}</h5>
+            <h5 className="no-of-admin">iphone : {iphoneproduct}</h5>
           </div>
           <div className="text-start mt-3">
-            <h5 className="text-success">laptop : {laptopproduct}</h5>
+            <h5 className="no-of-admin">laptop : {laptopproduct}</h5>
           </div>
         </div>
       </div>

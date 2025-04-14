@@ -352,6 +352,7 @@ def updates(request):
         
         
         productname=data.get("productname",None)
+        imageid=data.get("imageid",None)
         updatediscount=data.get("updatediscount",None)
         updateimage=data.get("updateimage",None)
         otherimage = request.FILES.getlist("otherimage")
@@ -359,9 +360,13 @@ def updates(request):
         updateprice=data.get("updateprice",None)
         selecteditem=data.get("selectedItem",None)
         description=data.get("description",None)
+        coverimage=request.FILES.getlist("images")
+        other=request.data.get("images")
         print("id",id)
         print(selecteditem)
         print(otherimage)
+        print("ccc",coverimage)
+        print(",,,",other)
         productget=adminproduct.objects.get(id=id)
         cartget=Cart.objects.filter(product_id=id)
         print("caart",cartget)
@@ -370,6 +375,12 @@ def updates(request):
         print(updateimage)
         print(productget) 
         # float(updatediscount)
+        
+        # if coverimage:
+        #     ProductImages.objects.filter(product_id=id).delete()
+        #     for image in coverimage:
+        #         ProductImages.objects.create(product_id=id,image=image)
+     
         if productname:
              productget.name=productname
         if updateimage and updateimage != 'null':
@@ -420,9 +431,20 @@ def getproductfirst(request):
         print("your id",id)
         productdetails=adminproduct.objects.get(id=id)
         print(productdetails)
+        arrray=[]
+        getimage=ProductImages.objects.filter(product_id=id)
+        print(getimage)
+        for image in getimage:
+            print(image.image)
+            arrray.append({
+                "url":image.image.url,
+                "id":image.id,
+                })
+        
+            print("gggg",arrray)
         serializer=Serializer(productdetails)
         print(serializer.data)
-        return JsonResponse({"data":serializer.data},safe=False)
+        return JsonResponse({"data":serializer.data,"datas":arrray},safe=False)
     except Exception as e:
         print("error",e)
         return JsonResponse({"error":"something is wrong"})
@@ -1687,8 +1709,7 @@ def deleteReview(request):
             
 @api_view(["GET"])
 def getrevenue(request):
-    try:
-        
+    try:  
         revenue=BuyProduct.objects.all()
         sum=revenue.aggregate(Sum('totalprice'))
         print(sum)
@@ -1697,4 +1718,31 @@ def getrevenue(request):
         return JsonResponse({"data":totalrevenue})
     except Exception as e:
         print("error",e)
+        return JsonResponse({"error":"wrong"})
+    
+    
+@api_view(["POST"])
+def getbasedondate(request):
+    try:
+        data=request.data
+        date=data.get("date")
+        print("klklkl",date)
+     
+     
+        details=BuyProduct.objects.filter(date=date)
+        datevalue=details.aggregate(total=Sum('totalprice'))
+        return JsonResponse({"data":datevalue["total"]or 0})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"worng"})
+    
+    
+@api_view(["GET"])
+def gettheallcategory(request):
+    try:
+        category=list(Category.objects.all().values())
+        print("category",category)
+        return JsonResponse({"data":category},safe=False)
+    except Exception as e:
+        print("eror",e)
         return JsonResponse({"error":"wrong"})

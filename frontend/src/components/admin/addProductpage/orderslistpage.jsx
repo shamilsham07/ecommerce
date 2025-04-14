@@ -195,7 +195,7 @@ export default function Orderslistpage() {
                     <td className="fw-bold text-dark">{item.price}</td>
                     <td className="fw-bold text-dark">{item.quantity}</td>
                     <td className="fw-bold text-dark">{item.totalprice}</td>
-                    
+                   
                     <td className="fw-bold text-dark">{item.paymentmethod}</td>
                   </tr>
                 </tbody>

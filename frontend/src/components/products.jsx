@@ -18,7 +18,7 @@ import video from "../assets/xlarge_2x.mp4";
 
 import sideimage from "../assets/world_mac_iphone__mr1xfuchl56e_xlarge_2x-removebg-preview.png";
 
-import image from "../assets/HOME_P3_Main-KV_1440x640_pc_LTR-removebg-preview.png";
+import image from "../assets/rendering-smart-home-device_23-2151039369.avif";
 import image3 from "../assets/pc_01_camera_cxp_01_portrait.jpg";
 import image4 from "../assets/left.png";
 import Whistlist from "../whistlist/whistlist";
@@ -145,7 +145,7 @@ export default function Products() {
           backgroundPosition: "center",
 
           width: "100%",
-          height: "100vh",
+        
         }}
       >
 
@@ -154,7 +154,7 @@ export default function Products() {
            
 
         <div className="d-padding">
-          <div className="row" style={{ height: "80vh" }}>
+          <div className="row" style={{ height: "43vh" }}>
             <div className="col-12">
               <div className="first-product-section-left">
                 <div className="w-100">
@@ -167,7 +167,7 @@ export default function Products() {
                     say hello to the future.samsung is available in stores
                   </p>
                 </div>
-                <div className="samsung-showmore">
+                <div className="samsung-showmore ml-4">
                   <button onClick={navigatesamsung}>show more</button>
                 </div>
               </div>

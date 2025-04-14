@@ -76,29 +76,31 @@ h1 {
 }
 .image-product-left-first {
   width: 100%;
-  height: 100%;
+
   object-fit: contain;
   border: none;
   outline: none;
-
+  height: 64vh;
+  /* border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; */
   z-index: 0;
 }
 .image-product-left-first-heading {
-  color: rgb(68, 10, 10);
+  color: white;
   display: flex;
   justify-content: start;
   width: 100%;
   padding-left: 1px;
   text-transform: capitalize;
   font-family: "Poppins", serif;
-  font-weight: 700;
   font-style: normal;
-  font-size: 66px;
+  font-size: 45px;
+  font-weight: 500;
 }
 .first-product-section-left {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
   height: 100%;
   text-align: start !important;
@@ -108,41 +110,44 @@ h1 {
   padding-top: 72px;
 }
 .image-product-left-first-subheading {
-    padding-left: 158px;
-    width: 508px;
-  text-align: center;
-  font-size: 12px;
-  color: rgb(68, 10, 10);
-  font-family: "Poppins", serif;
-  font-weight: 300;
-  font-style: normal;
-  font-size: 16px;
+     /* padding-left: 158px; */
+     width: 398px;
+     text-align: center;
+     font-size: 12px;
+     color: white;
+     font-family: "Poppins", serif;
+     font-weight: 300;
+     font-style: normal;
+     font-size: 16px;
+     text-align: center;
 }
 .samsung-showmore button {
-  border: 3px solid rgb(68, 10, 10);
   outline: none;
   padding: 7px;
   color: rgb(68, 10, 10);
   background-color: white;
   border-radius: 5px;
   cursor: pointer;
-  transition:0.7;
+  transition: 0.7;
   width: 126px;
-  font-size: 14px;
-  font-weight: 200;
+  font-size: 15px;
+  font-weight: 400;
   font-style: normal;
-  font-family: poppin;
+  font-family: "Poppins", serif;
+  text-align: center;
+  border: none;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  text-transform: capitalize;
 }
 
-.samsung-showmore button:hover{
-    transform: scale(1.03);
-
+.samsung-showmore button:hover {
+  transform: scale(1.03);
 }
-
 
 .samsung-showmore {
-  width: 100%;
-  padding-left: 265px;
+  width: 25%;
+  /* padding-left: 265px; */
+  text-align: center;
 }
 .right-product-first-div {
   height: 50%;
@@ -182,203 +187,210 @@ h1 {
   text-align: start;
 }
 .you-might h2 {
-    color: black;
-    text-transform: capitalize;
-    font-family: "Poppins", serif;
-    font-weight: 600;
-    font-style: normal;
-    font-size: 45px;
+  color: black;
+  text-transform: capitalize;
+  font-family: "Poppins", serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 45px;
 }
-.main-apple{
-    transition: 0.4s;
+.main-apple {
+  transition: 0.4s;
 }
-.main-apple:hover{
-    transform: scale(1.03);
+.main-apple:hover {
+  transform: scale(1.03);
 }
-.samsung-explore-more-btn button{
-    background-color: #fafafa;
-    color:rgb(68, 10, 10);
-    padding:7px;
-    font-size: 15px;
-    font-weight: 500;
-    border: 2px solid transparent;
-    border-image: linear-gradient(90deg, rgba(68,10,10,1) 0%, rgba(250,250,250,1) 100%);
-    border-image-slice: 1;
-    width:150px;
-    /* border-radius: 10px; */
-    transition: 2s;
-    opacity:0.7;
+.samsung-explore-more-btn button {
+  background-color: #fafafa;
+  color: rgb(68, 10, 10);
+  padding: 7px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 2px solid transparent;
+  border-image: linear-gradient(
+    90deg,
+    rgba(68, 10, 10, 1) 0%,
+    rgba(250, 250, 250, 1) 100%
+  );
+  border-image-slice: 1;
+  width: 150px;
+  /* border-radius: 10px; */
+  transition: 2s;
+  opacity: 0.7;
+}
+.samsung-explore-more-btn button:hover {
+  color: black;
+  background-color: white;
+  border: 2px solid rgb(68, 10, 10);
+}
+.product-iphone-heading-first {
+  text-transform: capitalize;
 
+  color: black;
+  font-size: 56px;
+  line-height: 1.0714285714;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.samsung-explore-more-btn button:hover{
-color:black;
-background-color: white ;
-border:2px solid rgb(68, 10, 10);
+.product-iphone-heading-second {
+  text-transform: capitalize;
 
+  color: black;
+  font-size: 56px;
+  line-height: 1.0714285714;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.product-iphone-heading-first{
-    text-transform: capitalize;
-
-    color: black;
-    font-size: 56px;
-    line-height: 1.0714285714;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+.plane {
+  width: 300px;
+  background: rgb(16, 121, 229);
+  background: linear-gradient(
+    107deg,
+    rgba(16, 121, 229, 1) 30%,
+    rgba(250, 250, 250, 1) 100%
+  );
+  height: 6px;
 }
-.product-iphone-heading-second{
-    text-transform: capitalize;
-    
-    color: black;
-    font-size: 56px;
-    line-height: 1.0714285714;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-}
-.plane{
-    width:300px;
-    background: rgb(16,121,229);
-    background: linear-gradient(107deg, rgba(16,121,229,1) 30%, rgba(250,250,250,1) 100%);
-    height:6px;
-}
-.apple-second-page-heading-first h1{
-    text-transform: capitalize;
-    text-align: start;
-    color: black;
-    font-size: 56px;
-    line-height: 1.0714285714;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+.apple-second-page-heading-first h1 {
+  text-transform: capitalize;
+  text-align: start;
+  color: black;
+  font-size: 56px;
+  line-height: 1.0714285714;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
 
-
-.apple-card-second-page{
-    height:60vh;
-    border:1px-solid black;
+.apple-card-second-page {
+  height: 60vh;
+  border: 1px-solid black;
 }
-.apple-card-second-page img{
-width:100%;
-height:40vh;
-object-fit: contain;
+.apple-card-second-page img {
+  width: 100%;
+  height: 40vh;
+  object-fit: contain;
 }
-.apple-card-second-page h3{
-    
-    font-weight: 600;
-    color: var(--sk-headline-text-color, rgb(29, 29, 31));
-
+.apple-card-second-page h3 {
+  font-weight: 600;
+  color: var(--sk-headline-text-color, rgb(29, 29, 31));
 }
-.apple-card-second-page p{
-    font-size: 17px;
-    text-transform: capitalize;
-    line-height: 1.4705882353;
-    font-weight: 400;
-    letter-spacing: -0.022em;
-    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+.apple-card-second-page p {
+  font-size: 17px;
+  text-transform: capitalize;
+  line-height: 1.4705882353;
+  font-weight: 400;
+  letter-spacing: -0.022em;
+  font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.BsCurrencyRupee2{
-    font-size: 17px;
-    line-height: 1.4705882353;
-    font-weight: 600;
-    letter-spacing: -0.022em;
-    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+.BsCurrencyRupee2 {
+  font-size: 17px;
+  line-height: 1.4705882353;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.BsCurrencyRupee{
-    font-size: 17px;
-    line-height: 1.4705882353;
-    font-weight: 600;
-    letter-spacing: -0.022em;
-    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+.BsCurrencyRupee {
+  font-size: 17px;
+  line-height: 1.4705882353;
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.buy-apple button{
-    background: rgb(0, 113, 227);
-    color: white;
-    outline: none;
-    padding: 10px;
-    border-radius: 7px;
-    width: 100px;
-    border: none;
-    font-size: 14px;
-    line-height: 1.2857742857;
-    font-weight: 400;
-    letter-spacing: -0.016em;
-    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-   
-
+.buy-apple button {
+  background: rgb(0, 113, 227);
+  color: white;
+  outline: none;
+  padding: 10px;
+  border-radius: 7px;
+  width: 100px;
+  border: none;
+  font-size: 14px;
+  line-height: 1.2857742857;
+  font-weight: 400;
+  letter-spacing: -0.016em;
+  font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.mac-video{
+.mac-video {
   display: flex;
-      justify-content: space-between;
-      padding-inline: 58px;
+  justify-content: space-between;
+  padding-inline: 58px;
 }
-.mac-video h1{
+.mac-video h1 {
   font-size: 80px;
   line-height: 1.05;
   font-weight: 600;
   letter-spacing: -0.015em;
-  color:black;
-  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: black;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.mac-video h2{
+.mac-video h2 {
   font-size: 50px;
   line-height: 1.05;
   font-weight: 600;
   letter-spacing: -0.015em;
-  color:black;
-  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: black;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.about-laptop{
-text-align: start;
-padding-left: 10px;
-text-transform: capitalize;
-color: black;
-font-size: 40px;
-font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-
+.about-laptop {
+  text-align: start;
+  padding-left: 10px;
+  text-transform: capitalize;
+  color: black;
+  font-size: 40px;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.about-laptop-p{
-font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-color:black;
-padding-left: 10px;
-text-align: start;
-
+.about-laptop-p {
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  color: black;
+  padding-left: 10px;
+  text-align: start;
 }
-.mac-contac{
+.mac-contac {
   padding-inline: 60px;
 }
-.mac-contac h1{
+.mac-contac h1 {
   color: white;
   font-size: 40px;
   text-transform: capitalize;
   font-weight: 300;
-/* font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif; */
-
-
+  /* font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif; */
 }
-.mac-contac h6{
+.mac-contac h6 {
   color: white;
   font-size: 30px;
   text-transform: capitalize;
   font-weight: 100;
-font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
 }
-.mac-explore-btn{
+.mac-explore-btn {
   text-align: end;
-  
-  
 }
 
-.mac-explore-btn button{
+.mac-explore-btn button {
   background: white;
- 
-    padding: 9px;
-    color: rgb(68, 10, 10);
-    font-size: 17px;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    width: 121px;
-    font-weight: 300;
-    cursor: pointer;
+
+  padding: 9px;
+  color: rgb(68, 10, 10);
+  font-size: 17px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  width: 121px;
+  font-weight: 300;
+  cursor: pointer;
 }
