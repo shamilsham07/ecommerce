@@ -35,10 +35,15 @@ class Userserializer(serializers.ModelSerializer):
 
 
 class Productserializer(serializers.ModelSerializer):
+    totalname = serializers.SerializerMethodField()
     class Meta:
         model= ProductImages
-        fields="__all__"
+        fields=["id","image","product_id","totalname"]
         
+    def get_totalname(self,obj):
+        name=adminproduct.objects.filter(id=obj.product_id).first()
+        name=name.name
+        return name
 class wishlistserializer(serializers.ModelSerializer):
     product_name=serializers.CharField(source="product.name",read_only=True)
     product_price=serializers.CharField(source='product.price',read_only=True)

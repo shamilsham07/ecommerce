@@ -38,7 +38,7 @@ export default function MainSidebar() {
   return (
     
     
-          <div className="second-sidebar-back" style={{ height: "100vh",position:"fixed" }}>
+          <div className="second-sidebar-back" style={{ height: "100vh" }}>
             <div className="sidebar-logo">
               <img src={logo} alt="" />
             </div>
@@ -80,11 +80,11 @@ export default function MainSidebar() {
               <span>
               <i class="bi bi-person-fill"></i>
               </span>
-              <h5>User Authentication</h5>
+              <h5 className="text-start">Users</h5>
             </div>
             <div className="side-product side-link" onClick={()=>navigate("/Coupen")}>
               <span>
-              <img src={image2} alt="" className="coupen-icon" />
+              <i class="bi bi-card-text"></i>
               </span>
               <h5>Coupen Code</h5>
             </div>

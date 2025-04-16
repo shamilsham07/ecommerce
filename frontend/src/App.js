@@ -25,7 +25,9 @@ import Productsupdate from "./components/admin/products/productsupdate";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-ui-kit/css/mdb.min.css"; // Import the CSS for styles
 import "mdb-ui-kit";
+import Secondloader from "./components/loading/secondloader";
 import Nav2 from "./components/nav2";
+import Deliveryadreass from "./components/cart/deliveryadreass";
 import ContactPage from "./components/contactpage/contact";
 import Verifyemail from "./components/userlogin/verifyemail";
 import UserLogin from "./components/userlogin/userlogin";
@@ -52,6 +54,7 @@ import { setuserauthentication } from "./components/redux/reducer";
 import Appleproducts from "./components/appleProducts/appleproducts";
 import LaptopProducts from "./components/appleProducts/laptop.products";
 import Reviewpage from "./whistlist/reviewpage";
+import Transfertoviewimage from "./components/admin/viewimage";
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -136,9 +139,6 @@ function App() {
     checkauth();
   }, [key]);
 
-
-
-
   const logout = async () => {
     const cookie = new Cookies();
     const username = cookie.get("username");
@@ -156,7 +156,7 @@ function App() {
       cookie.remove("username");
       cookie.remove("userKey");
       dispatch(authenticate(false));
-      
+
       navigate("/admin");
     }
     if (result.error) {
@@ -237,6 +237,10 @@ function App() {
           element={isAuthenticated ? <Coupen /> : <Admin />}
         />
         <Route
+        path="/Deliveryadreass"
+        element={<Deliveryadreass/>}
+        />
+        <Route
           path="/Orderslistpage"
           element={isAuthenticated ? <Orderslistpage /> : <Admin />}
         />
@@ -248,28 +252,59 @@ function App() {
           path="/Logout"
           element={isAuthenticated ? <Logout /> : <Admin />}
         />
+        <Route
+          path="/transfertoviewimage"
+          element={isAuthenticated ? <Transfertoviewimage /> : <Admin />}
+        />
+        <Route path="/Secondloader" element={<Secondloader />} />
       </Routes>
-      <div className="modal fades" id="exampleModal"style={{
-        transition:"2s all ease-in-out"
-      }} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title head-of-log" id="exampleModalLabel">logout</h5>
-        <button type="button" class="close modala-closee" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div
+        className="modal fades"
+        id="exampleModal"
+        style={{
+          transition: "2s all ease-in-out",
+        }}
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title head-of-log" id="exampleModalLabel">
+                logout
+              </h5>
+              <button
+                type="button"
+                class="close modala-closee"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body body-of-modal">are you sure to logout ?</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                onClick={() => logout()}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body body-of-modal">
-        are you sure to logout ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary"data-bs-dismiss="modal" onClick={()=>logout()}>Logout</button>
-      </div>
-    </div>
-  </div>
-</div>
     </div>
   );
 }

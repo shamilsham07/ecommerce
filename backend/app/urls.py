@@ -75,6 +75,16 @@ path("deleteReview",views.deleteReview),
 path("getrevenue",views.getrevenue),
 path("getbasedondate",views.getbasedondate),
 path("gettheallcategory",views.gettheallcategory),
+path("changeimage",views.changeimage),
+path("deleteSelectimage",views.deleteSelectimage),
+path("getallcoveriamge",views.getallcoveriamge),
+path("deletetheimg",views.deletetheimg),
+path("updatetheimages",views.updatetheimages),
+
+
+
+
+
 
 
 

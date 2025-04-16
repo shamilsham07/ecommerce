@@ -361,6 +361,7 @@ def updates(request):
         selecteditem=data.get("selectedItem",None)
         description=data.get("description",None)
         coverimage=request.FILES.getlist("images")
+        print("cover",coverimage)
         other=request.data.get("images")
         print("id",id)
         print(selecteditem)
@@ -437,8 +438,9 @@ def getproductfirst(request):
         for image in getimage:
             print(image.image)
             arrray.append({
-                "url":image.image.url,
+                "image":image.image.url,
                 "id":image.id,
+                "product_id":id,
                 })
         
             print("gggg",arrray)
@@ -1075,13 +1077,13 @@ def getproductforbuy(request):
         print("dd",user_id)
         print("llllll",productid)
         product=Cart.objects.filter(user_id=user_id,id=productid).first()
-        productdetails=Cart.objects.get(id=productid)
+       
         
-        if productdetails.stock_count<product.quantity:
-            print(productdetails.stock_count)
-            stocks= "out of stock"
-        else:
+        if product.stock_count<product.quantity:
+            print(product.stock_count)
             stocks=None
+        else:
+            stocks=1
             print("japan")
         if not product:
             return JsonResponse({"error": "Product not found"}, status=404)
@@ -1090,6 +1092,7 @@ def getproductforbuy(request):
         print(product.quantity)
         print(product.totalprice)
         serialzer=CartSerializer(product)
+        print(serialzer.data)
        
         return JsonResponse({"data":serialzer.data,"stocks":stocks},safe=False)
     except Exception as e:
@@ -1462,10 +1465,11 @@ def apllypromocode(request):
         coupen=data.get("coupenvalue")
         print(coupen)
         if Coupen.objects.filter(CoupenName=coupen).exists():
-            print("jhi")
+           
             item=Coupen.objects.filter(CoupenName=coupen).first()
             if item.is_active==True:
                 discount=item.discount
+                print(discount)
                 print("sanamin")
                 return JsonResponse({"data":discount})
             else:
@@ -1746,3 +1750,86 @@ def gettheallcategory(request):
     except Exception as e:
         print("eror",e)
         return JsonResponse({"error":"wrong"})
+    
+@api_view(["POST"])   
+def changeimage(request):
+    try:
+        data=request.data
+        id=data.get("imageid")
+        p_id=data.get("product_id")
+        
+        image=request.FILES.get("images")
+        print("image",image)
+        print(id)
+        productimage=ProductImages.objects.filter(id=id).first()
+        if productimage:
+            productimage.image=image
+        productimage.save()
+        data=productimage.objects.filter(product_id=p_id);
+        serializer=Productserializer(data,many=True)
+        
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"wrong"})
+    
+@api_view(["POST"])
+def deleteSelectimage(request):
+    try:
+     data=request.data
+     id=data.get("id")
+     p_id=data.get("p_id")
+     print("idid get=",id)
+     print(p_id)
+     ProductImages.objects.filter(id=id).delete()
+     data=ProductImages.objects.filter(product_id=p_id)
+     serializer=Productserializer(data,many=True)
+     print(serializer.data)
+     return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"worng"})
+    
+@api_view(["GET"])
+def getallcoveriamge(request):
+    try:
+        print("hhhhhh")
+        serializer=Productserializer(ProductImages.objects.all(),many=True)
+        print(serializer.data)
+        return JsonResponse({"data":serializer.data})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"worng"})
+    
+@api_view(["POST"])
+def deletetheimg(request):
+    try:
+        print("hi")
+        data=request.data
+        id=data.get("id")
+        print(id)
+        ProductImages.objects.filter(id=id).delete()
+        productimg=ProductImages.objects.all()
+        serializer=Productserializer(productimg,many=True)
+        print(serializer.data)
+        return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({"wrong":"something fishy"})
+    
+@api_view(["POST"])
+def updatetheimages(request):
+    try:
+      file=request.FILES.get("file")
+      id=request.data.get("id")
+      product=ProductImages.objects.filter(id=id).first()
+      product.image=file
+      product.save()
+      updateproduct=ProductImages.objects.all()
+      serializer=Productserializer(updateproduct,many=True)
+      return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"wrong"})
+        
+

@@ -6,17 +6,13 @@
   outline: none;
 }
 
-.addreass-card{
- 
+.addreass-card {
   overflow-y: scroll;
-
 }
 
-
-.addreass-card::-webkit-scrollbar{
+.addreass-card::-webkit-scrollbar {
   display: none;
 }
-
 
 .button-78 {
   align-items: center;
@@ -161,7 +157,7 @@
   margin-top: 30px;
   font-family: "Poppins", serif;
   font-weight: 700;
-  color:#15154a;
+  color: #15154a;
   font-style: normal;
 }
 .add-new-adreass {
@@ -191,7 +187,6 @@
 
   background-color: white;
   color: black;
-
 }
 
 .addreass-card:hover {
@@ -211,7 +206,6 @@
   height: 50px;
 }
 .card-heads {
- 
   text-align: start;
 
   text-transform: capitalize;
@@ -231,21 +225,20 @@
   font-weight: 400;
   font-style: normal;
 }
-.tick-image-img img{
+.tick-image-img img {
   width: 70px;
   height: 70px;
 }
-.dig-visible{
-  height:170px;
+.dig-visible {
+  height: 170px;
+  
 }
-.item-purchase-dialog{
-  color:black;
+.item-purchase-dialog {
+  color: black;
   font-family: "poppins", serif;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
-  
-
 }
 .yes-class {
   margin-inline: 36px;
@@ -380,18 +373,18 @@
 }
 
 .order-summary-btn button {
-  order: none;
   outline: none;
   cursor: pointer;
   color: white;
-  background: rgb(68, 10, 10);
-  padding: 7px;
+  background: #15154a;
+  padding: 2px;
   width: 100px;
   cursor: pointer;
   border-radius: 8px;
   text-transform: capitalize;
   font-size: 18px;
-  margin-bottom: 13px;
+  margin-bottom: 0px;
+  border: none;
 }
 .heading-main-add {
   color: rgb(68, 10, 10);
@@ -402,135 +395,256 @@
 .product-details-buy h5 {
   color: rgb(68, 10, 10);
 }
-.md-addreass{
+.md-addreass {
   height: 27px;
   width: 30px;
 
   background: #d91f1f;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
 
-
   border-radius: 5px;
   text-align: center;
 }
-.sub-card-apple img{
-  width:100%;
-  height:200px;
+.sub-card-apple img {
+  width: 100%;
+  height: 200px;
   object-fit: contain;
-
 }
-.heading-of-cart h2{
- color: black;
-}
-.heading-of-cart h3{
+.heading-of-cart h2 {
   color: black;
- }
-th{
+}
+.heading-of-cart h3 {
+  color: black;
+}
+th {
   color: black !important;
   font-size: 18px;
   font-weight: 500;
-  font-family: 'Poppins';
- }
- .image-of-cart{
-  width:70px;
+  font-family: "Poppins";
+}
+.image-of-cart {
+  width: 70px;
   object-fit: contain;
- }
- .td-data{
+}
+.td-data {
   vertical-align: middle;
-  color:black !important;
- }
-.number-coloumn{
+  color: black !important;
+}
+.number-coloumn {
   border: 1px solid #61616152;
   width: 29px;
   border-radius: 3px;
 }
-.add-add-cart-btn{
+.add-add-cart-btn {
   font-size: 17px;
-
-
 }
-.bi bi-dash{
+.bi bi-dash {
   font-size: 17px;
-  cursor:pointer;
+  cursor: pointer;
 }
-.buy-it-cart{
+.buy-it-cart {
   background-color: orange;
   padding: 7px;
   border: none;
-    outline: none;
-    color: white;
-    width: 90px;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 300;
+  outline: none;
+  color: white;
+  width: 90px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 300;
 }
-.bi bi-trash3-fill{
-  color:red;
+.bi bi-trash3-fill {
+  color: red;
 }
-.delete-header{
-  width:20% !important;
-  height:165px !important;
+.delete-header {
+  width: 20% !important;
+  height: 165px !important;
 }
-.delete-png-addto img{
+.delete-png-addto img {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
-.close-png-img img{
+.close-png-img img {
   width: 25px !important;
   height: 25px !important;
   cursor: pointer;
 }
-.discount-dalog{
+.discount-dalog {
   font-weight: 800;
 }
-.img-emoji-disc{
+.img-emoji-disc {
   width: 41px;
-    height: 42px;
+  height: 42px;
   object-fit: contain;
 }
-.congratulation{
+.congratulation {
   font-family: "Poppins", serif;
   font-weight: 600;
   font-style: normal;
-  
 }
-.popper{
-
+.popper {
   transition: opacity 0.5s ease-out;
 }
-.discount-addreass{
+.discount-addreass {
   font-family: "Poppins", serif;
   font-weight: 400;
   font-style: normal;
   font-size: 13px;
   color: black;
 }
-.addreass-email-field{
+.addreass-email-field {
   height: 20px;
-    width: 212px;
-    text-align: start;
-    
+  width: 212px;
+  text-align: start;
 }
 
-.addreass-side-addreass-page{
-  width:212px;
-  height:45px;
+.addreass-side-addreass-page {
+  width: 212px;
+  height: 45px;
 }
-.mail-field-addreass{
+.mail-field-addreass {
   text-transform: capitalize;
-    font-family: "Poppins", serif;
-    font-weight: 500;
-    font-style: normal;
-    text-align: start;
-    color: #15154a;
-    font-size: 14px;
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+  text-align: start;
+  color: #15154a;
+  font-size: 14px;
 }
-.addreass-height-manage{
-  height:48px !important;
-  overflow: hidden ;
+.addreass-height-manage {
+  height: 48px !important;
+  overflow: hidden;
   overflow-y: scroll;
 }
 .addreass-height-manage::-webkit-scrollbar {
-  display: none
+  display: none;
+}
+.deliver-adreass-div-back {
+  background-color: #15154a;
+  height: 45px;
+}
+
+.deliver-adreass-div-back h3 {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  font-family: "Poppins", serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 20px;
+}
+.home-delivery-addreass {
+  width: 57px;
+  height: 32px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  border-radius: 5px;
+}
+.home-delivery-addreass h6 {
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+.home-delivery-addreass-name h5 {
+  text-transform: capitalize;
+  font-size: 17px;
+  color: black;
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.deliver-here-btn button {
+  border: none;
+  outline: none;
+  background-color: #ff7426;
+  text-transform: capitalize;
+  font-size: 17px;
+  padding: 7px;
+  color: black;
+  font-family: "Poppins", serif;
+
+  width: 126px;
+  border-radius: 5px;
+  font-weight: 300;
+}
+.price-details{
+  background-color: #15154a;
+  height: 45px;
+}
+.price-details-price{
+  text-transform: capitalize;
+  font-size: 18px;
+  color: black;
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+  width: max-content;
+  margin-bottom: 0;
+}
+.price-details-prices{
+  text-transform: capitalize;
+  font-size: 16px;
+  color: black;
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.addreass-here-btns{
+  border: none;
+  outline: none;
+  background-color: #15154a;
+  text-transform: capitalize;
+  font-size: 17px;
+  padding: 7px;
+  color: white;
+  font-family: "Poppins", serif;
+
+  width: 126px;
+  border-radius: 5px;
+  font-weight: 300;
+}
+.order-summarys{
+  background-color: #15154a;
+  height: 45px;
+}
+.delivery-page-img{
+  height:60px;
+  width:100%;
+  object-fit: cover;
+}
+.price-details-pricez{
+  text-transform: capitalize;
+  font-size: 18px;
+  color: #15154a;
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.promo-code-inp{
+  border:none;
+  outline: none;
+  background-color: none;
+  padding:5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width:200px;
+}
+.promo-code-apply{
+  background-color: #15154a;
+  border:none;
+  outline: none;
+  color: white;
+  padding:5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }

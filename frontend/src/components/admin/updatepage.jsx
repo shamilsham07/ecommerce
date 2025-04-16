@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Updatepage() {
   const [productdetails, setproductdetails] = useState({});
+
   const [input, setinput] = useState([]);
   const [coverimage, setcoverimage] = useState([]);
   const generateId = () => Date.now() + Math.random().toString(36).substring(2);
@@ -30,17 +31,44 @@ export default function Updatepage() {
   const [updatediscount, setdiscount] = useState("");
   const [description, setdescription] = useState("");
   const [getcategory, setgetcategory] = useState([]);
-  const[imageid,setimageid]=useState()
-  const changes = (e, id) => {
-    setimageid(id)
-    const file = e.target.files[0];
-    if (id && file) {
-      const updatedImages = coverimage.map((item) =>
-        item.id === id
-          ? { ...item, url: file }
-          : item
-      );
-      setcoverimage(updatedImages);
+  const [imageid, setimageid] = useState();
+  const deleteSelectimage = async (id, p_id) => {
+    console.log("the is", p_id);
+    const result = await fetch("http://localhost:8000/deleteSelectimage", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id, p_id: p_id }),
+    });
+    const res = await result.json();
+    if (res.data) {
+      console.log("first", res.data);
+      setcoverimage(res.data);
+    } else {
+      console.log("no data");
+    }
+  };
+  const changes = async (e, id, p_id) => {
+    const formdata = new FormData();
+    formdata.append("imageid", id);
+    formdata.append("images", e.target.files[0]);
+    formdata.append("product_id", p_id);
+
+    const result = await fetch("http://localhost:8000/changeimage", {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrftoken,
+      },
+      body: formdata,
+    });
+    const res = await result.json();
+    if (res.data) {
+      console.log(res.data);
+      setcoverimage(res.data);
+    } else {
+      console.log("no data get");
     }
   };
 
@@ -84,17 +112,16 @@ export default function Updatepage() {
       formdata.append("updateprice", updateprice);
       formdata.append("selectedItem", selectedItem);
       formdata.append("description", description);
-      formdata.append("imageid",imageid)
+      formdata.append("imageid", imageid);
       coverimage.forEach((item) => {
-   
-       if(item.url){
-        formdata.append("images",item.url)
-       }
+        if (item.image) {
+          formdata.append("images", item.image);
+        }
       });
 
       input.forEach((item) => {
-        if (item.url) {
-          formdata.append("otherimage", item.url);
+        if (item.file) {
+          formdata.append("otherimage", item.file);
         }
       });
 
@@ -162,7 +189,8 @@ export default function Updatepage() {
         setpreview(result.data.image);
       }
       if (result.datas) {
-        console.log(result.datas);
+        console.log("heree", result.datas);
+
         setcoverimage(result.datas);
       }
     };
@@ -400,7 +428,7 @@ export default function Updatepage() {
                       className="mt-2 d-flex justify-content-center allign-items-center"
                     >
                       <img
-                        src={`http://localhost:8000/${item.url}`}
+                        src={`http://localhost:8000/${item["image"]}`}
                         alt=""
                         className="update-image-first-get"
                         id={`all-image-${index}`}
@@ -414,7 +442,7 @@ export default function Updatepage() {
                         id="formFileMultiple"
                         multiple
                         onChange={(e, id) => {
-                          changes(e, item.id);
+                          changes(e, item.id, item.product_id);
                           const reader = new FileReader();
                           const file = e.target.files[0];
                           reader.onload = function (event) {
@@ -431,22 +459,59 @@ export default function Updatepage() {
                           reader.readAsDataURL(file);
                         }}
                       />
-                      <button className="update-file ml-2 mb-2">update</button>
+                      <button
+                        className="delete-btn-img ml-2 mt-1"
+                        type="button"
+                        onClick={() =>
+                          deleteSelectimage(item.id, item.product_id)
+                        }
+                      >
+                        remove
+                      </button>
                     </div>
                   ))}
 
                   {input.length > 0 ? (
                     input.map((item, index) => (
-                      <div key={item.id} className="mt-2 w-100 d-flex">
+                      <div
+                        key={item.id}
+                        className="mt-2  d-flex justify-content-center align-items-center"
+                      >
+                        <img
+                          class="update-image-first-get"
+                          alt=""
+                          id={`
+                            imageof-element-${index}`}
+                        />
                         <input
                           type="file"
-                          class="form-control w-75 add-input-img "
+                          class="form-control w-75"
+                          style={{
+                            height: "40px",
+                          }}
                           id={`file-${item.id}`}
-                          onChange={(event) => handleFileChange(event, item.id)}
+                          onChange={(event) => {
+                            handleFileChange(event, item.id);
+                            const reader = new FileReader();
+                            const file = event.target.files[0];
+                            reader.onload = function (event) {
+                              const imageelement = document.getElementById(
+                                "imageof-element-" + index
+                              );
+                              if (imageelement) {
+                                imageelement.setAttribute(
+                                  "src",
+                                  event.target.result
+                                );
+                              }
+                            };
+                            reader.readAsDataURL(file);
+                          }}
                         />
 
                         <button
-                          className="delete-btn-img ml-5"
+                          className="delete-btn-img ml-2"
+                          type="button"
                           onClick={() => deletes(item.id)}
                         >
                           remove

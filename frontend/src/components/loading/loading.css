@@ -3,3 +3,13 @@
     height:100vh;
 
 }
+.loader{
+    color: #154373 !important;
+    position: fixed;
+    backdrop-filter: blur(3px);
+    align-items: center;
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

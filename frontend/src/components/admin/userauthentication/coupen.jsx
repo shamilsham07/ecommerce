@@ -17,6 +17,12 @@ export default function Coupen() {
   const [updatecoupens, setupdatecoupens] = useState("");
   const [updatedisc, setupdatedisc] = useState();
 
+
+  const goback = () => {
+    console.log("first");
+    window.history.back();
+  };
+
   const coupenupdatepage = async () => {
     const result = await fetch("http://localhost:8000/coupenupdatepage", {
       method: "POST",
@@ -126,6 +132,7 @@ export default function Coupen() {
               <div className="text-start ml-5 ">
                 <i
                   class="bi bi-arrow-left-circle"
+                  onClick={()=>goback()}
                   style={{ fontSize: "20px", cursor: "pointer" }}
                   //   onClick={() => navigate("/adminproductpage")}
                 ></i>

@@ -51,6 +51,11 @@ export default function ProductsSection() {
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const dispatch = useDispatch();
 
+ 
+
+
+
+
   const [visible, setVisible] = useState(false);
   const footerContent = (
     <div>
@@ -309,7 +314,13 @@ export default function ProductsSection() {
 
   const updatebodytamplate = (rowData) => {
     return (
-      <i>
+   
+      <div>
+          <span className="MdDelete mx-2"onClick={()=>navigate("/transfertoviewimage")}>
+          <i class="bi bi-eye-fill"></i>
+
+
+          </span>
         <span className="MdModeEditOutline" onClick={() => updates(rowData.id)}>
           {" "}
           <MdModeEditOutline />
@@ -324,7 +335,7 @@ export default function ProductsSection() {
           >
           <MdDelete />
         </span>
-      </i>
+      </div>
     );
   };
 
@@ -529,7 +540,7 @@ export default function ProductsSection() {
                       header="price"
                       filterField="price"
                       dataType="numeric"
-                      // style={{ width: "180px" }}
+                      style={{ width: "180px" }}
                       body={priceBodyTemplate}
                        className="p-1 mt-1"
 
@@ -546,6 +557,17 @@ export default function ProductsSection() {
                       // filterElement={balanceFilterTemplate}
                     />
                     <Column
+                      field="stock"
+                      header="stock"
+                      // filterMenuStyle={{ width: "14rem" }}
+                      style={{ width: "180px" }}
+                      body={stockbodytemplate}
+                       className="p-1 mt-1"
+
+                      // filter
+                      // filterElement={stockfiltertemplate}
+                    />
+                        <Column
                       field="stock"
                       header="stock"
                       // filterMenuStyle={{ width: "14rem" }}

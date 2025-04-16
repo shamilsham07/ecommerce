@@ -72,7 +72,7 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
   border: none;
   outline: none;
-  font-size: 18px;
+  font-size: 14px;
 }
 .MdDelete {
   padding: 10px;
@@ -82,8 +82,8 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
   border: none;
   outline: none;
-  font-size: 18px;
-  margin-left: 10px;
+  font-size: 14px;
+  margin-left: 7px;
 }
 .td-img {
   width: 50px;
@@ -382,8 +382,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .coupen-icon {
   width: 16px;
-  color: white;
-  filter: invert(1);
+  color: white !important;
+  /* filter: invert(1); */
   object-fit: contain;
 }
 .update-form-section {
@@ -466,6 +466,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-family: "poppins" !important;
   font-weight: 300 !important;
   text-transform: capitalize;
+  height: 33px;
 }
 .admin-home-class{
   box-shadow: none !important;
@@ -482,4 +483,30 @@ input[type="number"]::-webkit-outer-spin-button {
   border:none;
   outline: none;
   border-radius: 6px;
+}
+.update-product-images i{
+  color: #15154a;
+  font-size: 20px;
+}
+.update-product-images h3{
+  color: #15154a;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0;
+  padding: 0;
+
+
+}
+.viewimage-add--product{
+  border: none;
+  outline: none;
+  padding: 7px;
+  border-radius: 5px;
+  color: white;
+  background-color: #15154a;
+  text-transform: capitalize;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+
 }
