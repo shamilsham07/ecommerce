@@ -895,9 +895,9 @@ def addtocart(request):
         image=product.image
         price=product.price
         stockcount=product.stock_count
-        price=product.price
+       
         
-      
+        print("janson")
         print(product)
         if Cart.objects.filter(product=product,user_id=userId).exists():
            print("hello")
@@ -908,9 +908,10 @@ def addtocart(request):
            if stockcount==cart.quantity:
                return JsonResponse({"stockmax":"you have already add this product now you select the more quantity then we have plaese reduce the quantity"})
            cart.quantity=+Quantity
+           print(cart.quantity)
            print("hi")
            quantity=cart.quantity
-           print(type(price))
+           print("price")
            
            if quantity>stockcount:
              return JsonResponse({"stockmax":"you have already add this product now you select the more quantity then we have plaese reduce the quantity"})
@@ -924,7 +925,7 @@ def addtocart(request):
             quantity=Quantity
             totalprice=int(price)*int(quantity)
             print(totalprice)
-            Cart.objects.create(user_id=userId,totalprice=totalprice,quantity=quantity,name=name,image=image,product_id=productId)
+            Cart.objects.create(user_id=userId,totalprice=totalprice,quantity=quantity,name=name,image=image,product_id=productId,price=price)
             return JsonResponse({"message":"recieved successfully"})
     except Exception as e:
         print("error",e)
@@ -1075,11 +1076,14 @@ def getproductforbuy(request):
         productid=data.get("product_id")
         user_id=data.get("userid")
         print("dd",user_id)
+        print("where")
         print("llllll",productid)
         product=Cart.objects.filter(user_id=user_id,id=productid).first()
+        product_id=product.product_id
+        admin=adminproduct.objects.filter(id=product_id).first()
        
-        
-        if product.stock_count<product.quantity:
+        print("admin",admin)
+        if admin.stock_count<product.quantity:
             print(product.stock_count)
             stocks=None
         else:
@@ -1131,7 +1135,7 @@ def buyingproduct(request):
             if stock>=product_quantity:
                 print("good")
                 
-                last_order_id=BuyProduct.objects.order_by("-order_id").first()
+                last_order_id=BuyProduct.objects.filter(paymentmethod="COD").order_by("-order_id").first()
                 print(last_order_id)
                 # print(last_order_id.order_id)
                 if last_order_id:
@@ -1152,7 +1156,7 @@ def buyingproduct(request):
                     total_price=price-discountedprice
                     if paymentmethod=="COD":
                         is_order_confirm=True
-                        lastpaymentid=BuyProduct.objects.order_by("-payment_id").first()
+                        lastpaymentid=BuyProduct.objects.filter(paymentmethod="COD").order_by("-payment_id").first()
                         print("ji")
                         if lastpaymentid:
                            res=lastpaymentid.order_id[4:]
@@ -1187,7 +1191,7 @@ def buyingproduct(request):
                     print(paymentmethod)
                     if paymentmethod=="COD":
                         is_order_confirm=True
-                        lastpaymentid=BuyProduct.objects.order_by("-payment_id").first()
+                        lastpaymentid=BuyProduct.objects.filter(paymentmethod="COD").order_by("-payment_id").first()
                         print("ji")
                         if lastpaymentid:
                            res=lastpaymentid.order_id[4:]
@@ -1831,5 +1835,146 @@ def updatetheimages(request):
     except Exception as e:
         print(e)
         return JsonResponse({"error":"wrong"})
+        
+        
+
+@api_view(["GET","POST"])        
+def razerpay(request):
+    print("hi")
+    print(request.method)
+    try:
+        if request.method=="POST":
+            data=request.data
+            user_id=data.get("user_id")
+            paymentmethod=data.get("paymentmethod")
+            product_id=data.get("product")[0]
+            addreassid=data.get("addreassid")
+            coupenvalue=data.get("coupenvalue")
+            discount=data.get("discount")
+            date=datetime.date.today()
+            originalprice=data.get("originalprice")
+            print(user_id,paymentmethod,product_id,addreassid,coupenvalue,discount,originalprice)
+            print("hello")
+            productdetails=Cart.objects.filter(user_id=user_id,id=product_id).first()
+            product_name=productdetails.name
+            product_image=productdetails.image
+            product_price=productdetails.price
+            product_quantity=productdetails.quantity
+            id=productdetails.product_id
+            print(date)
+            countofproduct=adminproduct.objects.filter(id=id).first()
+            stock=countofproduct.stock_count
+            
+            
+            if coupenvalue:
+              if stock>product_quantity:
+                coupenisactive=Coupen.objects.filter(CoupenName=coupenvalue).first()
+                if coupenvalue and coupenisactive.is_active:
+                    productfinalprice=productdetails.price-((discount/100)*productdetails.price)
+                    print("discount",productfinalprice)
+                    if product_id and user_id:
+                      print(id)
+                      BuyProduct.objects.create(user_id=user_id,
+                                                quantity=product_quantity,
+                                                name=product_name,image=product_image,
+                                                price=product_price,
+                                                totalprice=productfinalprice,
+                                                is_coupen=True,
+                                                coupen_code=coupenvalue,
+                                                date=date,
+                                                is_orderConfirm=False,
+                                                discount=discount,
+                                                discountedamount=(discount/100)*productdetails.price,
+                                                status="ordered",
+                                                adreass_id=addreassid,
+                                                product_id=id)
+                      getlastid=BuyProduct.objects.order_by("id").last()
+                      print("hhhhhhh",getlastid.id)
+                      return JsonResponse({"message":getlastid.id})
+                
+               
+                if stock==0:
+                    return JsonResponse({"outofstock":"the item is unavailable now"})
+                if stock<product_quantity:
+                    return JsonResponse({"outofstock":"the quantity you choose cant we have only limited stock"})   
+            elif not coupenvalue:
+                if stock>product_quantity:
+                    if product_id and user_id:
+                        BuyProduct.objects.create(
+                            user_id=user_id,
+                            quantity=product_quantity,
+                            name=product_name,
+                            image=product_image,
+                            price=product_price,
+                            totalprice=(product_price*product_quantity),
+                            is_coupen=False,
+                            coupen_code=None,
+                            discount=0,
+                            discountedamount=0,
+                            status="ordered",
+                            adreass_id=addreassid,
+                            is_orderConfirm=False,
+                            date=date,
+                            product_id=id
+                            )
+                        getlastid=BuyProduct.objects.order_by("id").last()
+                        print(getlastid.id)
+                            
+                        
+                    return JsonResponse ({"message":getlastid.id})
+                elif stock==0:
+                    return JsonResponse({"outofstock":"the currently the product is unavailable now"})
+                elif stock<product_quantity:
+                    return JsonResponse({"outofstock":"the quantity you choose cant we have only limited stock"})
+               
+                 
+            return JsonResponse({"message":"good"})
+            
+        elif request.method=="GET":
+            print("goof")
+            return JsonResponse({"data":' '})
+           
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"someting went wrong"})        
+    
+    
+@api_view(["POST"])   
+def getrazordetails(request):
+    try:
+        data=request.data
+        id=data.get("id")
+        print(id)
+        product=BuyProduct.objects.get(id=id)
+        name=Usersignup.objects.get(id=product.user_id).name
+        return JsonResponse ({"data":{"totalprice":product.totalprice,"name":name}})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":""})
+    
+@api_view(["POST"])
+def successpayment(request):
+    try:
+        print("HI")
+        data=request.data
+        id=data.get("id")
+        order_id=data.get("order_id")
+        payment_id=data.get("payment_id")
+        print(id)
+        print(order_id)
+        print(payment_id)
+        if id:
+         product=BuyProduct.objects.get(id=id)
+         product.is_orderConfirm=True
+         product.paymentmethod="razerpay"
+         product.order_id=order_id
+         product.payment_id=payment_id
+         product.save()
+         return JsonResponse({"message":"good"})
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"worng"})
+    
+        
         
 

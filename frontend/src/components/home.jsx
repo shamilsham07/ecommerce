@@ -239,8 +239,8 @@ export default function Home() {
         <section className="first-page w-100  ">
           <div className="container">
             <div className="d-padding">
-              <div className="row  align-items-center">
-                <div className="col-6 ">
+              <div className="row  align-items-center m-0 p-0">
+                <div className="col-6 m-0 p-0">
                   <div className="first-page-heading d-flex justify-content-center align-items-center w-100">
                     <div>
                       <h1 className="mb-2 text-start">
@@ -285,14 +285,14 @@ export default function Home() {
                   Shop Now for Convenient Delivery And Discover
                 </h5>
               </div>
-              <div className="row">
+              <div className="row m-0 p-0">
                 {product.length > 0 ? (
                   product.map((product, index) => {
                     const theitem = Object.values(wishlist).find(
                       (item) => item.product_id === product.id
                     );
                     return (
-                      <div className="col-lg-3 mt-4" key={index}>
+                      <div className="col-lg-3 mt-4 col-sm-6  m-0 p-0 col-md-3 col-xl-3" key={index}>
                         <div className="card-best-products">
                           <div className="text-end">
                             {theitem ? (

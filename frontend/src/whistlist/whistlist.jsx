@@ -98,6 +98,9 @@ export default function Whistlist() {
   };
 
   const addtocart = async () => {
+    console.log(".....................................................................")
+    console.log(userId)
+    console.log(id)
     console.log(value);
 
     const res = await fetch("http://localhost:8000/addtocart", {
@@ -117,6 +120,7 @@ export default function Whistlist() {
     if (result.stockmax) {
       alert(result.stockmax);
     }
+    
   };
   const addtowhistlist = async () => {
     if (likeimage == redLike) {

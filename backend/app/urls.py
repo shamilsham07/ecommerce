@@ -80,6 +80,10 @@ path("deleteSelectimage",views.deleteSelectimage),
 path("getallcoveriamge",views.getallcoveriamge),
 path("deletetheimg",views.deletetheimg),
 path("updatetheimages",views.updatetheimages),
+path("razerpay",views.razerpay),
+path("getrazordetails",views.getrazordetails),
+path("successpayment",views.successpayment)
+
 
 
 

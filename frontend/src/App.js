@@ -220,7 +220,7 @@ function App() {
           element={isAuthenticated ? <Addproducts /> : <Admin />}
         />
         <Route path="/Wishlist" element={<Wishlist />} />
-        <Route path="/PaymentComponent" element={<PaymentComponent />} />
+        <Route path="/PaymentComponent/:id" element={<PaymentComponent />} />
         <Route path="/PdfComponent" element={<PdfComponent />} />
         <Route path="/Vieworders" element={<Vieworders />} />
         <Route path="/About" element={<About />} />

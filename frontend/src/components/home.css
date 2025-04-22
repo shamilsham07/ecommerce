@@ -526,3 +526,25 @@ height: 197px;
     --angle:360deg;
   }
 }
+
+
+
+@media only screen and (max-width: 576px) {
+  body{
+    font-size: 14px;
+  }
+  .first-page-heading h1{
+    font-size: 12px;
+    text-align: center;
+  }
+  .shopping{
+font-size: 12px;
+  }
+  .first-page-heading p{
+    font-size: 8px;
+  }
+  .first-page-right img{
+    width:100px;
+    height:100px;
+  }
+}
