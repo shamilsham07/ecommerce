@@ -13,7 +13,6 @@ import Loading from "./loading/loading";
 import { useRef } from "react";
 import videos from "../assets/xlarge_2x (1).mp4";
 
-
 import video from "../assets/xlarge_2x.mp4";
 
 import sideimage from "../assets/world_mac_iphone__mr1xfuchl56e_xlarge_2x-removebg-preview.png";
@@ -136,126 +135,216 @@ export default function Products() {
     <div>
       <Nav2 />
       <div className="card flex justify-content-center">
-      <Toast ref={toast} />
-      <section
-        className="image-product-left-first"
-        style={{
-          backgroundImage: `url(${image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+        <Toast ref={toast} />
+        <section
+          className="image-product-left-first"
+          style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
 
-          width: "100%",
-        
-        }}
-      >
-
-
-
-           
-
-        <div className="d-padding">
-          <div className="row" style={{ height: "43vh" }}>
-            <div className="col-12">
-              <div className="first-product-section-left">
-                <div className="w-100">
-                  <h3 className="image-product-left-first-heading">
-                    all screen all yours
-                  </h3>
-                </div>
-                <div className="w-100">
-                  <p className="image-product-left-first-subheading">
-                    say hello to the future.samsung is available in stores
-                  </p>
-                </div>
-                <div className="samsung-showmore ml-4">
-                  <button onClick={navigatesamsung}>show more</button>
+            width: "100%",
+          }}
+        >
+          <div className="d-padding">
+            <div className="grid">
+              <div className="col-12">
+                <div className="first-product-section-left">
+                  <div className="w-100">
+                    <h3 className="image-product-left-first-heading">
+                      all screen all yours
+                    </h3>
+                  </div>
+                  <div className="w-100 image-produccts-page-fist">
+                    <p className="image-product-left-first-subheading">
+                      say hello to the future.samsung is available in stores
+                    </p>
+                  </div>
+                  <div className="samsung-showmore ml-4">
+                    <button onClick={navigatesamsung}>show more</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="second-samsung-page">
-        <div className="container">
-          <div className="d-padding">
-            <div className="samsung-second-page-heading">
-              <h1 className="dark">Epic portraits every single time</h1>
-            </div>
-            <div className="row">
-              <div className="col-6 mt-5">
-                <img
-                  src={image3}
-                  alt=""
-                  className="second-samsung-image-portrait"
-                />
+        </section>
+        <section className="second-samsung-page">
+          <div className="container">
+            <div className="d-padding">
+              <div className="samsung-second-page-heading">
+                <h1 className="dark">Epic portraits every single time</h1>
               </div>
-              <div className="col-6">
-                <div className="mt-5 second-page-right-heading">
-                  <h1 className="text-white text-start ">
-                    Capture your best portrait with Object Aware Engine
-                  </h1>
+              <div className="grid">
+                <div className="col-12 lg:col-6 mt-5">
+                  <img
+                    src={image3}
+                    alt=""
+                    className="second-samsung-image-portrait"
+                  />
+                </div>
+                <div className="col-12 lg:col-6">
+                  <div className="mt-5 second-page-right-heading">
+                    <h1 className="text-white text-start ">
+                      Capture your best portrait with Object Aware Engine
+                    </h1>
+                  </div>
+                  <div>
+                    <h6
+                      className="text-white mt-5 text-start"
+                      style={{
+                        fontSize: "20px",
+                        opacity: "0.9",
+                        lineHeight: "25px",
+                        fontWeight: "200",
+                      }}
+                    >
+                      Capture more precise skin tone and texture with the newest
+                      advancements in our object-aware engine. Now, Galaxy S25
+                      Ultra is able to not only detect objects, but light —
+                      helping deliver even more natural skin pigmentation.1,3
+                    </h6>
+                  </div>
+                  <div className="text-end">
+                    <img src={image4} alt="" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section style={{ backgroundColor: "#fafafa" }}>
+          <div className="container">
+            <div className="d-padding">
+              <div>
+                <div className="you-might ms-5">
+                  <h2> you might also like</h2>
+                </div>
+                <hr />
+                <div className="grid">
+                  {product.length > 0 ? (
+                    product.map((item, index) => (
+                      <div
+                        className="col-6 lg:col-3  mt-4"
+                        key={index}
+                      >
+                        <div className="main-apples">
+                        <div className="card-apple  w-100">
+                          <div className="sub-card-apple">
+                            <img
+                              src={`http://127.0.0.1:8000/${item.image}`}
+                              onClick={() => whistlist(item.id)}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <h5 className="aplle-name text-dark mt-4">
+                            {item.name}
+                          </h5>
+                        </div>
+                        <div>
+                          <h6 className="text-dark">$ {item.price}</h6>
+                        </div>
+
+                        <div className="bottom-add-to-btn d-flex justify-content-center">
+                          <button
+                            className="add-to-btn"
+                            onClick={() => notify(item.id)}
+                          >
+                            <span>add to cart</span>
+                            <span></span>
+                          </button>
+                        </div>
+                        </div>
+                    
+                      </div>
+                    ))
+                  ) : (
+                    <div>
+                      <Loading />
+                    </div>
+                  )}
+                </div>
+                <div className="mt-5 w-100 samsung-explore-more-btn">
+                  <button onClick={navigatesamsung}>explore more </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="container">
+            <div className="d-padding">
+              <div className="iphone-component d-flex justify-content-between w-100">
+                <div>
+                  <h2 className="product-iphone-heading-first">iphone</h2>
                 </div>
                 <div>
-                  <h6
-                    className="text-white mt-5 text-start"
-                    style={{
-                      fontSize: "20px",
-                      opacity: "0.9",
-                      lineHeight: "25px",
-                      fontWeight: "200",
-                    }}
-                  >
-                    Capture more precise skin tone and texture with the newest
-                    advancements in our object-aware engine. Now, Galaxy S25
-                    Ultra is able to not only detect objects, but light —
-                    helping deliver even more natural skin pigmentation.1,3
-                  </h6>
+                  <h2 className="product-iphone-heading-second">
+                    designed to be loved
+                  </h2>
                 </div>
-                <div className="text-end">
-                  <img src={image4} alt="" />
+              </div>
+              <div className="row mt-3">
+                <div className="col-12">
+                  <video
+                    src={video}
+                    type="video/mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-100 iphone-video"
+                  ></video>
                 </div>
+              </div>
+              <div className="w-100 d-flex justify-content-center mt-3">
+                <div className=" plane"></div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section style={{ backgroundColor: "#fafafa" }}>
-        <div className="container">
-          <div className="d-padding">
-            <div>
-              <div className="you-might ms-5">
-                <h2> you might also like</h2>
+        </section>
+
+        <section style={{ backgroundColor: "#fff" }}>
+          <div className="container">
+            <div className="d-padding">
+              <div className="apple-second-page-heading-first">
+                <h1>explore the line-up</h1>
               </div>
-              <hr />
-              <div className="row">
-                {product.length > 0 ? (
-                  product.map((item, index) => (
-                    <div className="col-3 main-apple mt-4 ms-5" key={index}>
-                      <div className="card-apple  w-100">
-                        <div className="sub-card-apple">
+              <div className="grid ">
+                {appleproduct.length > 0 ? (
+                  appleproduct.map((item, index) => (
+                    <div className="col-6 lg:col-3 md-col-4" key={index}>
+                      <div className="apple-card-second-page w-100">
+                        <div>
                           <img
                             src={`http://127.0.0.1:8000/${item.image}`}
+                            alt=""
                             onClick={() => whistlist(item.id)}
                           />
                         </div>
-                      </div>
-                      <div>
-                        <h5 className="aplle-name text-dark mt-4">
-                          {item.name}
-                        </h5>
-                      </div>
-                      <div>
-                        <h6 className="text-dark">$ {item.price}</h6>
-                      </div>
-
-                      <div className="bottom-add-to-btn d-flex justify-content-center">
-                        <button
-                          className="add-to-btn"
-                          onClick={() => notify(item.id)}
+                        <div>
+                          <h3 className="item-name-products">{item.name}</h3>
+                        </div>
+                        <div className="w-100">
+                          <p className="w-100">the ultimate iphone</p>
+                        </div>
+                        <div
+                          className="d-flex justify-content-center align-items-center"
+                          style={{ gap: "6px" }}
                         >
-                          <span>add to cart</span>
-                          <span></span>
-                        </button>
+                          <span>
+                            <BsCurrencyRupee className="BsCurrencyRupee" />
+                          </span>
+                          <span className="BsCurrencyRupee2">
+                            {" "}
+                            {item.price}
+                          </span>
+                        </div>
+                        <div className="buy-apple">
+                          <button onClick={() => notify(item.id)}>
+                            Add To Cart
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))
@@ -266,233 +355,144 @@ export default function Products() {
                 )}
               </div>
               <div className="mt-5 w-100 samsung-explore-more-btn">
-                <button onClick={navigatesamsung}>explore more </button>
+                <button onClick={navigateiphone}>explore more </button>
               </div>
-             
             </div>
           </div>
-        </div>
-      </section>
-      <section>
-        <div className="container">
-          <div className="d-padding">
-            <div
-              className="d-flex justify-content-between"
-              style={{ marginInline: "40px" }}
-            >
-              <div>
-                <h2 className="product-iphone-heading-first">iphone</h2>
-              </div>
-              <div>
-                <h2 className="product-iphone-heading-second">
-                  designed to be loved
-                </h2>
-              </div>
-            </div>
-            <div className="row mt-3">
-              <div className="col-12">
-                <video
-                  src={video}
-                  type="video/mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-100"
-                  style={{ borderRadius: "50px" }}
-                ></video>
-              </div>
-            </div>
-            <div className="w-100 d-flex justify-content-center mt-3">
-              <div className=" plane"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section style={{ backgroundColor: "#fff" }}>
-        <div className="container">
-          <div className="d-padding">
-            <div className="apple-second-page-heading-first">
-              <h1>explore the line-up</h1>
+        <section style={{ background: "white" }}>
+          <div className="container">
+            <div className="d-padding">
+              <div className="mac-video">
+                <div>
+                  <h1>Laptops</h1>
+                </div>
+                <div>
+                  <h2>
+                    if you can dreamit <br /> mac can do it
+                  </h2>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  <video
+                    src={videos}
+                    type="video/mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-100 mac-video-display"
+                    style={{
+                      objectFit: "cover",
+                    }}
+                  ></video>
+                </div>
+              </div>
             </div>
-            <div className="row">
-              {appleproduct.length > 0 ? (
-                appleproduct.map((item, index) => (
-                  <div className="col-3" key={index}>
-                    <div className="apple-card-second-page w-100">
-                      <div>
-                        <img
-                          src={`http://127.0.0.1:8000/${item.image}`}
-                          alt=""
-                          onClick={() => whistlist(item.id)}
-                        />
-                      </div>
-                      <div>
-                        <h3>{item.name}</h3>
-                      </div>
-                      <div className="w-100">
-                        <p className="w-100">the ultimate iphone</p>
-                      </div>
-                      <div
-                        className="d-flex justify-content-center align-items-center"
-                        style={{ gap: "6px" }}
-                      >
-                        <span>
-                          <BsCurrencyRupee className="BsCurrencyRupee" />
-                        </span>
-                        <span className="BsCurrencyRupee2"> {item.price}</span>
-                      </div>
-                      <div className="buy-apple">
-                        <button onClick={()=>notify(item.id)}>Add To Cart</button>
-                      </div>
-                    </div>
+          </div>
+        </section>
+
+        <section style={{ backgroundColor: "#fafafa" }}>
+          <div className="container">
+            <div className="d-padding">
+              <div className="grid">
+                <div
+                  className="col-12 lg:col-6 order-1 order-lg-0
+                 mt-3"
+                >
+                  <div>
+                    <h3 className="about-laptop">about laptop</h3>
                   </div>
-                ))
-              ) : (
-                <div>
-                  <Loading />
+                  <div>
+                    <p className="about-laptop-p  mt-3">
+                      A laptop is a portable computer that integrates a screen,
+                      keyboard, touchpad, and battery into a compact design. It
+                      allows users to perform various tasks such as browsing,
+                      gaming, programming, and content creation. Laptops come in
+                      different sizes and specifications, ranging from
+                      lightweight ultrabooks to powerful gaming and workstation
+                      models. They offer convenience and flexibility, making
+                      them ideal for both personal and professional use.
+                    </p>
+                  </div>
                 </div>
-              )}
-            </div>
-            <div className="mt-5 w-100 samsung-explore-more-btn">
-              <button onClick={navigateiphone}>explore more </button>
-            </div>
-           
-         
-          </div>
-        </div>
-      </section>
-
-      <section style={{ background: "white" }}>
-        <div className="container">
-          <div className="d-padding">
-            <div className="mac-video">
-              <div>
-                <h1>Laptops</h1>
-              </div>
-              <div>
-                <h2>
-                  if you can dreamit <br /> mac can do it
-                </h2>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <video
-                  src={videos}
-                  type="video/mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-100"
-                  style={{
-                    height: "80vh",
-                    objectFit: "cover",
-                    borderRadius: "30px",
-                  }}
-                ></video>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ backgroundColor: "#fafafa" }}>
-        <div className="container">
-          <div className="d-padding">
-            <div className="row">
-              <div className="col-6 mt-3">
-                <div>
-                  <h3 className="about-laptop">about laptop</h3>
-                </div>
-                <div>
-                  <p className="about-laptop-p  mt-3">
-                    A laptop is a portable computer that integrates a screen,
-                    keyboard, touchpad, and battery into a compact design. It
-                    allows users to perform various tasks such as browsing,
-                    gaming, programming, and content creation. Laptops come in
-                    different sizes and specifications, ranging from lightweight
-                    ultrabooks to powerful gaming and workstation models. They
-                    offer convenience and flexibility, making them ideal for
-                    both personal and professional use.
-                  </p>
-                </div>
-              </div>
-              <div className="col-6">
-                <div>
-                  <img src={sideimage} alt="" />
+                <div className="col-12 lg:col-6 order-0 order-lg-1">
+                  <div className="w-100">
+                    <img src={sideimage} alt="" className="w-100" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="" style={{ background: "black" }}>
-        <div className="container">
-          <div className="d-padding">
-            <div className="mac-contac w-100 d-flex justify-content-between">
-              <div>
-                <h1>Explore The Products</h1>
-              </div>
-              {/* <div>
+        <section className="" style={{ background: "black" }}>
+          <div className="container">
+            <div className="d-padding">
+              <div className="mac-contac w-100 d-flex justify-content-between">
+                <div>
+                  <h1>Explore The Products</h1>
+                </div>
+                {/* <div>
     <h6>Take a Look</h6>
   </div> */}
-            </div>
+              </div>
 
-            <div className="row justify-content-center">
-              {laptop.length > 0 ? (
-                laptop.map((item, index) => (
-                  <div
-                    className="col-3 main-apple mt-4 ms-5"
-                    style={{ background: "white" }}
-                    key={index}
-                  >
-                    <div className="card-apple  w-100">
-                      <div className="sub-card-apple">
-                        <img
-                          src={`http://127.0.0.1:8000/${item.image}`}
-                          onClick={() => whistlist(item.id)}
-                        />
+              <div className="grid justify-content-center">
+                {laptop.length > 0 ? (
+                  laptop.map((item, index) => (
+                    <div
+                      className="col-6 lg:col-3  mt-4 "
+                    
+                      key={index}
+                    >
+                      <div className="main-apples ml-1 ">
+                        <div className="card-apple  w-100">
+                          <div className="sub-card-apple">
+                            <img
+                              src={`http://127.0.0.1:8000/${item.image}`}
+                              onClick={() => whistlist(item.id)}
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <h5 className="aplle-name text-dark mt-1">
+                            {item.name}
+                          </h5>
+                        </div>
+                        <div>
+                          <h6 className="text-dark">$ {item.price}</h6>
+                        </div>
+
+                        <div className="bottom-add-to-btn d-flex justify-content-center">
+                          <button
+                            className="add-to-btn"
+                            onClick={() => notify(item.id)}
+                          >
+                            {" "}
+                            <span>add to cart</span>
+                            <span>{/* <MdArrowOutward /> */}</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <h5 className="aplle-name text-dark mt-1">{item.name}</h5>
-                    </div>
-                    <div>
-                      <h6 className="text-dark">$ {item.price}</h6>
-                    </div>
-
-                    <div className="bottom-add-to-btn d-flex justify-content-center">
-                      <button
-                        className="add-to-btn"
-                        onClick={() => notify(item.id)}
-                      >
-                        {" "}
-                        <span>add to cart</span>
-                        <span>{/* <MdArrowOutward /> */}</span>
-                      </button>
-                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <Loading />
                   </div>
-                ))
-              ) : (
-                <div>
-                  <Loading />
-                </div>
-              )}
+                )}
+              </div>
+              <div className="mac-explore-btn mt-5 mx-5">
+                <button className="bg-white" onClick={navigatelaptop}>
+                  explore
+                </button>
+              </div>
             </div>
-            <div className="mac-explore-btn mt-5 mx-5">
-              <button className="bg-white" onClick={navigatelaptop}>
-                explore
-              </button>
-            </div>
-       
           </div>
-        </div>
-     
-      </section>
+        </section>
       </div>
 
       <Footer />

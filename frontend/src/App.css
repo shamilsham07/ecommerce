@@ -50,7 +50,7 @@
 }
 
 
-@keyframes appear{
+/* @keyframes appear{
   from{
     opacity:0;
     scale: 0.5;
@@ -60,7 +60,7 @@
     scale:1
 
   }
-}
+} */
 
 section{
   animation: appear linear;
@@ -83,3 +83,29 @@ section{
 .fades{
   transition: 2s all ease-in-out !important;
 }
+/* }
+@media (min-width: 768px) {
+  .col-md-3 {
+      flex: 0 0 auto;
+      width: 25% !important;
+  }
+}
+@media (min-width: 992px) {
+  .col-lg-3 {
+      flex: 0 0 auto;
+      width: 25% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-xl-4 {
+      flex: 0 0 auto;
+      width: 33.33333333% !important;
+  }
+}
+@media (min-width: 1400px) {
+  .col-xxl-2 {
+      flex: 0 0 auto;
+      width: 16.66666667% !important;
+  }
+} */

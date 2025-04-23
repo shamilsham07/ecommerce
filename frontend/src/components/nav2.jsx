@@ -11,7 +11,7 @@ import { useState } from "react";
 import csrftoken from "../csrf";
 import "animate.css";
 import { setUserData } from "./redux/reducer";
-import image1 from "../assets/wishlist.png"
+import image1 from "../assets/wishlist.png";
 
 import { useNavigate } from "react-router-dom";
 import "./products.css";
@@ -28,38 +28,31 @@ export default function Nav2() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [shadowClass,setShadowClass] = useState("")
+  const [shadowClass, setShadowClass] = useState("");
 
-
-
-  const contactnavigate=()=>{
-    navigate('/ContactPage')
-  }
+  const contactnavigate = () => {
+    navigate("/ContactPage");
+  };
 
   const userlogout = () => {
-    
     cookies.remove("email");
     dispatch(setuserauthentication(false));
-    dispatch(setUserData(['']))
-    window.location.reload()
-    
+    dispatch(setUserData([""]));
+    window.location.reload();
   };
-  const productnavigate=()=>{
-    navigate('/products')
-  }
+  const productnavigate = () => {
+    navigate("/products");
+  };
 
-const homenavigate=()=>{
-navigate("/")
-}
-const WishlistNavigate=()=>{
-  navigate("/wishlist")
-}
-const ordersnavigate=()=>{
-  navigate("/Vieworders")
-}
-
-
-
+  const homenavigate = () => {
+    navigate("/");
+  };
+  const WishlistNavigate = () => {
+    navigate("/wishlist");
+  };
+  const ordersnavigate = () => {
+    navigate("/Vieworders");
+  };
 
   const userdetailspage = () => {
     navigate("/Userdetails");
@@ -86,31 +79,40 @@ const ordersnavigate=()=>{
     }
   };
 
- useEffect(()=>{
-  const handleScroll = () =>{
-   
-    if (window.scrollY>50){
-      setShadowClass('shadow-class')
-    }else{
-      setShadowClass("")
-    }
-  };
-  window.addEventListener("scroll",handleScroll)
-  return()=>{
-    window.removeEventListener("scroll",handleScroll)
-  }
- },[])
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setShadowClass("shadow-class");
+      } else {
+        setShadowClass("");
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <div>
-      <nav class="navbar-all navbar navbar-expand-lg"> 
-        <div class={`nav-b0x container ${shadowClass}`}>
+      <nav class="navbar fixed-top navbar-expand-lg ">
+        <div class="container cont">
+          <img
+            src={image}
+            alt=""
+            className="w-30"
+            style={{
+              width: "210px",
+              cursor: "pointer",
+            }}
+            onClick={homenavigate}
+          />
           <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarTogglerDemo01"
-            aria-controls="navbarTogglerDemo01"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
@@ -119,26 +121,18 @@ const ordersnavigate=()=>{
           <div
             class="collapse navbar-collapse justify-content-between "
             id="navbarTogglerDemo01"
+            style={{ flexGrow: " 0.5" }}
           >
             <div>
-              <img
-                src={image}
-                alt=""
-                className="w-30"
-                style={{
-                  width: "210px",
-                  cursor:"pointer"
-                }}
-                onClick={homenavigate}
-              />
-            </div>
-            <div>
-              <ul class="nav-ui navbar-nav me-auto  mb-lg-0" style={{cursor:"pointer"}}>
+              <ul
+                class="nav-ui navbar-nav me-auto  mb-lg-0"
+                style={{ cursor: "pointer" }}
+              >
                 <li class="nav-item">
-                  <h6     onClick={homenavigate}  >Home</h6>
+                  <h6 onClick={homenavigate}>Home</h6>
                 </li>
                 <li class="nav-item">
-                  <h6 onClick={()=>navigate('/about')}>About</h6>
+                  <h6 onClick={() => navigate("/about")}>About</h6>
                 </li>
                 <li class="nav-item">
                   <h6 onClick={productnavigate}>Products</h6>
@@ -149,92 +143,79 @@ const ordersnavigate=()=>{
               </ul>
             </div>
             <div className="d-flex">
-            
-                <div>
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      variant="secondary"
-                      id="dropdownMenuButton1"
-                    >
-                      <FaUserCircle
-                        style={{ color: "black" }}
-                        className="FaUserCircle"
-                      />
-                    </Dropdown.Toggle>
-                    {userauth ? (
-                      <Dropdown.Menu>
-                        <Dropdown.Item
-                          className="text-center"
-                          onClick={userdetailspage}
-                        >
-                          <div className="d-flex" style={{ gap: "10px" }}>
-                            <span>
-                              <FaRegCircleUser className="add-btn" />
-                            </span>
-                            <span className="text-dark">
-                              {userdetails.name}
-                            </span>
-                          </div>
-                        </Dropdown.Item>
+              <div>
+                <Dropdown>
+                  <Dropdown.Toggle variant="secondary" id="dropdownMenuButton1">
+                    <FaUserCircle
+                      style={{ color: "black" }}
+                      className="FaUserCircle"
+                    />
+                  </Dropdown.Toggle>
+                  {userauth ? (
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        className="text-center"
+                        onClick={userdetailspage}
+                      >
+                        <div className="d-flex" style={{ gap: "10px" }}>
+                          <span>
+                            <FaRegCircleUser className="add-btn" />
+                          </span>
+                          <span className="text-dark">{userdetails.name}</span>
+                        </div>
+                      </Dropdown.Item>
 
-                        <Dropdown.Item onClick={userlogout}>
-                          <div className="d-flex" style={{ gap: "10px" }}>
-                            <span>
-                              <GrPowerShutdown style={{ color: "dark" }} />
-                            </span>
-                            <span
-                              className="text-dark"
-                              style={{ fontSize: "15px" }}
-                            >
-                              logout
-                            </span>
-                          </div>
-                        </Dropdown.Item>
+                      <Dropdown.Item onClick={userlogout}>
+                        <div className="d-flex" style={{ gap: "10px" }}>
+                          <span>
+                            <GrPowerShutdown style={{ color: "dark" }} />
+                          </span>
+                          <span
+                            className="text-dark"
+                            style={{ fontSize: "15px" }}
+                          >
+                            logout
+                          </span>
+                        </div>
+                      </Dropdown.Item>
 
-                        <Dropdown.Item onClick={WishlistNavigate}>
-                          <div className="d-flex" style={{ gap: "10px" }}>
-                           <img src={image1} alt="" className="wishlist-icons" />
-                            <span
-                              className="text-dark"
-                              style={{ fontSize: "15px" }}
-                            >
-                              Wishlist
-                            </span>
-                          </div>
-                        </Dropdown.Item>
-                        <Dropdown.Item onClick={ordersnavigate}>
-                          <div className="d-flex" style={{ gap: "10px" }}>
+                      <Dropdown.Item onClick={WishlistNavigate}>
+                        <div className="d-flex" style={{ gap: "10px" }}>
+                          <img src={image1} alt="" className="wishlist-icons" />
+                          <span
+                            className="text-dark"
+                            style={{ fontSize: "15px" }}
+                          >
+                            Wishlist
+                          </span>
+                        </div>
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={ordersnavigate}>
+                        <div className="d-flex" style={{ gap: "10px" }}>
                           <i class="bi bi-tag"></i>
-                            <span
-                              className="text-dark"
-                              style={{ fontSize: "15px" }}
-                            >
-                              My orders
-                            </span>
-                          </div>
-                        </Dropdown.Item>
+                          <span
+                            className="text-dark"
+                            style={{ fontSize: "15px" }}
+                          >
+                            My orders
+                          </span>
+                        </div>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  ) : (
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="/UserLogin">login</Dropdown.Item>
+                      <Dropdown.Item href="/UserSignup">signup</Dropdown.Item>
+                    </Dropdown.Menu>
+                  )}
+                </Dropdown>
+              </div>
 
-
-
-
-
-
-                      </Dropdown.Menu>
-                    ) : (
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="/UserLogin">login</Dropdown.Item>
-                        <Dropdown.Item href="/UserSignup">signup</Dropdown.Item>
-                      </Dropdown.Menu>
-                    )}
-                  </Dropdown>
-                </div>
-           
               <div className="FaShoppingCart">
                 <FaShoppingCart
-                className="fa-cart"
-                onClick={clicked}
-                style={{ cursor: "pointer" }}
-                
+                  className="fa-cart"
+                  onClick={clicked}
+                  style={{ cursor: "pointer" }}
                 />
               </div>
             </div>

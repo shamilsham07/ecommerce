@@ -5,8 +5,9 @@ import Footer from "../footer";
 import "./vieworders.css";
 import csrftoken from "../../csrf";
 import logo from "../../assets/LOGO-1.png";
-
+import { useNavigate } from "react-router-dom";
 export default function Vieworders() {
+  const navigation=useNavigate("")
   const userdetails = useSelector((state) => state.auth.userdata);
   const userid = userdetails.id;
   const pdfRef = useRef();
@@ -95,7 +96,7 @@ export default function Vieworders() {
                       <h3>My Orders</h3>
                     </div>
                     <div>
-                      <button>
+                      <button onClick={()=>navigation("/")}>
                         <i class="bi bi-arrow-left"></i> continue shopping
                       </button>
                     </div>

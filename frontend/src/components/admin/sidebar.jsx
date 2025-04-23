@@ -38,7 +38,7 @@ export default function MainSidebar() {
   return (
     
     
-          <div className="second-sidebar-back" style={{ height: "100vh" }}>
+          <div className="second-sidebar-back position-fixed" style={{ height: "100vh" }}>
             <div className="sidebar-logo">
               <img src={logo} alt="" />
             </div>

@@ -537,6 +537,7 @@ th {
   font-weight: 500;
   font-style: normal;
   font-size: 20px;
+  justify-content: center;
 }
 .home-delivery-addreass {
   width: 57px;
@@ -554,10 +555,11 @@ th {
   font-style: normal;
   margin: 0;
   padding: 0;
+  font-size: 14px;
 }
 .home-delivery-addreass-name h5 {
   text-transform: capitalize;
-  font-size: 17px;
+  font-size: 14px;
   color: black;
   font-family: "Poppins", serif;
   font-weight: 400;
@@ -568,12 +570,11 @@ th {
   outline: none;
   background-color: #ff7426;
   text-transform: capitalize;
-  font-size: 17px;
-  padding: 7px;
-  color: black;
+  font-size: 11px;
+  padding: 6px;
+  color: white;
   font-family: "Poppins", serif;
-
-  width: 126px;
+  width: 90px;
   border-radius: 5px;
   font-weight: 300;
 }
@@ -583,7 +584,7 @@ th {
 }
 .price-details-price{
   text-transform: capitalize;
-  font-size: 18px;
+  font-size: 14px;
   color: black;
   font-family: "Poppins", serif;
   font-weight: 400;
@@ -593,7 +594,7 @@ th {
 }
 .price-details-prices{
   text-transform: capitalize;
-  font-size: 16px;
+  font-size: 14px;
   color: black;
   font-family: "Poppins", serif;
   font-weight: 300;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import "./home.css";
 import Nav2 from "./nav2";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import { FcLike } from "react-icons/fc";
 import { MdArrowOutward } from "react-icons/md";
@@ -45,17 +46,15 @@ export default function Home() {
   const [selectvalue, setselectvalue] = useState("");
 
   const Transfer = (item) => {
-   
-
     if (item === "samsung") {
       console.log("good");
       navigate("/SamsungProducts");
     }
-    if(item==="iphone"){
-      navigate("/Appleproducts")
+    if (item === "iphone") {
+      navigate("/Appleproducts");
     }
-    if(item==="laptop"){
-      navigate("/LaptopProducts")
+    if (item === "laptop") {
+      navigate("/LaptopProducts");
     }
   };
 
@@ -228,29 +227,23 @@ export default function Home() {
     <>
       <div>
         <Nav2 className="nav2" />
-        {/* <div className="card flex justify-content-center">
-        <ToastContainer />
-              </div> */}
-
         <div className="card flex justify-content-center">
           <Toast ref={toast} />
         </div>
 
-        <section className="first-page w-100  ">
+        <section className="first-page">
           <div className="container">
             <div className="d-padding">
-              <div className="row  align-items-center m-0 p-0">
-                <div className="col-6 m-0 p-0">
-                  <div className="first-page-heading d-flex justify-content-center align-items-center w-100">
+              <div className="grid">
+                <div className="col-12 lg:col-7 order-1 order-md-0">
+                  <div className="first-page-heading">
                     <div>
                       <h1 className="mb-2 text-start">
                         discover what <br />
                         <span className="shopping"> phonecart </span>
-                        do for your
                         <br />
-                        <span className="shopping animate__animated animate__fadeIn animate__infinite	infinite animate__slow	3s">
-                          shopping
-                        </span>
+                        do for your
+                        <span className="shopping"> shopping</span>
                       </h1>
                       <p className="text-start m-0 p-0">
                         Give your business a boost with Elexy, a reliable
@@ -261,7 +254,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className="col-6 p-3">
+                <div className="col-12 lg:col-5 order-0 order-md-1">
                   {/* <div>
             <img src={left} alt="" />
           </div> */}
@@ -285,14 +278,14 @@ export default function Home() {
                   Shop Now for Convenient Delivery And Discover
                 </h5>
               </div>
-              <div className="row m-0 p-0">
+              <div className="grid">
                 {product.length > 0 ? (
                   product.map((product, index) => {
                     const theitem = Object.values(wishlist).find(
                       (item) => item.product_id === product.id
                     );
                     return (
-                      <div className="col-lg-3 mt-4 col-sm-6  m-0 p-0 col-md-3 col-xl-3" key={index}>
+                      <div className="col-6 lg:col-3" key={index}>
                         <div className="card-best-products">
                           <div className="text-end">
                             {theitem ? (
@@ -377,25 +370,20 @@ export default function Home() {
         <section className="third-page">
           <div className="container">
             <div className="d-padding">
-              <div>
-                <div className="row w-100 justify-content-center align-items-center">
-                  <div className="col-6">
-                    <div>
-                      <h1 className="third-page-heading text-white">
-                        Discover Innovation <br />
-                        with Apple
-                      </h1>
-                    </div>
+              <div className="grid">
+                <div className="col-12 lg:col-6">
+                  <div>
+                    <h1 className="third-page-heading text-white">
+                      Discover Innovation <br />
+                      with Apple
+                    </h1>
                     <div className="apple-img-div">
                       <img src={image1} alt="" className="apple-img " />
                     </div>
-                    <div className="d-flex justify-content-center">
-                      <p className="disc-third-page text-white">
-                        IOS products are sleek, high-performance devices
-                        designed by Apple, known for their intuitive user
-                        interface
-                      </p>
-                    </div>
+                    <p className="disc-third-page text-white">
+                      IOS products are sleek, high-performance devices designed
+                      by Apple, known for their intuitive user interface
+                    </p>
                     <div className="d-flex justify-content-center">
                       <button
                         className="third-view-btn"
@@ -409,35 +397,37 @@ export default function Home() {
                       </button>
                     </div>
                   </div>
-                  <div className="col-6 mt-5">
-                    <div className="row">
-                      <div className="col-5 third-card-section p-5">
-                        <div className="third-page-card1">
-                          <div className="third-card-heading">
-                            <h3>Apple</h3>
-                          </div>
+                </div>
+                <div className="col-12 lg:col-6">
+                  <div className="grid">
+                    <div className="col-12 lg:col-6">
+                      <div className="third-card-section">
+                        <div className="third-card-heading">
+                          <h3>Apple</h3>
+                        </div>
 
-                          <hr />
+                        <hr />
 
-                          <div className="text-start">
-                            <p className="third-card-desc w-75">
-                              iOS is Apple's fast, secure, and user-friendly
-                              mobile operating system
-                            </p>
-                          </div>
-                          <div className="third-card-img">
-                            <img src={iphone1} alt="" />
-                          </div>
+                        <div className="text-start">
+                          <p className="third-card-desc w-100">
+                            iOS is Apple's fast, secure, and user-friendly
+                            mobile operating system
+                          </p>
+                        </div>
+                        <div className="third-card-img">
+                          <img src={iphone1} alt="" />
                         </div>
                       </div>
-                      <div className="col-5 third-card-section2 p-5">
+                    </div>
+                    <div className="col-12 lg:col-6">
+                      <div className="third-card-section2">
                         <div className="third-card-heading ">
                           <h3>Iphone 16</h3>
                         </div>
 
                         <hr />
                         <div className="text-start">
-                          <p className="third-card-desc w-75">
+                          <p className="third-card-desc w-100">
                             The latest iPhone 16 features a stunning OLED
                             display, powerful A18 chip, 48MP camera.
                           </p>
@@ -459,13 +449,13 @@ export default function Home() {
               <div className="select-category text-start">
                 <h3>select category</h3>
               </div>
-              <div className="row m-0 p-0 justify-content-center align-items-center">
+              <div className=" grid">
                 {categorys.map((item, index) => (
-                  <div className="col-3 mt-5 ml-5 " key={index}>
+                  <div className="col-12 lg:col-4 mt-5 " key={index}>
                     <div
                       className="select-category-sec  position-relative"
-                      onClick={ ()=> {
-                       Transfer(item.categoryName);
+                      onClick={() => {
+                        Transfer(item.categoryName);
                       }}
                     >
                       <img

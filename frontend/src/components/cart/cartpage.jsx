@@ -223,7 +223,7 @@ export default function Cartpage() {
                             className="buy-it-cart"
                             onClick={() => buyproduct(item.id)}
                           >
-                            buy it
+                            Buy it
                           </button>
                           <i
                             className="bi bi-trash3-fill"
@@ -239,33 +239,46 @@ export default function Cartpage() {
                   ))}
               </tbody>
             </table>
-            <Dialog
-              className="delete-header"
-              visible={visible}
-              // modal={false}
-              style={{ width: "50vw" }}
-              onHide={() => {
-                if (!visible) return;
-                setVisible(false);
-              }}
-            >
-              <div
-                className="w-100 d-flex justify-content-center align-items-center"
-                style={{ height: "100%", flexDirection: "column" }}
+            {
+              visible&&
+              <div className="modal fade show d-block"
+           
               >
-                <div>
-                  <h3>are you sure</h3>
-                </div>
-                <div className=" d-flex mt-2" style={{ gap: "40px" }}>
-                  <div className="delete-png-addto">
-                    <img src={image} alt="" onClick={deleted} />
-                  </div>
-                  <div className="close-png-img">
-                    <img src={close} alt="" onClick={() => setVisible(false)} />
-                  </div>
-                </div>
-              </div>
-            </Dialog>
+                      <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title text-dark">
+                              Confirm Deletion
+                            </h5>
+                            <button
+                              className="btn-close"
+                              onClick={() => setVisible(false)}
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            <p className="text-dark">
+                              Are you sure you want to delete this item?
+                            </p>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              className="btn btn-secondary"
+                              onClick={() => setVisible(false)}
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              className="btn btn-danger"
+                              onClick={deleted}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            }
+           
 
             <Footer />
           </div>

@@ -161,6 +161,7 @@ export default function Orderslistpage() {
                     <td className="text-dark fw-bold text-dark">{index + 1}</td>
                     <td className="fw-bold text-dark">{item.date}</td>
                     <td className="fw-bold text-success">
+                      {item.is_orderConfirm?
                       <select
                         class={
                           (item.status == "ordered" &&
@@ -189,14 +190,53 @@ export default function Orderslistpage() {
                         <option value="shipped" className="bg-white text-dark">
                           shipped
                         </option>
+                      </select>:
+                      <select disabled   class={
+                        (item.status == "ordered" &&
+                          "form-select  text-white red") ||
+                        (item.status == "delivered" &&
+                          "form-select green bg-danger text-white") ||
+                        (item.status == "shipped" &&
+                          "form-select green bg-success text-white")
+                      }
+                      aria-label="Default select example"
+                      value={value == "" ? item.status : setvalue[item.id]}
+                      onChange={(e) => {
+                        settingvalue(e.target.value, item.id);
+                        //   setloader(true);
+                      }}>
+                       
+                      
+                        <option value="ordered" className="bg-white text-dark">
+                          ordered
+                        </option>
+                        <option
+                          value="delivered"
+                          className="bg-white text-dark"
+                        >
+                          delivered
+                        </option>
+                        <option value="shipped" className="bg-white text-dark">
+                          shipped
+                        </option>
+
                       </select>
+                      
+                      }
                     </td>
                     <td className="fw-bold text-dark">{item.name}</td>
                     <td className="fw-bold text-dark">{item.price}</td>
                     <td className="fw-bold text-dark">{item.quantity}</td>
                     <td className="fw-bold text-dark">{item.totalprice}</td>
                    
-                    <td className="fw-bold text-dark">{item.paymentmethod}</td>
+                    <td className="fw-bold text-dark">{
+                     item.is_orderConfirm?
+                    
+                    item.paymentmethod:
+                    <span className="text-danger">
+failed
+                    </span>
+                    }</td>
                   </tr>
                 </tbody>
               ))}

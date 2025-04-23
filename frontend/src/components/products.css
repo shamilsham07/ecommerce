@@ -276,6 +276,10 @@ h1 {
   height: 40vh;
   object-fit: contain;
 }
+.mac-video-display{
+  border-radius: "30px";
+  height: "80vh",
+}
 .apple-card-second-page h3 {
   font-weight: 600;
   color: var(--sk-headline-text-color, rgb(29, 29, 31));
@@ -380,6 +384,9 @@ h1 {
 .mac-explore-btn {
   text-align: end;
 }
+.iphone-video{
+  border-radius: 50px;
+}
 
 .mac-explore-btn button {
   background: white;
@@ -393,4 +400,85 @@ h1 {
   width: 121px;
   font-weight: 300;
   cursor: pointer;
+}
+.main-apples{
+  width: 100%;
+  background-color: white;
+}
+.item-name-products{
+  font-size: 20px;
+}
+@media screen and (max-width: 600px) {
+.first-product-section-left {
+  padding:10px;
+
+}
+  .image-product-left-first-heading{
+    font-size: 30px;
+    margin-top: 30px;
+
+  }
+  .image-product-left-first-subheading{
+    width: 50%;
+    font-size: 12px;
+  }
+  .first-product-section-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .image-product-left-first-heading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .image-produccts-page-fist{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .samsung-showmore{
+    margin-right:50px;
+  }
+  .product-iphone-heading-second{
+    font-size: 20px;
+   
+  }
+  .product-iphone-heading-first{
+    font-size: 20px;
+  }
+  .iphone-video{
+    border-radius: 10px;
+  }
+  .apple-second-page-heading-first h1{
+    text-align: center;
+    font-size: 25px;
+  }
+.mac-video h1{
+font-size: 25px;
+text-transform: capitalize;
+}
+.mac-video h2{
+font-size: 25px;
+text-transform: capitalize;
+
+}
+.mac-video{
+  padding-inline: 1px;
+}
+.mac-video-display{
+  height: 30vh;
+  border-radius: 5px;
+}
+.about-laptop-p{
+  width:100%;
+}
+.you-might h2 {
+  font-size: 25px;
+}
+.cont{
+  margin-inline: 20px !important;
+
+}
 }

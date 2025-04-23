@@ -1255,7 +1255,7 @@ def getadminproductcount(request):
       samsungproduct=adminproduct.objects.filter(category="samsung").count()
       appleproduct=adminproduct.objects.filter(category="iphone").count()
       laptopproduct=adminproduct.objects.filter(category="laptop").count()
-      order=BuyProduct.objects.count()
+      order=BuyProduct.objects.filter(is_orderConfirm=True).count()
       return JsonResponse({"message":productcount,"review":reviewcount,"order":order,"userscount":userscount,"samsungproduct":samsungproduct,"appleproduct":appleproduct,"laptopproduct":laptopproduct})
   except Exception as e:
       print("something",e)
@@ -1267,7 +1267,7 @@ def getmyorders(request):
         data=request.data
         id=data.get("id")
        
-        details=BuyProduct.objects.filter(user_id=id)
+        details=BuyProduct.objects.filter(user_id=id,is_orderConfirm=True)
         print("............///////////////.............................")
        
         serializer=buyingserializer(details,many=True)
@@ -1514,8 +1514,8 @@ def coupenupdatepage(request):
 def orderupdate(request):
     print("hi")
     try:
-        product=BuyProduct.objects.all()
-        count=BuyProduct.objects.count()
+        product=BuyProduct.objects.order_by("-date").all()
+        count=BuyProduct.objects.filter(is_orderConfirm=True).count()
         
         serializer=buyingserializer(product,many=True)
         print(serializer.data)
@@ -1718,7 +1718,7 @@ def deleteReview(request):
 @api_view(["GET"])
 def getrevenue(request):
     try:  
-        revenue=BuyProduct.objects.all()
+        revenue=BuyProduct.objects.filter(is_orderConfirm=True)
         sum=revenue.aggregate(Sum('totalprice'))
         print(sum)
         totalrevenue=sum["totalprice__sum"]
@@ -1889,8 +1889,9 @@ def razerpay(request):
                                                 adreass_id=addreassid,
                                                 product_id=id)
                       getlastid=BuyProduct.objects.order_by("id").last()
-                      print("hhhhhhh",getlastid.id)
-                      return JsonResponse({"message":getlastid.id})
+                      print("hhhhhhh",getlastid)
+                     
+                      return JsonResponse({"message":{"id":getlastid.id}})
                 
                
                 if stock==0:
@@ -1919,9 +1920,10 @@ def razerpay(request):
                             )
                         getlastid=BuyProduct.objects.order_by("id").last()
                         print(getlastid.id)
-                            
                         
-                    return JsonResponse ({"message":getlastid.id})
+                        
+                       
+                    return JsonResponse ({"message":{"id":getlastid.id,"totalprice":getlastid.totalprice}})
                 elif stock==0:
                     return JsonResponse({"outofstock":"the currently the product is unavailable now"})
                 elif stock<product_quantity:
@@ -1958,23 +1960,48 @@ def successpayment(request):
         print("HI")
         data=request.data
         id=data.get("id")
+        print(".................")
+        print(id)
         order_id=data.get("order_id")
         payment_id=data.get("payment_id")
-        print(id)
+        
         print(order_id)
         print(payment_id)
         if id:
          product=BuyProduct.objects.get(id=id)
+         user_id=product.user_id
+         print("..........................................................")
+         print(user_id)
+         product_id=product.product_id
+         print(product_id)
          product.is_orderConfirm=True
          product.paymentmethod="razerpay"
          product.order_id=order_id
          product.payment_id=payment_id
          product.save()
+         Cart.objects.filter(user_id=user_id,product_id=product_id).delete()
          return JsonResponse({"message":"good"})
     except Exception as e:
         print(e)
         return JsonResponse({"error":"worng"})
     
+    
+@api_view(["POST"])
+def handlePaymentFailure(request):
+    try:
+        print("hi")
+        print("hello")
+        data=request.data
+        try:
+         id=data.get("id")
+         print("ithan id",id)
+         BuyProduct.objects.get(id=id).delete()
+         return JsonResponse({"message":"good"})
+        except Exception as e:
+          return JsonResponse({"error":"bad"},status=404)  
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"wrong"},status=500)
         
         
 

@@ -57,7 +57,7 @@
   background: black;
   width: 254px;
   height: 3px;
-margin-right: 145px;
+/* margin-right: 145px; */
 }
 .overview-about{
     color:white;
@@ -145,4 +145,31 @@ margin-right: 145px;
   font-weight: 300;
   font-style: normal;
   font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+
+  .about-us-heading{
+    width:100%;
+    text-align: center;
+  }
+  .about-image-first-page{
+    width:100%;
+    height:100%;
+  }
+
+  .sub-content-about-first{
+    width: 100%;
+  }
+  .null-content{
+    margin-right: none;
+  }
+  .image-about-second{
+    border-top-left-radius: 1px ;
+    border-bottom-left-radius: 1px;
+
+  }
+  .mission-p-tag{
+    width:100%;
+  }
 }

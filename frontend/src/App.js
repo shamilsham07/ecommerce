@@ -1,4 +1,5 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import UserSignup from "./components/userlogin/usersignup";
 import Adminhome from "./components/admin/adminhome";
 import Products from "./components/products";
@@ -55,6 +56,7 @@ import Appleproducts from "./components/appleProducts/appleproducts";
 import LaptopProducts from "./components/appleProducts/laptop.products";
 import Reviewpage from "./whistlist/reviewpage";
 import Transfertoviewimage from "./components/admin/viewimage";
+
 
 function App() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

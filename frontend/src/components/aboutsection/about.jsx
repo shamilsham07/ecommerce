@@ -29,7 +29,7 @@ export default function About() {
   return (
     <>
       <Nav2 />
-      <section>
+      <section className="w-100">
         <div className="container">
           <div className="d-padding">
             <div className="p-5">
@@ -53,18 +53,18 @@ export default function About() {
                 </div>
               </div>
 
-              <div className="row mt-3">
-                <div className="col-6">
+              <div className="grid mt-3">
+                <div className="col-12 lg:col-6">
                   <div className="about-image-first-page">
                     <img src={background} alt="" />
                   </div>
                 </div>
-                <div className="col-6 p-3">
-                  <div className="ml-3">
+                <div className="col-12 lg:col-6 ">
+                  <div className="p-3">
                     <h3 className="heaidng-about-section1">
                       Welcome to{" "}
                       <span style={{ color: " #154373" }}>PHONECART</span>{" "}
-                      <br />
+                 <br />
                       Your Ultimate Destination
                     </h3>
                     <p className="sub-content-about-first">
@@ -118,12 +118,12 @@ export default function About() {
       <section>
         <div className="d-padding">
           <div
-            className="row w-100"
+            className="grid"
             style={{
               boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
             }}
           >
-            <div className="col-6">
+            <div className="col-12 order-1 lg:col-6 order-lg-0">
               <div>
                 <div className="text-start p-5 mission-div">
                   <h3 className="our-mission-about">our mission</h3>
@@ -156,7 +156,7 @@ export default function About() {
                 </div>
               </div>
             </div>
-            <div className="col-6">
+            <div className="col-12 order-0 lg:col-6 order-lg-1">
               <img src={image} alt="" className="image-about-second" />
             </div>
           </div>
