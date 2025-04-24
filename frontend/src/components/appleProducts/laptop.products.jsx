@@ -2,35 +2,35 @@ import React, { useEffect, useState } from "react";
 import Nav2 from "../nav2";
 import "./apple.css";
 
-import { Toast } from 'primereact/toast';
-import Footer from "../footer"
-import { useRef } from 'react';
+import { Toast } from "primereact/toast";
+import Footer from "../footer";
+import { useRef } from "react";
 import Whistlist from "../../whistlist/whistlist";
 import { useNavigate } from "react-router-dom";
-        
+
 import Loading from "../loading/loading";
 import csrftoken from "../../csrf";
 import { MdArrowOutward } from "react-icons/md";
 
-
 import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 export default function LaptopProducts() {
-  const navigation=useNavigate("")
+  const navigation = useNavigate("");
   const [product, setproduct] = useState([]);
   const userdetails = useSelector((state) => state.auth.userdata);
-  const userid=userdetails.id
+  const userid = userdetails.id;
   const toast = useRef(null);
   const show = () => {
-    toast.current.show({ severity: 'error', detail: 'please login' ,className:"something-went-wrong"});
-};
+    toast.current.show({
+      severity: "error",
+      detail: "please login",
+      className: "something-went-wrong",
+    });
+  };
 
-
-const whistlist=(id)=>{
-  navigation(`/Whistlist/${id}`)
-  
-  }
-
+  const whistlist = (id) => {
+    navigation(`/Whistlist/${id}`);
+  };
 
   const showSuccess = () => {
     toast.current.show({
@@ -40,7 +40,6 @@ const whistlist=(id)=>{
       className: "here-product-added",
     });
   };
-
 
   const notify = async (id) => {
     if (userid) {
@@ -63,8 +62,6 @@ const whistlist=(id)=>{
     } else {
       show();
     }
-
-   
   };
 
   const viewAplleProducts = async () => {
@@ -93,11 +90,10 @@ const whistlist=(id)=>{
   return (
     <>
       <Nav2 />
-      <div className="">
+      <div className="" style={{ backgroundColor: "#e6e6e6" }}>
         <div className="container">
           <div className="d-padding">
-          <div className="card flex justify-content-center">
-        <Toast ref={toast} />
+            <Toast ref={toast} />
 
             <div className="w-100 d-flex justify-content-center align-items-center ">
               <div className="left-line"></div>
@@ -106,54 +102,55 @@ const whistlist=(id)=>{
               </div>
               <div className="right-line"></div>
             </div>
+            <div className="w-100 d-flex justify-content-center">
+              <div className="grid justify-content-center w-100 ">
+                {product.length > 0 ? (
+                  product.map((item, index) => (
+                    <div className="col-6  lg:col-3 " key={index}>
+                      <div className="main-apple mt-2 w-100">
+                        <div className="sub-card-apple">
+                          <img
+                            src={`http://127.0.0.1:8000/${item.image}`}
+                            onClick={() => whistlist(item.id)}
+                          />
+                        </div>
 
-            <div className="row justify-content-center">
-              {product.length > 0 ? (
-                product.map((item, index) => (
-                  <div className="col-3 main-apple mt-4 ms-5" key={index}>
-                    <div className="card-apple  w-100">
-                      <div className="sub-card-apple">
-                        <img src={`http://127.0.0.1:8000/${item.image}`} 
-                        onClick={()=>whistlist(item.id)}
-                        />
+                        <div>
+                          <h5 className="aplle-name text-dark mt-1">
+                            {item.name}
+                          </h5>
+                        </div>
+                        <div>
+                          <h6 className="text-dark">$ {item.price}</h6>
+                        </div>
+
+                        <div className="bottom-add-to-btn d-flex justify-content-center">
+                          <button
+                            className="add-to-btn"
+                            onClick={() => notify(item.id)}
+                          >
+                            {" "}
+                            <span>add to cart</span>
+                            <span>
+                              <MdArrowOutward />
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <h5 className="aplle-name text-dark mt-1">{item.name}</h5>
-                    </div>
-                    <div>
-                      <h6 className="text-dark">$ {item.price}</h6>
-                    </div>
-
-                    <div className="bottom-add-to-btn d-flex justify-content-center">
-                      <button
-                        className="add-to-btn"
-                        onClick={() => notify(item.id)}
-                      >
-                        {" "}
-                        <span>add to cart</span>
-                        <span>
-                          <MdArrowOutward />
-                        </span>
-                      </button>
-                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <Loading />
                   </div>
-                ))
-              ) : (
-                <div>
-                  <Loading />
-                </div>
-              )}
+                )}
+              </div>
             </div>
-            </div>
-
           </div>
         </div>
-
       </div>
 
-
-      <Footer/>
+      <Footer />
     </>
   );
 }

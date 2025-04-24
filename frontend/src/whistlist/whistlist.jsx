@@ -24,7 +24,7 @@ export default function Whistlist() {
   const [display5, setdisplay5] = useState(true);
   const [value, setvalue] = useState(1);
   const { id } = useParams();
-  const[totalstar,settotalstar]=useState(0)
+  const [totalstar, settotalstar] = useState(0);
   const [likeimage, setlikeimage] = useState();
   console.log("jjjjjjjjjjjj", id);
   const [images, setimage] = useState(image);
@@ -73,8 +73,7 @@ export default function Whistlist() {
       console.log("firstzzzzzzzzzzzzzzzzzzzzz");
 
       getreviewcount();
-    totalreviewtstars()
-
+      totalreviewtstars();
     } else {
       console.log("ssssssssssssssssss");
     }
@@ -98,9 +97,11 @@ export default function Whistlist() {
   };
 
   const addtocart = async () => {
-    console.log(".....................................................................")
-    console.log(userId)
-    console.log(id)
+    console.log(
+      "....................................................................."
+    );
+    console.log(userId);
+    console.log(id);
     console.log(value);
 
     const res = await fetch("http://localhost:8000/addtocart", {
@@ -120,7 +121,6 @@ export default function Whistlist() {
     if (result.stockmax) {
       alert(result.stockmax);
     }
-    
   };
   const addtowhistlist = async () => {
     if (likeimage == redLike) {
@@ -231,17 +231,15 @@ export default function Whistlist() {
           "Content-Type": "application/json",
           "X-CSRFToken": csrftoken,
         },
-        body:JSON.stringify({id:id})
-});
-const result=await res.json()
-if(result.data){
-console.log("first")
-settotalstar(result.data)
-}
-else{
-  console.log("error")
-
-}
+        body: JSON.stringify({ id: id }),
+      });
+      const result = await res.json();
+      if (result.data) {
+        console.log("first");
+        settotalstar(result.data);
+      } else {
+        console.log("error");
+      }
     } catch (result) {}
   };
 
@@ -249,7 +247,7 @@ else{
     getreviews();
     getwhistlist();
     getreviewcount();
-    totalreviewtstars()
+    totalreviewtstars();
 
     if (stock_count > 5) {
       setdisplay5(false);
@@ -303,8 +301,8 @@ else{
         <div className="container">
           <div className="d-padding">
             {productDetails ? (
-              <div className="row">
-                <div className="col-6 whitslist-left-cont">
+              <div className="grid">
+                <div className="col-6 lg:col-6 whitslist-left-cont">
                   <div className="w-100" style={{ height: "100%" }}>
                     <img
                       src={images}
@@ -344,24 +342,22 @@ else{
                     )}
                   </div>
                 </div>
-                <div className="col-6">
+                <div className="col-6 lg:col-6">
                   <div>
-                    <h3 className="text-start">{productDetails.name}</h3>
+                    <h3 className="text-start text-dark">{productDetails.name}</h3>
                   </div>
-                  <div className="text-start">{productDetails.description}</div>
+                  <div className="text-start w-100">
+                    <p className="w-100">
+                    {productDetails.description}
+                      </p>
+                    </div>
 
                   <div className="d-flex">
                     <div className="w-50">
                       {productDetails.stock_count > 0 ? (
                         <div className="text-success text-start mt-2 w-100">
                           <h5>in stock</h5>
-                          {display5 ? (
-                            <p className="text-success">
-                              only {stock_count} products remaining
-                            </p>
-                          ) : (
-                            <div></div>
-                          )}
+                       
                         </div>
                       ) : (
                         <div className="text-danger text-start mt-2">
@@ -373,19 +369,23 @@ else{
                       <img src={likeimage} alt="" onClick={addtowhistlist} />
                     </div>
                   </div>
+                  {display5 ? (
+                            <p className="text-success w-100 text-start">
+                              only {stock_count} products remaining
+                            </p>
+                          ) : (
+                            <div></div>
+                          )}
                   <div className="flex align-items-center">
-                  {[...Array(5)].map((_, i) => (
-                <i
-                  key={i}
-                  className={`bi ${
-                    i < totalstar ? "bi-star-fill" : "bi-star"
-                  } text-warning`}
-               
-                ></i>
-              ))}
-                    <h6 className="m-0 p-o ml-1 fw-bold text-dark">
-                      {count}
-                    </h6>{" "}
+                    {[...Array(5)].map((_, i) => (
+                      <i
+                        key={i}
+                        className={`bi ${
+                          i < totalstar ? "bi-star-fill" : "bi-star"
+                        } text-warning`}
+                      ></i>
+                    ))}
+                    <h6 className="m-0 p-o ml-1 fw-bold text-dark">{count}</h6>{" "}
                     <h6
                       className="m-0 p-0 fw-bold text-warning"
                       data-bs-toggle="modal"
@@ -405,11 +405,12 @@ else{
                     </h5>
                   </div>
                   <div
-                    className="text-start mt-4 d-flex"
-                    style={{ gap: "30px" }}
+                    className="grid d-flex align-items-center"
+                  
+                   
                   >
-                    <div className="w-25 quantity-ui-box">
-                      <div className="d-flex quantity-ui-box-sub">
+                    <div className="col-12 lg:col-4 mt-3">
+                      <div className="d-flex justify-content-start quantity-ui-box-sub align-items-center">
                         <div>
                           <h5
                             className="text-dark"
@@ -433,9 +434,12 @@ else{
                         </div>
                       </div>
                     </div>
-                    <div className="add-to-cart-whistlist">
+                    <div className="col-12 lg:col-4">
+                    <div className="add-to-cart-whistlist d-flex justify-content-start align-items-center">
                       <button onClick={addtocart}>add to cart</button>
                     </div>
+                    </div>
+                   
                   </div>
                   <div>
                     {maximumvalue ? (

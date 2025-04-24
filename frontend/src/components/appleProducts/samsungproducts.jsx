@@ -108,10 +108,11 @@ navigate(`/Whistlist/${id}`)
   return (
     <>
       <Nav2 />
-      <div className="">
+      <div className=""style={{background:"#e6e6e6"}}>
         <div className="container">
+       
           <div className="d-padding">
-          <div className="card flex justify-content-center">
+          
         <Toast ref={toast} />
 
             <div className="w-100 d-flex justify-content-center align-items-center ">
@@ -121,19 +122,20 @@ navigate(`/Whistlist/${id}`)
               </div>
               <div className="right-line"></div>
             </div>
+<div className="w-100">
 
-            <div className="row justify-content-center">
+
+            <div className="grid justify-content-center  w-100">
               {product.length > 0 ? (
                 product.map((item, index) => (
-                  <div className="col-3 main-apple mt-4 ms-5" key={index}   >
-                    <div className="w-100 text-end">
-                    <FcLike/>
-                    </div>
-                    <div className="card-apple  w-100">
-                      <div className="sub-card-apple" onClick={()=>whistlist(item.id)}>
+                  <div className="col-6 lg:col-3" key={index}   >
+                    <div className=" main-apple mt-4   w-100">
+                 
+                   
+                      <div className="sub-card-apples" onClick={()=>whistlist(item.id)}>
                         <img src={`http://127.0.0.1:8000/${item.image}`} />
                       </div>
-                    </div>
+                
                     <div>
                       <h5 className="aplle-name text-dark mt-4">{item.name}</h5>
                     </div>
@@ -153,6 +155,9 @@ navigate(`/Whistlist/${id}`)
                         </span>
                       </button>
                     </div>
+
+                    </div>
+               
                   </div>
                 ))
               ) : (
@@ -161,11 +166,13 @@ navigate(`/Whistlist/${id}`)
                 </div>
               )}
             </div>
+        
+          </div>
           </div>
           </div>
         </div>
   
-      </div>
+
 
 
       <Footer/>

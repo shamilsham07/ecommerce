@@ -86,10 +86,10 @@ navigation(`/Whistlist/${id}`)
   return (
     <>
       <Nav2 />
-      <div className="">
+      <div className=""style={{background:"#e6e6e6"}}>
         <div className="container">
           <div className="d-padding">
-          <div className="card flex justify-content-center">
+        
         <Toast ref={toast} />
 
             <div className="w-100 d-flex justify-content-center align-items-center ">
@@ -99,19 +99,23 @@ navigation(`/Whistlist/${id}`)
               </div>
               <div className="right-line"></div>
             </div>
+<div className="w-100 d-flex justify-content-center">
 
-            <div className="row justify-content-center">
+
+            <div className="grid justify-content-center w-100">
               {product.length > 0 ? (
                 product.map((item, index) => (
-                  <div className="col-3 main-apple mt-4 ms-5" key={index}>
-                    <div className="card-apple  w-100">
+                  <div className="col-6 lg:col-3" key={index}>
+                   <div className="main-apple mt-4 w-100">
+
+                
                       <div className="sub-card-apple">
                         <img src={`http://127.0.0.1:8000/${item.image}`} 
                           onClick={()=>whistlist(item.id)}
                         
                         />
                       </div>
-                    </div>
+                 
                     <div>
                       <h5 className="aplle-name text-dark mt-1">{item.name}</h5>
                     </div>
@@ -130,6 +134,7 @@ navigation(`/Whistlist/${id}`)
                           <MdArrowOutward />
                         </span>
                       </button>
+                      </div>
                     </div>
                   </div>
                 ))
@@ -140,6 +145,7 @@ navigation(`/Whistlist/${id}`)
               )}
             </div>
             </div>
+           
           </div>
         </div>
 

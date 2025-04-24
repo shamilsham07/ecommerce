@@ -147,6 +147,7 @@ export default function Products() {
           }}
         >
           <div className="d-padding">
+          
             <div className="grid">
               <div className="col-12">
                 <div className="first-product-section-left">
@@ -168,7 +169,7 @@ export default function Products() {
             </div>
           </div>
         </section>
-        <section className="second-samsung-page">
+        <section className="second-samsung-page mt-5">
           <div className="container">
             <div className="d-padding">
               <div className="samsung-second-page-heading">

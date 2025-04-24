@@ -168,15 +168,15 @@ export default function ContactPage() {
         <Loading />
       ) : (
         <section style={{ backgroundColor: "#fafafa" }}>
-          <div className="container">
-            <div className="row">
-              <div className="col-5">
+         
+            <div className="grid">
+              <div className="col-12 lg:col-6">
                 <div className="left-contact-page p-5">
                   <div className="left-contact-page-heading mt-5">
                     <h2 className="text-start"> Contact Us</h2>
                   </div>
                   <div>
-                    <p className="text-start text-white p-5">
+                    <p className="if-you-have text-start text-white p-5">
                       If you have any questions or need assistance, feel free to
                       contact us. We're here to help and eager to provide you
                       with the support you need. Whether you're seeking product
@@ -187,7 +187,7 @@ export default function ContactPage() {
                   </div>
                 </div>
               </div>
-              <div className="col-7">
+              <div className="col-12 lg:col-6">
                 <div className="p-5">
                   <div>
                     <h4 className="contact-right-side-heading text-start">
@@ -309,7 +309,7 @@ export default function ContactPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="text-start">
+                    <div className="text-start sumbit-contact-div">
                       <button
                         className="contact-submit-form"
                         type="button"
@@ -323,7 +323,7 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-          </div>
+        
         </section>
       )}
 
