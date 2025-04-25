@@ -283,3 +283,46 @@
 .input-upd{
   height:38px;
 }
+.task-icon{
+  font-size: 40px;
+  color: black;
+}
+.logo-top{
+  width:100px;
+  height:25px;
+  object-fit: contain;
+  
+}
+
+@media screen and (max-width: 600px) {
+  .task-icon{
+    display: flex;
+  }
+  .d-padding{
+    padding-block:0px
+  }
+  .category-page-heading{
+   font-size: 15px; 
+  }
+.add-category-btn-cate{
+  padding: 3px;
+  border: none;
+  border-radius: 3px;
+  text-transform: capitalize;
+  background: orange;
+  color: white;
+  font-size: 12px;
+}
+.delete-category-btn {
+  margin-top:1px;
+  margin-left:0px !important;
+}
+}
+@media screen and (min-width: 1440px)and (max-width:1800px){
+.task-icon{
+  display: none;
+}
+.delete-category-btn {
+   margin-left:2px !important;
+}
+}

@@ -12,7 +12,7 @@ export default function Adminproductpage() {
   return (
     <div className="dashbord-home">
       <div className="row">
-        <div className="col col-2">
+        <div className="col col-2 ">
           <MainSidebar />
         </div>
         <div className="col col-10">

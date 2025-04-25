@@ -160,8 +160,9 @@ export default function Cartpage() {
                 <h3 className="mx-3">{count} items</h3>
               </div>
             </div>
+<div style={{overflowX:"auto"}}>
 
-            <table className="table table-heading-name">
+<table className="table table-heading-name">
               <thead>
                 <tr>
                   <th scope="col">Product Details</th>
@@ -239,6 +240,9 @@ export default function Cartpage() {
                   ))}
               </tbody>
             </table>
+
+</div>
+
             {
               visible&&
               <div className="modal fade show d-block"

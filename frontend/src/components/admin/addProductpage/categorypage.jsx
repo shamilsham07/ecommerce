@@ -3,7 +3,10 @@ import MainSidebar from "../sidebar";
 import "./addproduct.css";
 import { useNavigate } from "react-router-dom";
 import csrftoken from "../../../csrf";
-
+import logo from "../../../assets/LOGO-2.png";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setsidebar } from "../../redux/reducer";
 export default function Categorypage() {
   const navigate = useNavigate("");
   const [visible, setvisble] = useState(false);
@@ -14,9 +17,28 @@ export default function Categorypage() {
   const [deletevisible, setdeletevisible] = useState(false);
   const [deleteid, setdeleteid] = useState(0);
   const [updateid, setupdateid] = useState(0);
-  const[updatename,setupdatename]=useState('')
-  const[updateimage,setupdateimage]=useState(null)
-  const[valuename,setvaluename]=useState('')
+  const [updatename, setupdatename] = useState("");
+  const [updateimage, setupdateimage] = useState(null);
+  const [valuename, setvaluename] = useState("");
+  const [onsidebar, setonsidebar] = useState(false);
+  const dispatch = useDispatch();
+
+  const setdatas = useSelector((state) => state.auth.setsidebar);
+
+  const close = () => {
+    document.getElementsByClassName("bi-list-task")[0].classList.toggle("bi-x");
+    const geted = document.getElementsByClassName("bi-x")[0];
+    if (!geted) {
+      dispatch(setsidebar(false));
+    } else {
+      try {
+        setonsidebar(true);
+        dispatch(setsidebar(true));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const viewmodal = () => {
     setvisble(true);
@@ -72,30 +94,27 @@ export default function Categorypage() {
 
   const updates = () => {
     setupdatevisble(true);
-    
   };
-  const handleupdate = async() => {
-    const formdata= new FormData()
-    formdata.append("name",updatename)
-    formdata.append("image",updateimage||null)
-    formdata.append("id",updateid)
+  const handleupdate = async () => {
+    const formdata = new FormData();
+    formdata.append("name", updatename);
+    formdata.append("image", updateimage || null);
+    formdata.append("id", updateid);
 
-    const result=await fetch("http://localhost:8000/updatecategory",{
-      method:"POST",
-      headers:{
+    const result = await fetch("http://localhost:8000/updatecategory", {
+      method: "POST",
+      headers: {
         "X-CSRFToken": csrftoken,
-       
       },
       body: formdata,
-    })
-    const res=await result.json()
-    if(res.data){
-      console.log("updated")
-      setcategory(res.data)
-      setupdatevisble(false)
-    }
-    else{
-      console.log("somehtind not good")
+    });
+    const res = await result.json();
+    if (res.data) {
+      console.log("updated");
+      setcategory(res.data);
+      setupdatevisble(false);
+    } else {
+      console.log("somehtind not good");
     }
   };
 
@@ -103,7 +122,7 @@ export default function Categorypage() {
     const result = await fetch("http://localhost:8000/getcategory", {
       method: "GET",
     });
-  
+
     const res = await result.json();
     if (res.data) {
       setcategory(res.data);
@@ -117,14 +136,21 @@ export default function Categorypage() {
   }, []);
   return (
     <>
-      <div className="row w-100 m-0 p-0"style={{zIndex:"1"}}>
-        <div className="col-2">
-          <MainSidebar />
+      <div className="top-bar d-flex justify-content-between align-items-center d-lg-none mx-1">
+        <div>
+          <img src={logo} alt="" className="logo-top" />
         </div>
-        <div className="col-10">
+        <div>
+          <i class="bi bi-list-task task-icon " onClick={() => close()}></i>
+        </div>
+      </div>
+      <div className="grid w-100 m-0 p-0" style={{ zIndex: "1" }}>
+        <MainSidebar />
+
+        <div className="col-12 lg:col-10">
           <div className="container">
             <div className="d-padding">
-              <div className="text-start ml-5 mb-3 ">
+              <div className="text-start  mb-3 ">
                 <i
                   class="bi bi-arrow-left-circle"
                   style={{ fontSize: "20px", cursor: "pointer" }}
@@ -136,16 +162,16 @@ export default function Categorypage() {
                 ></i>
               </div>
               <div className="add-category-main">
-                <div className="ml-5">
+                <div className="">
                   <h2 className="category-page-heading">category</h2>
                 </div>
-                <div className="mx-5">
+                <div className="">
                   <button className="add-category-btn-cate" onClick={viewmodal}>
                     add category
                   </button>
                 </div>
               </div>
-              <div>
+              <div className="overflow-x-auto ">
                 <table className="table " style={{ background: "black" }}>
                   <thead className="table-heads w-100">
                     <tr>
@@ -182,14 +208,14 @@ export default function Categorypage() {
                             className=" update-category-btn"
                             onClick={() => {
                               setupdateid(item.id);
-                              setvaluename(item.categoryName)
+                              setvaluename(item.categoryName);
                               updates();
                             }}
                           >
                             update
                           </button>
                           <button
-                            className="delete-category-btn ml-2"
+                            className="delete-category-btn "
                             onClick={() => {
                               deletes();
                               setdeleteid(item.id);
@@ -258,27 +284,30 @@ export default function Categorypage() {
                                 <label htmlFor="">Name</label>
                               </div>
                               <div className="w-100">
-                                <input type="text" 
-                                value={valuename}
-                                className="w-100 update-input-cat"
-                                onChange={(event)=>{setupdatename(event.target.value)
-                                  setvaluename(event.target.value)}
-                                } />
+                                <input
+                                  type="text"
+                                  value={valuename}
+                                  className="w-100 update-input-cat"
+                                  onChange={(event) => {
+                                    setupdatename(event.target.value);
+                                    setvaluename(event.target.value);
+                                  }}
+                                />
                               </div>
                             </div>
                             <div className="text-start w-100">
-                                <label htmlFor="" className="text-start">
-                                  image
-                                </label>
-                                <input
-                                  className="form-control input-file-cat p-2"
-                                  type="file"
-                                  id="formFile"
-                                  onChange={(event) =>
-                                    setupdateimage(event.target.files[0])
-                                  }
-                                />
-                              </div>
+                              <label htmlFor="" className="text-start">
+                                image
+                              </label>
+                              <input
+                                className="form-control input-file-cat p-2"
+                                type="file"
+                                id="formFile"
+                                onChange={(event) =>
+                                  setupdateimage(event.target.files[0])
+                                }
+                              />
+                            </div>
                           </form>
                         </div>
                         <div className="modal-footer">

@@ -10,7 +10,8 @@ export const initialState={
     otp:"",
     addreassId:"",
     productId:"",
-    email:""
+    email:"",
+    sidebar:false
 
 }
 
@@ -50,7 +51,10 @@ export const initialState={
             },
             setemail:(state,action)=>{
                 state.email=action.payload
-            }
+            },
+            setsidebar:(state,action)=>{
+                state.sidebar=action.payload
+            },
 
     }
     
@@ -60,6 +64,6 @@ export const initialState={
 
 
 
-export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass,setProductId,setemail} = authSlice.actions;
+export const{ authenticate,increments,decrements,value,setUserData,setuserauthentication,setotp,setaddreass,setProductId,setemail,setsidebar} = authSlice.actions;
 
 export default authSlice.reducer;

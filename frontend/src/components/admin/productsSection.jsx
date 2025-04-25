@@ -474,7 +474,7 @@ export default function ProductsSection() {
     <>
       <div>
         <div className="row w-100">
-          <div className="col-2"style={{height:"100vh"}}>
+          <div className="col-2">
             <MainSidebar />
           </div>
           <div className="col-10">

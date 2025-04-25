@@ -26,6 +26,7 @@ import Productsupdate from "./components/admin/products/productsupdate";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "mdb-ui-kit/css/mdb.min.css"; // Import the CSS for styles
 import "mdb-ui-kit";
+import Topbar from "./components/admin/topbar";
 import Secondloader from "./components/loading/secondloader";
 import Nav2 from "./components/nav2";
 import Deliveryadreass from "./components/cart/deliveryadreass";
@@ -259,6 +260,8 @@ function App() {
           element={isAuthenticated ? <Transfertoviewimage /> : <Admin />}
         />
         <Route path="/Secondloader" element={<Secondloader />} />
+        <Route path="/Topbar" element={<Topbar />} />
+
       </Routes>
       <div
         className="modal fades"

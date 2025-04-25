@@ -510,3 +510,35 @@ input[type="number"]::-webkit-outer-spin-button {
   font-weight: 400;
 
 }
+.animation-for-the-sidebar {
+  transition: all 3s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+
+  .close-sidebar{
+    display: flex !important;
+    color: white;
+    font-size: 20px;
+    
+  }
+  .sidebar-logo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 1440px)and (max-width:1800px){
+  .close-sidebar{
+    display:none;
+    color: white; 
+  }
+
+}
+
+
+@media screen and (min-width: 1440px){
+  .animation-for-the-sidebar{
+    opacity:1 !important;
+  }
+}

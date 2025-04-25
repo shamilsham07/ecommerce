@@ -8,6 +8,7 @@ import { FcLike } from "react-icons/fc";
 import { MdArrowOutward } from "react-icons/md";
 import firstimage from "../assets/41jOEM5KONL._SX569_.jpg";
 
+
 import { useRef } from "react";
 import { Toast } from "primereact/toast";
 import "react-toastify/dist/ReactToastify.css";
@@ -68,6 +69,8 @@ export default function Home() {
       setcategorys(res.data);
     }
   };
+
+ 
 
   useEffect(() => {
     const cleartime = setInterval(() => {
@@ -214,8 +217,26 @@ export default function Home() {
       show();
     }
   };
-
+useEffect(()=>{
+  const sr=window.ScrollReveal();
+  sr.reveal(".first-page-right img",{
+    origin:"top",
+    distance:"70px",
+    duration:1000,
+    reset:true,
+  })
+  sr.reveal(".first-page-heading h1,p",{
+    origin:"left",
+    distance:"70px",
+    duration:1000,
+    reset:true,
+  })
+},[])
   useEffect(() => {
+
+
+
+
     get4products();
     getwishlistproductsfor();
     gettheallcategory();
