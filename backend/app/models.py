@@ -47,6 +47,7 @@ class Usersignup(models.Model):
     email=models.EmailField(max_length=254)
     pasword=models.TextField()
     is_active=models.BooleanField(default=True)
+    image=models.ImageField(upload_to=('images/'), max_length=None,blank=True,null=True)
     
      
     def __str__(self):

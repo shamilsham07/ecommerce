@@ -84,6 +84,8 @@ path("razerpay",views.razerpay),
 path("getrazordetails",views.getrazordetails),
 path("successpayment",views.successpayment),
 path("handlePaymentFailure",views.handlePaymentFailure),
+path("saveprofile",views.saveprofile),
+
 
 
 

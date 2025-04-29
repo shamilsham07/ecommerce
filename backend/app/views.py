@@ -2011,5 +2011,39 @@ def handlePaymentFailure(request):
         print(e)
         return JsonResponse({"error":"wrong"},status=500)
         
-        
-
+    
+@api_view(["POST"])
+def saveprofile(request):
+    try:
+        data=request.data
+        user_id=data.get("user_id")
+        print(user_id)
+        if not user_id:
+            print("hkjhgy")
+            return JsonResponse({"error":"wrong"})
+        else:
+            name=data.get("name")
+            phonenumber=data.get("phonenumber")
+            email=data.get("email")
+            image = request.FILES.get("image")
+            print(image)
+            print("hi")
+            user=Usersignup.objects.filter(id=user_id).first()
+            if name:
+                user.name=name
+            if email:
+                user.email=email
+            if phonenumber:
+                user.phonenumber=phonenumber
+            if image:
+                user.image=image
+            user.save()
+            
+            details=Usersignup.objects.filter(id=user_id)
+            print(details)
+            serializer=Cartserializer(details,many=True)
+            print(serializer.data)
+            return JsonResponse({"data":serializer.data},safe=False)
+    except Exception as e:
+        print(e)
+        return JsonResponse({"error":"wrong"})
