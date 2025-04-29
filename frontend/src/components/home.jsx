@@ -220,17 +220,42 @@ export default function Home() {
 useEffect(()=>{
   const sr=window.ScrollReveal();
   sr.reveal(".first-page-right img",{
-    origin:"top",
+    origin:"right",
     distance:"70px",
     duration:1000,
     reset:true,
   })
-  sr.reveal(".first-page-heading h1,p",{
+  sr.reveal(".select-category-sec img",{
+    origin:"top",
+    opacity:0,
+    duration:1000,
+    reset:true,
+  })
+  sr.reveal(".first-page-heading h1",{
     origin:"left",
     distance:"70px",
     duration:1000,
     reset:true,
   })
+  sr.reveal(".first-page-heading p",{
+    origin:"left",
+    distance:"70px",
+    duration:1000,
+    reset:true,
+  })
+  sr.reveal(".select-category h3",{
+    origin:"left",
+    distance:"70px",
+    duration:1000,
+    reset:true,
+  })
+  sr.reveal(".home-3-heades h2",{
+    origin:"bottom",
+    distance:"70px",
+    duration:1000,
+    reset:true,
+  })
+
 },[])
   useEffect(() => {
 
@@ -287,6 +312,41 @@ useEffect(()=>{
             </div>
           </div>
         </section>
+
+        <section style={{background:"#e6e6e6"}}>
+          <div className="container">
+            <div className="d-padding">
+              <div className="select-category text-start">
+                <h3>select category</h3>
+              </div>
+              <div className=" grid justify-content-center align-items-center" style={{cursor:"pointer"}}>
+                {categorys.map((item, index) => (
+                  <div className="col-12 lg:col-3 mt-5 " key={index}>
+                    <div
+                      className="select-category-sec  position-relative"
+                      onClick={() => {
+                        Transfer(item.categoryName);
+                      }}
+                    >
+                      <img
+                        src={`http://localhost:8000//media/${item.image}`}
+                        alt="kk"
+                      />
+                      <div className="home-3-heades text-center mt-3">
+                        <h2 className="laptop-home3-heading">
+                          {item.categoryName}
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+
 
         <section className="w-100 home-second-page">
           <div className="container">
@@ -464,37 +524,7 @@ useEffect(()=>{
             </div>
           </div>
         </section>
-        <section>
-          <div className="container">
-            <div className="d-padding">
-              <div className="select-category text-start">
-                <h3>select category</h3>
-              </div>
-              <div className=" grid">
-                {categorys.map((item, index) => (
-                  <div className="col-12 lg:col-4 mt-5 " key={index}>
-                    <div
-                      className="select-category-sec  position-relative"
-                      onClick={() => {
-                        Transfer(item.categoryName);
-                      }}
-                    >
-                      <img
-                        src={`http://localhost:8000//media/${item.image}`}
-                        alt="kk"
-                      />
-                      <div className="text-center mt-3">
-                        <h2 className="laptop-home3-heading">
-                          {item.categoryName}
-                        </h2>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+
         <Footer />
       </div>
     </>

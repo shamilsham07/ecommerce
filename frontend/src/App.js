@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import UserSignup from "./components/userlogin/usersignup";
 import Adminhome from "./components/admin/adminhome";
 import Products from "./components/products";
-import PaymentComponent from "./components/razorpay/razorpay";
+
 import Wishlist from "./whistlist/wishlist";
 import Orderslistpage from "./components/admin/addProductpage/orderslistpage";
 import Footer from "./components/footer";
@@ -223,7 +223,7 @@ function App() {
           element={isAuthenticated ? <Addproducts /> : <Admin />}
         />
         <Route path="/Wishlist" element={<Wishlist />} />
-        <Route path="/PaymentComponent/:id" element={<PaymentComponent />} />
+        
         <Route path="/PdfComponent" element={<PdfComponent />} />
         <Route path="/Vieworders" element={<Vieworders />} />
         <Route path="/About" element={<About />} />

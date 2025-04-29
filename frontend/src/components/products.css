@@ -110,16 +110,16 @@ h1 {
   padding-top: 72px;
 }
 .image-product-left-first-subheading {
-     /* padding-left: 158px; */
-     width: 398px;
-     text-align: center;
-     font-size: 12px;
-     color: white;
-     font-family: "Poppins", serif;
-     font-weight: 300;
-     font-style: normal;
-     font-size: 16px;
-     text-align: center;
+  /* padding-left: 158px; */
+  width: 398px;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  font-family: "Poppins", serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 16px;
+  text-align: center;
 }
 .samsung-showmore button {
   outline: none;
@@ -201,28 +201,35 @@ h1 {
   transform: scale(1.03);
 }
 .samsung-explore-more-btn button {
-  background-color: #fafafa;
-  color: rgb(68, 10, 10);
+  background-color: #e6e6e6;
+  color: #15154a;
   padding: 7px;
   font-size: 15px;
   font-weight: 500;
-  border: 2px solid transparent;
-  border-image: linear-gradient(
-    90deg,
-    rgba(68, 10, 10, 1) 0%,
-    rgba(250, 250, 250, 1) 100%
-  );
-  border-image-slice: 1;
   width: 150px;
-  /* border-radius: 10px; */
-  transition: 2s;
-  opacity: 0.7;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+  text-transform: capitalize;
+  border: none;
 }
-.samsung-explore-more-btn button:hover {
-  color: black;
-  background-color: white;
-  border: 2px solid rgb(68, 10, 10);
+.setting-height{
+  height: 60vh;
 }
+.setting-height img{
+  height:60vh;
+  width:100%;
+  object-fit: cover;
+}
+.carousel-control-prev-icon{
+  display: none !important;
+}
+.carousel-control-next-icon{
+  display: none !important;
+}
+
 .product-iphone-heading-first {
   text-transform: capitalize;
 
@@ -276,9 +283,9 @@ h1 {
   height: 40vh;
   object-fit: contain;
 }
-.mac-video-display{
+.mac-video-display {
   border-radius: "30px";
-  height: "80vh",
+  height: "80vh";
 }
 .apple-card-second-page h3 {
   font-weight: 600;
@@ -384,7 +391,7 @@ h1 {
 .mac-explore-btn {
   text-align: end;
 }
-.iphone-video{
+.iphone-video {
   border-radius: 50px;
 }
 
@@ -401,84 +408,88 @@ h1 {
   font-weight: 300;
   cursor: pointer;
 }
-.main-apples{
+.fade {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.fade.show {
+  opacity: 1;
+}
+
+.main-apples {
   width: 100%;
   background-color: white;
 }
-.item-name-products{
+.item-name-products {
   font-size: 20px;
 }
 @media screen and (max-width: 600px) {
-.first-product-section-left {
-  padding:10px;
-
-}
-  .image-product-left-first-heading{
+  .first-product-section-left {
+    padding: 10px;
+  }
+  .image-product-left-first-heading {
     font-size: 30px;
     margin-top: 30px;
-
   }
-  .image-product-left-first-subheading{
+  .image-product-left-first-subheading {
     width: 50%;
     font-size: 12px;
   }
-  .first-product-section-left{
+  .first-product-section-left {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 50px;
   }
-  .image-product-left-first-heading{
+  .image-product-left-first-heading {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .image-produccts-page-fist{
+  .image-produccts-page-fist {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .samsung-showmore{
-    margin-right:50px;
+  .samsung-showmore {
+    margin-right: 50px;
   }
-  .product-iphone-heading-second{
-    font-size: 20px;
-   
-  }
-  .product-iphone-heading-first{
+  .product-iphone-heading-second {
     font-size: 20px;
   }
-  .iphone-video{
+  .product-iphone-heading-first {
+    font-size: 20px;
+  }
+  .iphone-video {
     border-radius: 10px;
   }
-  .apple-second-page-heading-first h1{
+  .apple-second-page-heading-first h1 {
     text-align: center;
     font-size: 25px;
   }
-.mac-video h1{
-font-size: 25px;
-text-transform: capitalize;
-}
-.mac-video h2{
-font-size: 25px;
-text-transform: capitalize;
-
-}
-.mac-video{
-  padding-inline: 1px;
-}
-.mac-video-display{
-  height: 30vh;
-  border-radius: 5px;
-}
-.about-laptop-p{
-  width:100%;
-}
-.you-might h2 {
-  font-size: 25px;
-}
-.cont{
-  margin-inline: 20px !important;
-
-}
+  .mac-video h1 {
+    font-size: 25px;
+    text-transform: capitalize;
+  }
+  .mac-video h2 {
+    font-size: 25px;
+    text-transform: capitalize;
+  }
+  .mac-video {
+    padding-inline: 1px;
+  }
+  .mac-video-display {
+    height: 30vh;
+    border-radius: 5px;
+  }
+  .about-laptop-p {
+    width: 100%;
+  }
+  .you-might h2 {
+    font-size: 25px;
+  }
+  .cont {
+    margin-inline: 20px !important;
+  }
 }

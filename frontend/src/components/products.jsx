@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Loading from "./loading/loading";
 import { useRef } from "react";
 import videos from "../assets/xlarge_2x (1).mp4";
+import Carousel from 'react-bootstrap/Carousel';
 
 import video from "../assets/xlarge_2x.mp4";
 
@@ -19,9 +20,53 @@ import sideimage from "../assets/world_mac_iphone__mr1xfuchl56e_xlarge_2x-remove
 
 import image from "../assets/rendering-smart-home-device_23-2151039369.avif";
 import image3 from "../assets/pc_01_camera_cxp_01_portrait.jpg";
+import secondone from "../assets/laptop-with-glowing-screen-table-dark-top-view-copy-space.jpg"
+import thirdone from "../assets/1741573950945262d25c5c0ac4b0a852266db09795850.webp"
 import image4 from "../assets/left.png";
 import Whistlist from "../whistlist/whistlist";
 export default function Products() {
+
+  useEffect(()=>{
+    const sr=window.ScrollReveal();
+    sr.reveal(".samsung-second-page-heading h1",{
+      origin:"top",
+      distance:"70px",
+      duration:1000,
+      reset:true,
+    })
+    sr.reveal(".second-samsung-image-portrait",{
+      origin:"left",
+      distance:"70px",
+      duration:1000,
+      reset:true,
+    })
+    sr.reveal(".second-page-right-heading h1",{
+      origin:"top",
+      distance:"70px",
+      duration:1000,
+      reset:true,
+    })
+    // sr.reveal(".the-capture",{
+    //   origin:"top",
+    //   distance:"70px",
+    //   duration:1000,
+    //   reset:true,
+    //   // delay:"3s",
+    // })
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
   const showSuccess = () => {
     toast.current.show({
       severity: "success",
@@ -136,38 +181,19 @@ export default function Products() {
       <Nav2 />
       <div className="card flex justify-content-center">
         <Toast ref={toast} />
-        <section
-          className="image-product-left-first"
-          style={{
-            backgroundImage: `url(${image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-
-            width: "100%",
-          }}
-        >
-          <div className="d-padding">
-          
-            <div className="grid">
-              <div className="col-12">
-                <div className="first-product-section-left">
-                  <div className="w-100">
-                    <h3 className="image-product-left-first-heading">
-                      all screen all yours
-                    </h3>
-                  </div>
-                  <div className="w-100 image-produccts-page-fist">
-                    <p className="image-product-left-first-subheading">
-                      say hello to the future.samsung is available in stores
-                    </p>
-                  </div>
-                  <div className="samsung-showmore ml-4">
-                    <button onClick={navigatesamsung}>show more</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <section>
+        <Carousel className="setting-height">
+  <Carousel.Item>
+    <img className="d-block w-100 setting-height img" src={image} alt="First slide" />
+  </Carousel.Item>
+  <Carousel.Item>
+    <img className="d-block w-100 setting-height img" src={secondone} alt="Second slide" />
+  </Carousel.Item>
+  <Carousel.Item>
+    <img className="d-block w-100 setting-height img" src={thirdone} alt="Third slide" />
+  </Carousel.Item>
+</Carousel>
+     
         </section>
         <section className="second-samsung-page mt-5">
           <div className="container">
@@ -191,7 +217,7 @@ export default function Products() {
                   </div>
                   <div>
                     <h6
-                      className="text-white mt-5 text-start"
+                      className="text-white mt-5 text-start the-capture"
                       style={{
                         fontSize: "20px",
                         opacity: "0.9",

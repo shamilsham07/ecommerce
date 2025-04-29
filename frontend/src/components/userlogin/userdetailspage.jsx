@@ -6,84 +6,62 @@ import csrftoken from "../../csrf";
 import { useNavigate } from "react-router-dom";
 
 export default function Userdetails() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const userdetails = useSelector((state) => state.auth.userdata);
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [phonenumber, setphonenumber] = useState("");
-  const [password,setPassword]=useState("")
+  const [password, setPassword] = useState("");
 
-  const user_id=userdetails.id
+  const user_id = userdetails.id;
 
+  const forgetpassword = () => {
+    navigate("/Forgetpass");
+  };
 
-const forgetpassword=()=>{
-navigate("/Forgetpass")
-}
-
-
-
-
-
-
-  const update=async(e)=>{
+  const update = async (e) => {
     e.preventDefault();
-    try{
-      if (password !==""){
-        const formdata=new FormData()
-        formdata.append("name",name)
-        formdata.append("email",email)
-        formdata.append("phonenumber",phonenumber)
-        formdata.append("password",password)
-        formdata.append("user_id",user_id)
-     
-     
-     
-     const res =await fetch("http://localhost:8000/UserUpdate",{
-       method:"POST",
-       headers:{
-         "X-CSRFToken": csrftoken,
-       },
-       body:formdata
-     })
-     
-       const result=await res.json()
-    
-       
-       if(result.message){
-      
-         navigate("/")
-         
-       }
-       else if(result.error){
-    
-       }
-       else if(result.nouser){
-      
-       }
-       else if(result.wrong){
-         alert("wrong password")
+    try {
+      if (password !== "") {
+        const formdata = new FormData();
+        formdata.append("name", name);
+        formdata.append("email", email);
+        formdata.append("phonenumber", phonenumber);
+        formdata.append("password", password);
+        formdata.append("user_id", user_id);
+
+        const res = await fetch("http://localhost:8000/UserUpdate", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": csrftoken,
+          },
+          body: formdata,
+        });
+
+        const result = await res.json();
+
+        if (result.message) {
+          navigate("/");
+        } else if (result.error) {
+        } else if (result.nouser) {
+        } else if (result.wrong) {
+          alert("wrong password");
         }
-     }
-    }catch(error){
-  
-    }
-  
-  }
-
-
-
+      }
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    setname(userdetails.name ||"");
-    setemail(userdetails.email||"");
-    setphonenumber(userdetails.phonenumber||"");
+    setname(userdetails.name || "");
+    setemail(userdetails.email || "");
+    setphonenumber(userdetails.phonenumber || "");
   }, [userdetails]);
 
   return (
     <>
-      <div
+      {/* <div
         className="w-100 d-flex justify-content-center align-items-center"
-        style={{ height: "100vh", backgroundColor: " rgb(68, 10, 10)" }}
+        style={{ height: "100vh", backgroundColor: " rgb(243,243,243)" }}
       >
         <div className="Userdetails-sub">
           <div className="text-center">
@@ -158,6 +136,36 @@ navigate("/Forgetpass")
                  <p className="text-primary" style={{cursor:"pointer"}} onClick={forgetpassword}>forget password ?</p>
               </div>
              </div>
+        </div>
+      </div> */}
+
+      <div
+        className="grid justify-content-center align-items-center m-0 p-0"
+        style={{ backgroundColor: "rgb(243,243,243)", height: "100vh" }}
+      >
+        <div className="col-6">
+          <div className="w-100" style={{ backgroundColor: "white" }}>
+            <div className="grid">
+              <div className="container">
+                <div className="d-padding">
+
+              
+                <div className="col-6">
+                  <div className="i-margin">
+                    <div className="text-start">
+                      <label htmlFor="" className="label-user-profile text-start">
+                        Username
+                      </label>
+                    </div>
+                    <div className="text-start profile-">
+                      <input type="" />
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

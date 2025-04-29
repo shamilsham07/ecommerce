@@ -415,3 +415,13 @@ height:100%;
   color: white;
   text-transform: capitalize;
 }
+.profile-main-sec{
+  height:30vh;
+  background-color: white;
+}
+.i-margin{
+  margin-inline: 50px;
+}
+.label-user-profile{
+  color:black;
+}

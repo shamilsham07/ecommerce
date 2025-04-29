@@ -556,6 +556,10 @@ ul {
   .navbar .container {
     margin-inline: 20x !important;
   }
+  .sides-bar{
+    justify-content: center;
+    align-items: center;
+  }
 
 
 }

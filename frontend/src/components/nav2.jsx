@@ -111,8 +111,8 @@ export default function Nav2() {
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
@@ -120,7 +120,7 @@ export default function Nav2() {
           </button>
           <div
             class="collapse navbar-collapse justify-content-between "
-            id="navbarTogglerDemo01"
+            id="navbarNav"
             style={{ flexGrow: " 0.5" }}
           >
             <div>
@@ -142,7 +142,7 @@ export default function Nav2() {
                 </li>
               </ul>
             </div>
-            <div className="d-flex">
+            <div className="d-flex sides-bar">
               <div>
                 <Dropdown>
                   <Dropdown.Toggle variant="secondary" id="dropdownMenuButton1">

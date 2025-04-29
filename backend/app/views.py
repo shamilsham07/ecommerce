@@ -1114,7 +1114,11 @@ def buyingproduct(request):
         originalprice=data.get("originalprice")
         addreassid=data.get("addreassid")
         coupen=data.get("coupenvalue")
-        coupesisactive=Coupen.objects.filter(CoupenName=coupen).first()
+        coupentag=0
+        coupesisactive=Coupen.objects.filter(CoupenName=coupen).first() or 0
+        if coupesisactive:
+            coupentag=coupesisactive.is_active
+            
         
         if product_id and user_id:
             productdetails=Cart.objects.filter(user_id=user_id,id=product_id).first()
@@ -1149,8 +1153,8 @@ def buyingproduct(request):
                 else:
                     new_product_id="ODR:200"
                     print("here is me")
-                
-                if coupen and coupesisactive.is_active:
+              
+                if coupen and coupentag:
                     price=product_quantity*product_price
                     discountedprice=discount*price/100
                     total_price=price-discountedprice
@@ -1841,7 +1845,6 @@ def updatetheimages(request):
 @api_view(["GET","POST"])        
 def razerpay(request):
     print("hi")
-    print(request.method)
     try:
         if request.method=="POST":
             data=request.data
@@ -1860,6 +1863,7 @@ def razerpay(request):
             product_image=productdetails.image
             product_price=productdetails.price
             product_quantity=productdetails.quantity
+            print(product_quantity)
             id=productdetails.product_id
             print(date)
             countofproduct=adminproduct.objects.filter(id=id).first()
@@ -1898,8 +1902,11 @@ def razerpay(request):
                     return JsonResponse({"outofstock":"the item is unavailable now"})
                 if stock<product_quantity:
                     return JsonResponse({"outofstock":"the quantity you choose cant we have only limited stock"})   
-            elif not coupenvalue:
-                if stock>product_quantity:
+            else:
+                print(stock)
+                print(product_quantity)
+                if stock>=product_quantity:
+                    print("jansiiiiiiiiiii")
                     if product_id and user_id:
                         BuyProduct.objects.create(
                             user_id=user_id,
@@ -1919,7 +1926,7 @@ def razerpay(request):
                             product_id=id
                             )
                         getlastid=BuyProduct.objects.order_by("id").last()
-                        print(getlastid.id)
+                        print(getlastid.id,"gofdsw")
                         
                         
                        
@@ -1947,6 +1954,7 @@ def getrazordetails(request):
         data=request.data
         id=data.get("id")
         print(id)
+        print("jabarrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
         product=BuyProduct.objects.get(id=id)
         name=Usersignup.objects.get(id=product.user_id).name
         return JsonResponse ({"data":{"totalprice":product.totalprice,"name":name}})

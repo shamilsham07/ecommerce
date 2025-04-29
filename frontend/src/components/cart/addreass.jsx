@@ -109,6 +109,7 @@ export default function Adreass() {
   };
 
   const getrazordetails = async () => {
+    console.log(" the id ::",razorid)
     const result = await fetch("http://localhost:8000/getrazordetails", {
       method: "POST",
       headers: {

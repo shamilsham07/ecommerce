@@ -411,6 +411,19 @@ export default function Whistlist() {
                   >
                     <div className="col-12 lg:col-4 mt-3">
                       <div className="d-flex justify-content-start quantity-ui-box-sub align-items-center">
+                      <div>
+                          <h5
+                            className="text-dark"
+                            onClick={decrement}
+                            style={{ cursor: "pointer" }}
+                          >
+                            −
+                          </h5>
+                        </div>
+                   
+                        <div>
+                          <h5 className="text-dark">{value}</h5>
+                        </div>
                         <div>
                           <h5
                             className="text-dark"
@@ -420,18 +433,7 @@ export default function Whistlist() {
                             +
                           </h5>
                         </div>
-                        <div>
-                          <h5 className="text-dark">{value}</h5>
-                        </div>
-                        <div>
-                          <h5
-                            className="text-dark"
-                            onClick={decrement}
-                            style={{ cursor: "pointer" }}
-                          >
-                            −
-                          </h5>
-                        </div>
+                    
                       </div>
                     </div>
                     <div className="col-12 lg:col-4">
